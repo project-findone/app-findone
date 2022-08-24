@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+
 import {
-  StyleSheet, Text, TouchableOpacity, View, Image, SafeAreaView, TextInput, CheckBox,
+  StyleSheet, Text, TouchableOpacity, View, SafeAreaView, TextInput, CheckBox,
 } from 'react-native';
 import SafeViewAndroid from '../../shared/components/SafeView';
 
-function Email({ navigation }) {
+export default function Email({ navigation }) {
   const [isSelected, setSelection] = useState(false);
 
   return (
@@ -13,14 +14,6 @@ function Email({ navigation }) {
       paddingHorizontal: '10%', paddingTop: 30, position: 'relative', backgroundColor: '#fff',
     }]}
     >
-
-      <Image
-        style={{
-          width: '32vw', maxWidth: 150, maxHeight: 150, height: '32vw', alignSelf: 'center',
-        }}
-        source={require('../../shared/assets/up-logo')}
-      />
-
       <View>
         <Text style={{ fontSize: 32, fontWeight: 700, marginTop: 15 }}>Login</Text>
       </View>
@@ -149,5 +142,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
-
-export { Email };
