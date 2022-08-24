@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View, SafeAreaView, TextInput, CheckBox,
 } from 'react-native';
-import SafeViewAndroid from '../../shared/components/SafeView';
+import SafeViewAndroid from '@shared/components/SafeView/index';
 
 export default function Email({ navigation }) {
   const [isSelected, setSelection] = useState(false);
