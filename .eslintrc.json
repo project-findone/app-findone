@@ -21,6 +21,6 @@
         "no-use-before-define": "off",
         "react/prop-types": "off",
         "global-require": "off",
-        "import/no-unresolved": "warn"
+        "import/no-unresolved": "off"
     }
 }
