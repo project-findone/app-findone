@@ -79,7 +79,7 @@ export default function Main({ navigation }) {
         <TouchableOpacity style={styles.divInput}>
           <Image
             style={{ marginLeft: 25 }}
-            source={require('../img/icon-findone.png')}
+            source={require('@shared/assets/icon-findone.png')}
             size={30}
           />
           <Text style={styles.text3}>Sobre Nós</Text>
