@@ -16,6 +16,8 @@ module.exports = (api) => {
             '.android.tsx',
             '.ios.js',
             '.ios.tsx',
+            '.png',
+            '.jpeg',
           ],
           alias: {
             '@shared': './src/shared',

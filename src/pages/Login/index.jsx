@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Text, TouchableOpacity, View, SafeAreaView, TextInput, CheckBox,
+  Text, TouchableOpacity, View, SafeAreaView, TextInput, CheckBox, Image,
 } from 'react-native';
 
 import SafeViewAndroid from '@shared/components/SafeView/index';
 import styles from './styles';
 
-export default function Email({ navigation }) {
+export default function Login({ navigation }) {
   const [isSelected, setSelection] = useState(false);
 
   return (
@@ -15,6 +15,13 @@ export default function Email({ navigation }) {
       paddingHorizontal: '10%', paddingTop: 30, position: 'relative', backgroundColor: '#fff',
     }]}
     >
+      <Image
+        style={{
+          width: '32vw', maxWidth: 150, maxHeight: 150, height: '32vw', alignSelf: 'center',
+        }}
+        source={require('@shared/assets/up-logo.png')}
+      />
+
       <View>
         <Text style={{ fontSize: 32, fontWeight: 700, marginTop: 15 }}>Login</Text>
       </View>
