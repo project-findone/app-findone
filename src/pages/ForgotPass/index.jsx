@@ -45,7 +45,7 @@ export default function Main({ navigation }) {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Redefinir_senha', { id: 30 })}
+        onPress={() => navigation.navigate('ResetPass', { id: 30 })}
       >
         <Text style={styles.text}>Recuperar senha</Text>
       </TouchableOpacity>

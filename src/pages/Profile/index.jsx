@@ -38,7 +38,7 @@ export default function Main({ navigation }) {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('Cadastro', { id: 30 })}
+            onPress={() => navigation.navigate('Register', { id: 30 })}
           >
             <Text style={styles.text}>CADASTRE-SE</Text>
           </TouchableOpacity>

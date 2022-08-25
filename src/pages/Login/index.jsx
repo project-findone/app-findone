@@ -45,7 +45,7 @@ export default function Login({ navigation }) {
 
       <Text
         style={styles.textlink}
-        onPress={() => navigation.navigate('Esquecer_senha', { id: 30 })}
+        onPress={() => navigation.navigate('ForgotPass', { id: 30 })}
       >
         Esqueceu a senha?
       </Text>
