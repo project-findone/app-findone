@@ -1,10 +1,12 @@
-import React from "react"
-import {TextInputProps, TextInput} from 'react-native'
+import React, { PropsWithChildren, PropsWithRef } from "react"
+import {TextInputProps} from 'react-native'
 
-export const Input: React.FC<TextInputProps> = ({children, ...props}) => {
+import { TextInput } from "./styles"
+
+export const Input: React.FC<PropsWithChildren, PropsWithRef> = ({children}) => {
     return(
         <>
-            <TextInput {...props} >
+            <TextInput>
                 {children}
             </TextInput>
         </>
