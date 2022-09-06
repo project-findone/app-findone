@@ -1,12 +1,9 @@
-import { IAuthContextServices, TSignInCredentials, TSignUpCredentials } from "./IAuthContextServices";
+import type {IauthContextServices, TsignInCredentials, TsignUpCredentials} from './IAuthContextServices'
 
-export class AuthContextServices implements IAuthContextServices{
+export class AuthContextServices implements IauthContextServices {
+	async signIn(credentials: TsignInCredentials): Promise<void> {
+	}
 
-    async signIn(credentials: TSignInCredentials): Promise<void> {
-    }
-
-    async signUp(credentials: TSignUpCredentials): Promise<void> {
-        
-    }
-   
+	async signUp(credentials: TsignUpCredentials): Promise<void> {
+	}
 }

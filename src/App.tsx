@@ -1,15 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { View, Text } from 'react-native';
-import { AuthProvider } from './shared/hooks/contexts/AuthContext';
+import React from 'react';
+import {StatusBar} from 'expo-status-bar';
+
+import {Router} from './shared/routes';
 
 export default function App() {
-  return (
-    <>
-        <View style={{flex: 1}}>
-          <Text>Passou</Text>
-        </View>
-      <StatusBar/>
-    </>
-  );
+	return (
+		<>
+			<Router />
+			<StatusBar/>
+		</>
+	);
 }
 
