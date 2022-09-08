@@ -1,6 +1,7 @@
 import React, {useCallback, useRef} from 'react';
-import { View, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '@shared/routes/AuthNavigation';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile'
@@ -13,8 +14,12 @@ import styles from './styles';
 
 import LogoImg from '@shared/assets/up-logo.png'
 
-export const Login: React.FC = () => {
-	const navigation = useNavigation()
+interface LoginProps extends React.FC {
+	navigation: NavigationProp<RootStackParamList>;
+}
+
+
+export const Login: React.FC<LoginProps> = ({navigation}) => {
 	const formRef = useRef<FormHandles>(null)
 
 	const handleSubmit = useCallback((values: Object) => {
@@ -46,7 +51,7 @@ export const Login: React.FC = () => {
 
 			<Cadastro>
 				<Text2>Não possui conta? </Text2>
-				<Textlink1 onPress={() => navigation.navigate('SignIn')}>
+				<Textlink1 onPress={() => navigation.navigate('SignUp')}>
           			Cadastrar
 				</Textlink1>
 			</Cadastro>
