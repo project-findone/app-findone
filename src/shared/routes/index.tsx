@@ -14,10 +14,10 @@ export const Router: React.FC = () => (
 	<NavigationContainer>
 		<BottomNav.Navigator
 		screenOptions={{
+				tabBarLabelPosition: "below-icon",
 				tabBarStyle: TabBarStyles.TabBarStyle,
 				tabBarIconStyle: TabBarStyles.TabBarIconStyle,
 				tabBarLabelStyle: TabBarStyles.TabBarLabelStyle,
-				tabBarLabelPosition: "below-icon",
 				tabBarActiveTintColor: "#009AA5",
 				tabBarInactiveTintColor: "#7D7D7E",
 
