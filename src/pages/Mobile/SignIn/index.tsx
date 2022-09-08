@@ -27,23 +27,30 @@ export const Login: React.FC = () => {
 		}]}
 		>
 			<Logo source={LogoImg}/>
-			<View><Title>Login</Title></View>
+
+			<Title>Login</Title>
+
 			<Form ref={formRef} onSubmit={handleSubmit}>
-			<Input name="email" labelText='Email'/>
-			<Input name="password" marginTop={10} labelText='Senha'/>
-			<Textlink>
-        		Esqueceu a senha?
-			</Textlink>
-			<Button onPress={() => formRef.current?.submitForm() }>
-				<Text>Login</Text>
-			</Button>
+
+				<Input name="email" marginTop={20} labelText='Email'/>
+
+				<Input name="password" marginTop={20} labelText='Senha'/>
+
+				<Textlink> Esqueceu a senha? </Textlink>
+
+				<Button onPress={() => formRef.current?.submitForm() }>
+					<Text>Login</Text>
+				</Button>
+
 			</Form>
+
 			<Cadastro>
 				<Text2>Não possui conta? </Text2>
 				<Textlink1 onPress={() => navigation.navigate('SignIn')}>
           			Cadastrar
 				</Textlink1>
 			</Cadastro>
+
 		</SafeAreaView>
 	);
 }

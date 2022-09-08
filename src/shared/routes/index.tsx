@@ -1,24 +1,33 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
-import { Login } from 'src/pages/Mobile/SignIn';
-import { AuthProvider } from '../hooks/contexts/AuthContext'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export type RootStackParamList = {
-	SignIn: undefined
-	SignUp: undefined
-}
+import { TabBarStyles } from './styles';
 
-const Auth = createNativeStackNavigator<RootStackParamList>();
+import { AuthNavigation } from './AuthNavigation';
+
+const BottomNav = createBottomTabNavigator();
 
 export const Router: React.FC = () => (
 	<NavigationContainer>
-		<AuthProvider>
-			<Auth.Navigator initialRouteName='SignIn' screenOptions={{headerTitle: "Logar"}}>
-				<Auth.Screen name="SignIn" component={Login} />
-				<Auth.Screen name="SignUp" component={Login} />
-			</Auth.Navigator>
-		</AuthProvider>
+		<BottomNav.Navigator
+		screenOptions={{
+				tabBarStyle: TabBarStyles.TabBarStyle,
+				tabBarIconStyle: TabBarStyles.TabBarIconStyle,
+				tabBarLabelStyle: TabBarStyles.TabBarLabelStyle,
+				tabBarLabelPosition: "below-icon",
+				tabBarActiveTintColor: "#009AA5",
+				tabBarInactiveTintColor: "#7D7D7E",
+
+				title: 'Perfil',
+				headerShown: false,
+			}}>
+			<BottomNav.Screen name="Profile" component={AuthNavigation}
+			options={{tabBarIcon: (props: {size: number, color: string}) =>
+				<Ionicons name="person-outline" size={props.size} color={props.color}/>}}
+			/>
+		</BottomNav.Navigator>
 	</NavigationContainer>
 );

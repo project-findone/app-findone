@@ -38,6 +38,7 @@ export const Label = styled.Text`
 export const Cadastro = styled.View`
     flex-direction: row;
     align-self: center;
+    margin-top: 15px;
 `
 
 export const Text2 = styled.Text`

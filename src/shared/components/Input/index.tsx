@@ -11,7 +11,7 @@ interface InputValueReference {
 
 interface InputProps extends TextInputProps {
 	name: string
-	labelText: string;
+	labelText?: string;
 	marginTop?: number;
 };
 
@@ -38,11 +38,13 @@ export const Input: React.FC<InputProps> = ({labelText, marginTop, name, ...Text
 		})
 	}, [fieldName, registerField])
 
+	const LabelText: React.FC = () => labelText ?
+		<Label><Text>{labelText}</Text></Label>
+	: null
+
 	return (
 		<Container marginTop={marginTop}>
-			<Label>
-				<Text>{labelText}</Text>
-			</Label>
+			<LabelText/>
 			<TextInput ref={inputElementRef} {...TextProps} onChangeText={(value: string) => {
 				inputValueRef.current.value = value
 			}}/>
