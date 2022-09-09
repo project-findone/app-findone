@@ -1,36 +1,24 @@
 import React, {useCallback, useRef} from 'react';
-import { SafeAreaView } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '@shared/routes/AuthNavigation';
+import { useNavigation } from '@react-navigation/native';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile'
 
-import SafeViewAndroid from '@shared/components/SafeView/index';
 import { Input } from '@shared/components/Input';
+import { SafeAreaView } from '@shared/components/SafeView/index';
 import {Logo, Title, Text, Button, Cadastro, Text2, Textlink, Textlink1} from './styles2'
-
-import styles from './styles';
 
 import LogoImg from '@shared/assets/up-logo.png'
 
-interface LoginProps extends React.FC {
-	navigation: NavigationProp<RootStackParamList>;
-}
-
-
-export const Login: React.FC<LoginProps> = ({navigation}) => {
+export const Login: React.FC = () => {
 	const formRef = useRef<FormHandles>(null)
+	const navigation = useNavigation()
 
 	const handleSubmit = useCallback((values: Object) => {
-		console.log("passou")
 		console.log(values)}, [])
 
 	return (
-		<SafeAreaView style={[SafeViewAndroid.AndroidSafeArea, {
-			paddingHorizontal: '10%', paddingTop: 30, position: 'relative', backgroundColor: '#fff',
-		}]}
-		>
+		<SafeAreaView>
 			<Logo source={LogoImg}/>
 
 			<Title>Login</Title>
@@ -55,7 +43,6 @@ export const Login: React.FC<LoginProps> = ({navigation}) => {
           			Cadastrar
 				</Textlink1>
 			</Cadastro>
-
 		</SafeAreaView>
 	);
 }

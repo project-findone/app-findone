@@ -1,4 +1,4 @@
-import { RootStackParamList } from '@shared/routes';
+import { RootStackParamList } from '@shared/routes/AuthNavigation';
 
 declare global {
   namespace ReactNavigation {

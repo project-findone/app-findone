@@ -1,12 +1,13 @@
-import { StyleSheet, Platform, StatusBar } from 'react-native';
+import React, {PropsWithChildren} from 'react';
 
-const SafeView = StyleSheet.create({
-    AndroidSafeArea: {
-      flex: 1,
-      backgroundColor: '#fff',
-      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    },
-  });
+import { SafeView } from './styles';
 
+export const SafeAreaView: React.FC<PropsWithChildren> = ({children}) => {
+  return (
+    <SafeView>
+      {children}
+    </SafeView>
+  );
+}
 
 export default SafeView;
