@@ -1,21 +1,21 @@
-import styled, {DefaultTheme} from "styled-components/native";
-import { Platform, StatusBar} from 'react-native'
+import styled, { DefaultTheme } from 'styled-components/native';
+import { Platform, StatusBar, Dimensions } from 'react-native';
 
-interface SafeViewProps extends DefaultTheme{
-    AppDimensions: {width: number, height: number};
+interface SafeViewProps extends DefaultTheme {
+  AppDimensions: { width: number, height: number };
 }
 
 export const SafeView = styled.SafeAreaView<SafeViewProps>`
     flex: 1;
-    padding-top: ${Platform.OS === "android" ? StatusBar.currentHeight : 2}px;
-    padding-right: 20%;
-    padding-left: 20%;
+    padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 2}px;
+    padding-right: 10vw;
+    padding-left: ${Dimensions.get('screen').width >= 900 ? 20 : 10}vw;
     position: relative;
-    background-color: #fff;
+    background-color: ${Dimensions.get('screen').width >= 900 ? '#bebe' : '#fff'};
     justify-content: center;
 
-    @media (max-width: 600px) {
+    @media (min-width: 800px) {
         padding: 10%;
-        background-color: aliceblue;
+        background-color: red;
     }
-`
+`;

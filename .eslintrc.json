@@ -1,0 +1,27 @@
+{
+    "env": {
+        "es2021": true
+    },
+    "extends": [
+        "airbnb",
+        "airbnb-typescript"
+    ],
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/function-component-definition": "off",
+        "import/prefer-default-export": "off",
+        "react/no-unstable-nested-components": [
+            "off",
+            { "allowAsProps": true }
+          ],
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off"
+    }
+}

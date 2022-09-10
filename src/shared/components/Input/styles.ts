@@ -1,13 +1,13 @@
-import styled, {DefaultTheme} from 'styled-components/native';
+import styled, { DefaultTheme } from 'styled-components/native';
 
 interface ContainerProps extends DefaultTheme {
-    marginTop: number;
+  marginTop: number;
 }
 
 export const Container = styled.View<ContainerProps>`
     width: 100%;
     height: 60px;
-    margin-top: ${props => props.marginTop ? props.marginTop : 0}px;
+    margin-top: ${(props) => (props.marginTop ? props.marginTop : 0)}px;
 `;
 
 export const TextInput = styled.TextInput`
@@ -23,7 +23,7 @@ export const Label = styled.View`
     background-color: #FFF;
     align-self: flex-start;
     padding: 6px;
-    margin-bottom: -9px;
+    margin-bottom: -14px;
     margin-left: 18px;
     z-index: 1;
 `;
