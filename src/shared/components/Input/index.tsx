@@ -12,7 +12,7 @@ interface InputValueReference {
 }
 
 interface InputProps extends TextInputProps {
-  name: string
+  name: string;
   labelText?: string;
   marginTop?: number;
 }
