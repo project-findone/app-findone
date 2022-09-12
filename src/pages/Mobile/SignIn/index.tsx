@@ -5,10 +5,12 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 
 import { Input } from '@shared/components/Input';
+import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import LogoImg from '@shared/assets/up-logo.png';
+
 import {
-  Logo, Title, Text, Button, Cadastro, Text2, Textlink, Textlink1,
+  Logo, Title, GoToForgotPassLink, GoToRegiserTitle, GoToRegisterContainer, GoToRegisterLink,
 } from './styles';
 
 export const Login: React.FC = () => {
@@ -31,20 +33,18 @@ export const Login: React.FC = () => {
 
         <Input name="password" marginTop={20} labelText="Senha" />
 
-        <Textlink> Esqueceu a senha? </Textlink>
+        <GoToForgotPassLink> Esqueceu a senha? </GoToForgotPassLink>
 
-        <Button onPress={() => formRef.current?.submitForm()}>
-          <Text>Login</Text>
-        </Button>
+        <Button insideText="Login" marginTop={20} onPress={() => formRef.current?.submitForm()} />
 
       </Form>
 
-      <Cadastro>
-        <Text2>Não possui conta? </Text2>
-        <Textlink1 onPress={() => navigation.navigate('SignUp')}>
+      <GoToRegisterContainer>
+        <GoToRegiserTitle>Não possui conta? </GoToRegiserTitle>
+        <GoToRegisterLink onPress={() => navigation.navigate('SignUp')}>
           Cadastrar
-        </Textlink1>
-      </Cadastro>
+        </GoToRegisterLink>
+      </GoToRegisterContainer>
     </SafeAreaView>
   );
 };

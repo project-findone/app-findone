@@ -18,7 +18,7 @@ const Auth = createNativeStackNavigator<RootStackParamList>();
 
 export const AuthNavigation: React.FC = () => (
   <AuthProvider>
-    <Auth.Navigator initialRouteName="ResetPass" screenOptions={{ headerShown: false }}>
+    <Auth.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
       <Auth.Screen name="SignIn" component={Login} />
       <Auth.Screen name="SignUp" component={Register} />
       <Auth.Screen name="ForgotPass" component={ForgotPass} />
