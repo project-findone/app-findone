@@ -1,10 +1,10 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Login } from 'src/pages/Mobile/SignIn';
-import { Register } from 'src/pages/Mobile/SignUp';
-import { ForgotPass } from 'src/pages/Mobile/ForgotPass';
-import { ResetPass } from 'src/pages/Mobile/ResetPass';
+import { Login } from 'src/pages/Mobile/Auth/SignIn';
+import { Register } from 'src/pages/Mobile/Auth/SignUp';
+import { ForgotPass } from 'src/pages/Mobile/Auth/ForgotPass';
+import { ResetPass } from 'src/pages/Mobile/Auth/ResetPass';
 import { AuthProvider } from '../../hooks/contexts/AuthContext';
 
 export type RootStackParamList = {
