@@ -7,7 +7,7 @@ interface ContainerProps extends DefaultTheme {
 export const Container = styled.View<ContainerProps>`
     width: 100%;
     height: 60px;
-    margin-top: ${(props) => (props.marginTop ? props.marginTop : 0)}px;
+    margin-top: 20px;
 `;
 
 export const TextInput = styled.TextInput`

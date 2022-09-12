@@ -1,19 +1,19 @@
 import React, { useCallback, useRef } from 'react';
-// import { useNavigation } from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 
 import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
-import { Perfil } from '@shared/assets/unknown.png';
+import UnknownImage from '@shared/assets/unknown.png';
+
 import {
-  Text, Button, Logo,
+  ImageGroup, ImagePerfil, IconView, Button1, Text1, Button2, Text2,
 } from './styles';
 
 export const Edit: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  // const navigation = useNavigation();
 
   const handleSubmit = useCallback((values: Object) => {
     console.log(values);
@@ -22,7 +22,21 @@ export const Edit: React.FC = () => {
   return (
     <SafeAreaView>
 
-      <Logo source={Perfil} />
+      <ImageGroup>
+
+        <ImagePerfil source={UnknownImage} />
+
+        <IconView>
+          <Icon
+            name="pencil"
+            color="#fff"
+            type="octicon"
+            size={20}
+            tvParallaxProperties={undefined}
+          />
+        </IconView>
+
+      </ImageGroup>
 
       <Form ref={formRef} onSubmit={handleSubmit}>
 
@@ -36,11 +50,16 @@ export const Edit: React.FC = () => {
 
         <Input name="email" marginTop={20} labelText="Email" />
 
-        <Button onPress={() => formRef.current?.submitForm()}>
-          <Text>ALTERAR</Text>
-        </Button>
+        <Button1 onPress={() => formRef.current?.submitForm()}>
+          <Text1>ALTERAR</Text1>
+        </Button1>
 
       </Form>
+
+      <Button2>
+        <Text2>Excluir Conta</Text2>
+      </Button2>
+
     </SafeAreaView>
   );
 };
