@@ -17,8 +17,6 @@ import {
   Logo, Title, GoToForgotPassLink, GoToRegiserTitle, GoToRegisterContainer, GoToRegisterLink,
 } from './styles';
 
-const { services: { signIn } } = useAuth();
-
 type SignInFormData = {
   email: string;
   password: string;
@@ -27,6 +25,8 @@ type SignInFormData = {
 export const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+
+  const { services: { signIn } } = useAuth();
 
   const handleSubmit = useCallback(async (values: SignInFormData) => {
     try {

@@ -24,9 +24,8 @@ export type RootStackParamList = {
 const Auth = createNativeStackNavigator<RootStackParamList>();
 
 export const AuthNavigation: React.FC = () => (
-
-  <Auth.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
-    <AuthProvider>
+  <AuthProvider>
+    <Auth.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
       <Auth.Screen name="SignIn" component={Login} />
       <Auth.Screen name="SignUp" component={Register} />
       <Auth.Screen name="VerifyEmail" component={VerifyEmail} />
@@ -34,6 +33,6 @@ export const AuthNavigation: React.FC = () => (
       <Auth.Screen name="ResetPass" component={ResetPass} />
       <Auth.Screen name="Edit" component={Edit} />
       <Auth.Screen name="Image" component={Image} />
-    </AuthProvider>
-  </Auth.Navigator>
+    </Auth.Navigator>
+  </AuthProvider>
 );

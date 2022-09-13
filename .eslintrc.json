@@ -4,7 +4,8 @@
     },
     "extends": [
         "airbnb",
-        "airbnb-typescript"
+        "airbnb-typescript",
+        "plugin:react-hooks/recommended"
     ],
     "parserOptions": {
         "project": "./tsconfig.json",
@@ -12,7 +13,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks"
     ],
     "rules": {
         "react/function-component-definition": "off",
@@ -22,6 +24,7 @@
             { "allowAsProps": true }
           ],
         "react/jsx-props-no-spreading": "off",
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "linebreak-style": "off"
     }
 }

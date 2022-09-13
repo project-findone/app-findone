@@ -3,18 +3,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { api } from '@shared/services/api';
 import type {
-  IauthContextServices, TsignInCredentials, TSignInResponse, TsignUpCredentials,
+  IauthContextServices, TsignInCredentials, TsignUpCredentials,
 } from './IAuthContextServices';
 
 export class AuthContextServices implements IauthContextServices {
-  async signIn(credentials: TsignInCredentials): Promise<TSignInResponse> {
+  async signIn(credentials: TsignInCredentials): Promise<void> {
     const response = await api.post('sessions', credentials);
 
-    const { token, user } = response.data;
+    const { token, userResponse } = response.data.user;
 
-    AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(user)]]);
+    console.log(response);
+    console.log(userResponse);
 
-    return { token, user: JSON.parse(user) };
+    await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(userResponse)]]);
   }
 
   async signUp(credentials: TsignUpCredentials): Promise<void> {

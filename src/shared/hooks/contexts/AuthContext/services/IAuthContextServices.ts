@@ -15,6 +15,6 @@ export type TsignUpCredentials = {
 };
 
 export type IauthContextServices = {
-  signIn(credentials: TsignInCredentials): Promise<TSignInResponse>;
+  signIn(credentials: TsignInCredentials): Promise<void>;
   signUp(credentials: TsignUpCredentials): Promise<void>;
 };

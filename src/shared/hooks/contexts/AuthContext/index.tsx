@@ -22,19 +22,21 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [data, setData] = useState<IPersonState>({} as IPersonState);
-  const authContextServices = new AuthContextServices();
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
       const [token, user] = await AsyncStorage.multiGet([
         'Person:token',
         'Person:self']);
-      if (token[1] && user[1]) {
+      console.log(user[1]);
+      if (token[1] && user[1] !== 'undefined' && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
     }
     loadStorageData();
   }, []);
+
+  const authContextServices = new AuthContextServices();
 
   return (
     <AuthContext.Provider value={{ user: data, services: authContextServices }}>
