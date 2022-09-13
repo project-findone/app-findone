@@ -3,35 +3,44 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     width: '100%';
     padding: 8% ;
-    paddingTop: 20;
-    alignItems: 'center';
+    padding-top: 20;
+    align-items: 'center';
 `;
+
+export const Header = styled.View`
+    flex-direction: row;
+    width: 100%;
+    margin-top: 20px;
+`;
+
 export const ScrollView = styled.ScrollView`
+    padding-left: 35px;
+    padding-right: 35px;
     height: 100%;
     width: 100%;
 `;
 export const Viewinicio = styled.View`
-    borderColor: '#DF7C7C';
-    boderWidth: 2;
+    border: 2px #DF7C7C solid;
     width: 100%;
-    borderRadius: 50;
-    height: 35;
-    alignItems: 'center';
-    justifyContent: 'center';
-    marginTop: 10;
-
+    border-radius: 50px;
+    height: 35px;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
 `;
 export const Title = styled.Text`
     font-size: 32px;
     font-weight: 700;
-    margin-top: 15px;
+    margin-left: 15px;
+    margin-top: 5px;
 `;
 
 export const Button = styled.TouchableOpacity`
     align-items: center;
     padding: 10px;
     width: 100%;
-    margin-top: 25px;
+    margin-top: 40px;
+    margin-bottom: 30px;
     border-radius: 30px;
     background-color: #1CB8C2;
 `;
@@ -70,6 +79,14 @@ export const Textlink = styled.Text`
 `;
 
 export const Text = styled.Text`
-    color: '#DF7C7C';
-    fontWeight: 600;
+    color: #DF7C7C;
+    font-weight: 600;
+`;
+
+export const TextButton = styled.Text`
+    color: #FFF;
+    font-weight: 600;
+    margin: 5px;
+    font-size: 15px;
+    font-stretch: expanded;
 `;

@@ -6,9 +6,7 @@ interface SafeViewProps extends DefaultTheme {
 
 export const SafeView = styled.SafeAreaView<SafeViewProps>`
     flex: 1;
-    padding-top: 30px;
-    padding-right: 10vw;
-    padding-left: 10vw;
+    padding-top: 15px;
     position: relative;
     background-color: #fff;
 `;

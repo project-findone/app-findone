@@ -6,8 +6,10 @@ import { Form } from '@unform/mobile';
 
 import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
+import { Icon } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 import {
-  Title, Text, Button, Viewinicio, ScrollView,
+  Title, Text, Button, Viewinicio, ScrollView, Header, TextButton,
 } from './styles';
 
 export const Register: React.FC = () => {
@@ -22,7 +24,21 @@ export const Register: React.FC = () => {
     <SafeAreaView>
       <ScrollView>
 
-        <Title>Login</Title>
+        <Header>
+
+          <TouchableOpacity>
+            <Icon
+              name="arrow-left"
+              color="#000"
+              type="octicon"
+              size={55}
+              tvParallaxProperties={undefined}
+            />
+          </TouchableOpacity>
+
+          <Title>Criar Conta</Title>
+
+        </Header>
 
         <Viewinicio>
           <Text>Os campos abaixo são obrigatórios</Text>
@@ -51,7 +67,7 @@ export const Register: React.FC = () => {
           <Input name="confirm" marginTop={20} labelText="Confirmar Senha" />
 
           <Button onPress={() => formRef.current?.submitForm()}>
-            <Text>CADASTRAR</Text>
+            <TextButton>CADASTRAR</TextButton>
           </Button>
 
         </Form>
