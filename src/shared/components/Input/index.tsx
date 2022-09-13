@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-
 import type { TextInputProps } from 'react-native';
-import { Text } from 'react-native';
 
 import { useField } from '@unform/core';
 
-import { Container, TextInput, Label } from './styles';
+import {
+  Container, TextInput, LabelContainer, LabelText, ErrorText,
+} from './styles';
 
 interface InputValueReference {
   value: string;
@@ -20,7 +20,9 @@ interface InputProps extends TextInputProps {
 export const Input: React.FC<InputProps> = ({
   labelText, marginTop, name, ...TextProps
 }) => {
-  const { defaultValue = '', fieldName, registerField } = useField(name);
+  const {
+    defaultValue = '', fieldName, registerField, error,
+  } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   const inputElementRef = useRef<any>(null);
 
@@ -40,20 +42,30 @@ export const Input: React.FC<InputProps> = ({
     });
   }, [fieldName, registerField]);
 
-  const LabelText: React.FC = () => (labelText
-    ? <Label><Text>{labelText}</Text></Label>
-    : null);
+  const Label: React.FC = () => {
+    const label = labelText
+      ? (
+        <LabelContainer>
+          <LabelText error={error !== undefined}>{labelText}</LabelText>
+        </LabelContainer>
+      )
+      : null;
+
+    return label;
+  };
 
   return (
     <Container marginTop={marginTop}>
-      <LabelText />
+      <Label />
       <TextInput
+        error={error !== undefined}
         ref={inputElementRef}
         {...TextProps}
         onChangeText={(value: string) => {
           inputValueRef.current.value = value;
         }}
       />
+      {error !== undefined ? <ErrorText>{error}</ErrorText> : null}
     </Container>
   );
 };
