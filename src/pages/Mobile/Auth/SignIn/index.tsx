@@ -10,20 +10,35 @@ import { SafeAreaView } from '@shared/components/SafeView/index';
 import LogoImg from '@shared/assets/up-logo.png';
 
 import { getValidationErrors } from '@shared/utils/getValidationErrors';
+import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import { FieldsValidate } from './utils/SignInValidation';
 
 import {
   Logo, Title, GoToForgotPassLink, GoToRegiserTitle, GoToRegisterContainer, GoToRegisterLink,
 } from './styles';
 
+const { services: { signIn } } = useAuth();
+
+type SignInFormData = {
+  email: string;
+  password: string;
+};
+
 export const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
-  const handleSubmit = useCallback(async (values: Object) => {
+  const handleSubmit = useCallback(async (values: SignInFormData) => {
     try {
       formRef.current?.setErrors({});
       await FieldsValidate(values);
+
+      const response = await signIn({
+        email: values.email,
+        password: values.password,
+      });
+
+      console.log(response);
     } catch (err: any) {
       const errors = getValidationErrors(err);
       formRef.current?.setErrors(errors);
