@@ -14,7 +14,7 @@ import {
   Button1, Text, Text3, DivInput, DivInput2, Title, Textou, ProfileIcon, IconAbout,
 } from './styles';
 
-export const Profile: React.FC = (navigation) => (
+export const Profile: React.FC = () => (
 
   <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
     <View style={{
@@ -42,9 +42,7 @@ export const Profile: React.FC = (navigation) => (
         colors={['#06B6C0', '#05D0DC']}
       >
 
-        <Button1
-          onPress={() => navigation.navigate('SignUp', { id: 30 })}
-        >
+        <Button1>
           <Text>CADASTRE-SE</Text>
         </Button1>
       </LinearGradient>
@@ -65,9 +63,7 @@ export const Profile: React.FC = (navigation) => (
         colors={['#04C9AD', '#02E4C5']}
       >
 
-        <Button1
-          onPress={() => navigation.navigate('SignIn', { id: 30 })}
-        >
+        <Button1>
           <Text>FAÇA LOGIN</Text>
         </Button1>
       </LinearGradient>
@@ -78,7 +74,7 @@ export const Profile: React.FC = (navigation) => (
     }}
     >
       <DivInput>
-        <IconAbout source={IconFindone}/>
+        <IconAbout source={IconFindone} />
         <Text3>Sobre Nós</Text3>
       </DivInput>
 
