@@ -11,7 +11,7 @@ export const Logo = styled(Image)`
 
 export const Text1 = styled.Text`
     color: #fff;
-    font-Weight: 600;
+    font-Weight: 700;
     font-size: 14px;
     text-align: center;
     padding: 4px;
