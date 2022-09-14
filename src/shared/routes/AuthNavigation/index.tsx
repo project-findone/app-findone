@@ -8,6 +8,7 @@ import { ResetPass } from 'src/pages/Mobile/Auth/ResetPass';
 import { Edit } from 'src/pages/Mobile/Auth/Edit';
 import { Image } from 'src/pages/Mobile/Auth/Image';
 import { VerifyEmail } from 'src/pages/Mobile/Auth/VerifyEmail';
+import { Profile } from 'src/pages/Mobile/Auth/Profile';
 
 import { AuthProvider } from '../../hooks/contexts/AuthContext';
 
@@ -19,13 +20,14 @@ export type RootStackParamList = {
   Edit: undefined
   Image: undefined
   VerifyEmail: undefined
+  Profile: undefined
 };
 
 const Auth = createNativeStackNavigator<RootStackParamList>();
 
 export const AuthNavigation: React.FC = () => (
   <AuthProvider>
-    <Auth.Navigator initialRouteName="SignUp" screenOptions={{ headerShown: false }}>
+    <Auth.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
       <Auth.Screen name="SignIn" component={Login} />
       <Auth.Screen name="SignUp" component={Register} />
       <Auth.Screen name="VerifyEmail" component={VerifyEmail} />
@@ -33,6 +35,7 @@ export const AuthNavigation: React.FC = () => (
       <Auth.Screen name="ResetPass" component={ResetPass} />
       <Auth.Screen name="Edit" component={Edit} />
       <Auth.Screen name="Image" component={Image} />
+      <Auth.Screen name="Profile" component={Profile} />
     </Auth.Navigator>
   </AuthProvider>
 );

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useCallback, useRef } from 'react';
 // import { useNavigation } from '@react-navigation/native';
 

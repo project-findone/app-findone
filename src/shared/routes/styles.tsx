@@ -2,16 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export const TabBarStyles = StyleSheet.create({
   TabBarStyle: {
-    height: '10%',
-    paddingBottom: '10px',
+    height: 80,
+    paddingTop: 10,
+    paddingBottom: 20,
   },
 
   TabBarIconStyle: {
-    marginBottom: '-1.3%',
+    width: '20%',
   },
 
   TabBarLabelStyle: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: '600',
   },
 });

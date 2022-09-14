@@ -6,7 +6,7 @@ import { Router } from './shared/routes';
 
 export default function App() {
   return (
-    <View style={{ flex: 1, minHeight: '600px' }}>
+    <View style={{ flex: 1 }}>
       <Router />
       <StatusBar />
     </View>

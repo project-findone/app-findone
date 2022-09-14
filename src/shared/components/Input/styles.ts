@@ -7,8 +7,8 @@ interface Props extends DefaultTheme {
 
 export const Container = styled.View<Props>`
     width: 100%;
-    height: 60px;
-    margin-top: 22px;
+    height: 75px;
+    margin-top: 20px;
 `;
 
 export const TextInput = styled.TextInput<Props>`
