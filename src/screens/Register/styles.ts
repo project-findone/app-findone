@@ -8,31 +8,38 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     margin-top: 20px;
 `;
 
 export const ScrollView = styled.ScrollView`
+    margin-top: 20px;
     padding-left: 35px;
     padding-right: 35px;
     height: 100%;
     width: 100%;
 `;
-export const Viewinicio = styled.View`
-    border: 2px #DF7C7C solid;
-    width: 100%;
-    border-radius: 50px;
-    height: 35px;
-    margin-top: 20px;
-    align-items: center;
-    justify-content: center;
-`;
+
 export const Title = styled.Text`
     font-size: 32px;
     font-weight: 700;
-    margin-left: 15px;
-    margin-top: 5px;
+    text-align: center;
+`;
+
+export const IconBack = styled.TouchableOpacity`
+    position: absolute;
+    margin-top: 18px;
+    height: 50px;
+    width: 50px;
+    z-index: 1;
+`;
+
+export const Title2 = styled.Text`
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -78,15 +85,39 @@ export const Textlink = styled.Text`
     text-align: right;
 `;
 
-export const Text = styled.Text`
-    color: #DF7C7C;
-    font-weight: 600;
-`;
-
 export const TextButton = styled.Text`
     color: #FFF;
     font-weight: 600;
     margin: 5px;
     font-size: 15px;
     font-stretch: expanded;
+`;
+
+export const ImageArea = styled.TouchableOpacity`
+    width: 100%;
+    height: 120px;
+    align-items: center;
+    margin-top: 25px;
+`;
+
+export const ImagePerfil = styled.Image`
+    height: 120px;
+    width: 120px;
+    border-radius: 100px;
+`;
+
+export const IconView = styled.View`
+    height: 40px;
+    width: 40px;
+    background-color: #38ADB5;
+    position: absolute;
+    border-radius: 50px;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+`;
+
+export const ImageButton = styled.TouchableOpacity`
+    height: 120px;
+    width: 120px;
 `;

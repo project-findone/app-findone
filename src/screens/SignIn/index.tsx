@@ -22,7 +22,7 @@ type SignInFormData = {
   password: string;
 };
 
-export const Login: React.FC = () => {
+export const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 

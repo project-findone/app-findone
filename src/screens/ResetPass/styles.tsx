@@ -17,13 +17,13 @@ export const Title = styled.Text`
 `;
 
 export const Button = styled.TouchableOpacity`
-    alignItems: 'center';
+    align-items: 'center';
     padding: 9px;
     width: 100%;
-    borderRadius: 30px;
-    borderColor: #00B9C6;
-    borderWidth: 3.5;
-    marginTop: 80px;
+    border-radius: 30px;
+    border-color: #00B9C6;
+    border-width: 3.5;
+    margin-top: 80px;
 `;
 
 export const Text = styled.Text`

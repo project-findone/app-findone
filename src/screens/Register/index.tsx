@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useCallback, useRef } from 'react';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
@@ -8,16 +8,16 @@ import { Form } from '@unform/mobile';
 import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
 import UnknownImage from '@shared/assets/unknown.png';
 import {
-  Title, Title2, Button, ImageGroup, ImagePerfil, ScrollView, Header, TextButton,
-  IconView,
+  Title, Title2, Button, ImagePerfil, ScrollView, Header, TextButton,
+  IconView, ImageArea, ImageButton, IconBack,
 } from './styles';
 
-export const RegisterMissing: React.FC = () => {
+export const Register: React.FC = () => {
+  const navigation = useNavigation();
+
   const formRef = useRef<FormHandles>(null);
-  // const navigation = useNavigation();
 
   const handleSubmit = useCallback((values: Object) => {
     console.log(values);
@@ -27,37 +27,42 @@ export const RegisterMissing: React.FC = () => {
     <SafeAreaView>
       <ScrollView>
 
+        <IconBack onPress={() => navigation.goBack()}>
+          <Icon
+            name="arrow-left"
+            color="#000"
+            type="octicon"
+            size={55}
+            tvParallaxProperties={undefined}
+          />
+        </IconBack>
+
         <Header>
 
-          <TouchableOpacity>
-            <Icon
-              name="arrow-left"
-              color="#000"
-              type="octicon"
-              size={55}
-              tvParallaxProperties={undefined}
-            />
-          </TouchableOpacity>
-
-          <Title>Registrar Desaparecido</Title>
+          <Title>Registrar</Title>
+          <Title>Desaparecido</Title>
 
         </Header>
 
-        <ImageGroup>
+        <ImageArea>
 
-          <ImagePerfil source={UnknownImage} />
+          <ImageButton>
 
-          <IconView>
-            <Icon
-              name="add"
-              color="#fff"
-              type="MaterialIcon"
-              size={28}
-              tvParallaxProperties={undefined}
-            />
-          </IconView>
+            <ImagePerfil source={UnknownImage} />
 
-        </ImageGroup>
+            <IconView>
+              <Icon
+                name="add"
+                color="#fff"
+                type="MaterialIcon"
+                size={32}
+                tvParallaxProperties={undefined}
+              />
+            </IconView>
+
+          </ImageButton>
+
+        </ImageArea>
 
         <Form ref={formRef} onSubmit={handleSubmit}>
 

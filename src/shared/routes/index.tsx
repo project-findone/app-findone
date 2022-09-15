@@ -1,43 +1,28 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Icon } from 'react-native-elements';
 
-import { TouchableOpacity, View } from 'react-native';
+import { Search } from 'src/screens/Search';
+import { Cases } from 'src/screens/Cases';
+import { Apoiador } from 'src/screens/Apoiador';
+import { Profile } from 'src/screens/Profile';
+
+import { Register } from 'src/screens/Register';
+import { SignUp } from 'src/screens/SignUp';
+import { SignIn } from 'src/screens/SignIn';
+import { propsNavigationStack } from './Models';
+
+import { ButtonRegister } from '../components/ButtonRegister';
+
 import { TabBarStyles } from './styles';
 
-import { AuthNavigation } from './AuthNavigation';
-
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator<propsNavigationStack>();
 
-interface Props {
-  children: React.ReactNode
-}
-
-const CustomTabBarButton: React.FC<Props> = ({ children }) => (
-
-  <TouchableOpacity
-    style={{ justifyContent: 'center' }}
-  >
-    <View style={{
-      width: 55,
-      height: 55,
-      borderRadius: 35,
-      backgroundColor: '#00B9C6',
-      alignItems: 'center',
-      marginHorizontal: 15,
-    }}
-    >
-      {children}
-    </View>
-  </TouchableOpacity>
-
-);
-
-export const Router: React.FC = () => (
-  <NavigationContainer>
+function Tabs() {
+  return (
     <Tab.Navigator
       screenOptions={{
         tabBarLabelPosition: 'below-icon',
@@ -52,7 +37,7 @@ export const Router: React.FC = () => (
     >
       <Tab.Screen
         name="Busca"
-        component={AuthNavigation}
+        component={Search}
         options={{
           tabBarIcon: (props: { color: string }) => (
             <Icon
@@ -68,7 +53,7 @@ export const Router: React.FC = () => (
 
       <Tab.Screen
         name="Casos"
-        component={AuthNavigation}
+        component={Cases}
         options={{
           tabBarIcon: (props: { color: string }) => (
             <Icon
@@ -84,26 +69,18 @@ export const Router: React.FC = () => (
 
       <Tab.Screen
         name="Registrar"
-        component={AuthNavigation}
+        component={Register}
         options={{
           tabBarIcon: () => (
-            <Icon
-              name="megaphone"
-              type="octicon"
-              tvParallaxProperties={undefined}
-              size={24}
-              color="#FFF"
-            />
+            <ButtonRegister />
           ),
-          tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarShowLabel: false,
           tabBarLabel: () => null,
         }}
       />
 
       <Tab.Screen
         name="Apoiador"
-        component={AuthNavigation}
+        component={Apoiador}
         options={{
           tabBarIcon: (props: { color: string }) => (
             <Icon
@@ -119,7 +96,7 @@ export const Router: React.FC = () => (
 
       <Tab.Screen
         name="Perfil"
-        component={AuthNavigation}
+        component={Profile}
         options={{
           tabBarIcon: (props: { color: string }) => (
             <Icon
@@ -134,5 +111,16 @@ export const Router: React.FC = () => (
       />
 
     </Tab.Navigator>
+  );
+}
+
+export const Router: React.FC = () => (
+  <NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Tabs} />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="SignIn" component={SignIn} />
+    </Stack.Navigator>
   </NavigationContainer>
 );

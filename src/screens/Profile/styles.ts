@@ -25,9 +25,9 @@ export const Text = styled.Text`
   text-align: center;
 `;
 export const Text3 = styled.Text`
-  color: '#787870';
-  font-size: 17px;
-  font-weight: 500;
+  color: #787878;
+  font-size: 18px;
+  font-weight: 600;
   margin-left: 15px;
 `;
 export const DivInput = styled.TouchableOpacity`

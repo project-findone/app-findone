@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import React, { useCallback, useRef } from 'react';
-// import { useNavigation } from '@react-navigation/native';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import { useNavigation } from '@react-navigation/native';
 
 import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
@@ -13,9 +13,10 @@ import {
   Title, Text, Button, Viewinicio, ScrollView, Header, TextButton,
 } from './styles';
 
-export const Register: React.FC = () => {
+export const SignUp: React.FC = () => {
+  const navigation = useNavigation();
+
   const formRef = useRef<FormHandles>(null);
-  // const navigation = useNavigation();
 
   const handleSubmit = useCallback((values: Object) => {
     console.log(values);
@@ -27,7 +28,7 @@ export const Register: React.FC = () => {
 
         <Header>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Icon
               name="arrow-left"
               color="#000"
