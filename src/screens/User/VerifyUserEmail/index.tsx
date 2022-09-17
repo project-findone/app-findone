@@ -13,7 +13,7 @@ import {
   Container, MainContainer, MainSubtitle, MainTitle, ReSendLink,
 } from './styles';
 
-export const VerifyEmail: React.FC = () => {
+export const VerifyUserEmail: React.FC = () => {
   const [code, setCode] = useState('');
   const [codeValue, setCodeValue] = useState('');
   const [pinReady, setPinReady] = useState(false);

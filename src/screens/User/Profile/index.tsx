@@ -18,9 +18,10 @@ import {
 } from './styles';
 
 export const Profile: React.FC = () => {
-  const navigation = useNavigation<propsStack>();
+  const navigation = useNavigation();
+
   return (
-    <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+    <SafeViewAndroid>
       <View style={{
         alignSelf: 'center', alignItems: 'center', height: '100%', backgroundColor: '#FFF', width: '100%',
       }}
@@ -98,6 +99,6 @@ export const Profile: React.FC = () => {
           <Text3>Termos de Uso</Text3>
         </DivInput2>
       </View>
-    </SafeAreaView>
+    </SafeViewAndroid>
   );
 };

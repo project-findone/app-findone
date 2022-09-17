@@ -19,6 +19,6 @@ export class AuthContextServices implements IauthContextServices {
   }
 
   async signUp(credentials: TsignUpCredentials): Promise<void> {
-    await api.post('/users', credentials);
+    await api.post('users', credentials);
   }
 }

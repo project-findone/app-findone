@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const ProfileIcon = styled.Image`
-  margin-top: 25%;
+  margin-top: 15%;
   height: 110px;
   width: 100px;
 `;
@@ -33,6 +33,7 @@ export const Text3 = styled.Text`
 export const DivInput = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
+  margin-top: 5%;
   width: 100%;
   align-items: center;
   border-top-color: #D6D6D6;

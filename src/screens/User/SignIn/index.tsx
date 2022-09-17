@@ -11,6 +11,7 @@ import LogoImg from '@shared/assets/up-logo.png';
 
 import { getValidationErrors } from '@shared/utils/getValidationErrors';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
+import { ValidationError } from 'yup';
 import { FieldsValidate } from './utils/SignInValidation';
 
 import {
@@ -31,6 +32,7 @@ export const SignIn: React.FC = () => {
   const handleSubmit = useCallback(async (values: SignInFormData) => {
     try {
       formRef.current?.setErrors({});
+
       await FieldsValidate(values);
 
       const response = await signIn({
@@ -40,10 +42,14 @@ export const SignIn: React.FC = () => {
 
       console.log(response);
     } catch (err: any) {
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
+      if (err instanceof ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+      } else {
+        console.error(err);
+      }
     }
-  }, []);
+  }, [signIn]);
 
   return (
     <SafeAreaView>

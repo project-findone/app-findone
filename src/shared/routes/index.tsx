@@ -1,28 +1,22 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Icon } from 'react-native-elements';
 
-import { Search } from 'src/screens/Search';
-import { Cases } from 'src/screens/Cases';
-import { Apoiador } from 'src/screens/Apoiador';
-import { Profile } from 'src/screens/Profile';
-
-import { Register } from 'src/screens/Register';
-import { SignUp } from 'src/screens/SignUp';
-import { SignIn } from 'src/screens/SignIn';
-import { propsNavigationStack } from './Models';
+import { Search } from 'src/screens/Disappeared/Search';
+import { RegisterCase } from 'src/screens/Disappeared/RegisterCase';
+import { Cases } from 'src/screens/Supporter/Cases';
+import { Supporter } from 'src/screens/Supporter';
 
 import { ButtonRegister } from '../components/ButtonRegister';
-
 import { TabBarStyles } from './styles';
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator<propsNavigationStack>();
+import { ProfileRouter } from './ProfileRoutes';
 
-function Tabs() {
-  return (
+const Tab = createBottomTabNavigator();
+
+export const Router: React.FC = () => (
+  <NavigationContainer>
     <Tab.Navigator
       screenOptions={{
         tabBarLabelPosition: 'below-icon',
@@ -36,9 +30,10 @@ function Tabs() {
       }}
     >
       <Tab.Screen
-        name="Busca"
+        name="Search"
         component={Search}
         options={{
+          title: 'Busca',
           tabBarIcon: (props: { color: string }) => (
             <Icon
               name="search"
@@ -52,9 +47,10 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="Casos"
+        name="Cases"
         component={Cases}
         options={{
+          title: 'Casos',
           tabBarIcon: (props: { color: string }) => (
             <Icon
               name="people"
@@ -68,9 +64,10 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="Registrar"
-        component={Register}
+        name="RegisterCase"
+        component={RegisterCase}
         options={{
+          title: 'Registrar Caso',
           tabBarIcon: () => (
             <ButtonRegister />
           ),
@@ -79,9 +76,10 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="Apoiador"
-        component={Apoiador}
+        name="Supporter"
+        component={Supporter}
         options={{
+          title: 'Apoiador',
           tabBarIcon: (props: { color: string }) => (
             <Icon
               name="message-alert-outline"
@@ -95,9 +93,10 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="Perfil"
-        component={Profile}
+        name="Profile"
+        component={ProfileRouter}
         options={{
+          title: 'Perfil',
           tabBarIcon: (props: { color: string }) => (
             <Icon
               name="person-outline"
@@ -111,16 +110,5 @@ function Tabs() {
       />
 
     </Tab.Navigator>
-  );
-}
-
-export const Router: React.FC = () => (
-  <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Tabs} />
-      <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="SignIn" component={SignIn} />
-    </Stack.Navigator>
   </NavigationContainer>
 );

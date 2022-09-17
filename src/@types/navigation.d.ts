@@ -1,7 +1,7 @@
-import { RootStackParamList } from '@shared/routes/Stack';
+import { ProfileParamsList } from '@shared/routes/ProfileRoutes';
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends ProfileParamsList {}
   }
 }

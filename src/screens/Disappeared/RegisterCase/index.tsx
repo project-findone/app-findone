@@ -14,7 +14,7 @@ import {
   IconView, ImageArea, ImageButton, IconBack,
 } from './styles';
 
-export const Register: React.FC = () => {
+export const RegisterCase: React.FC = () => {
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
