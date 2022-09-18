@@ -13,6 +13,8 @@ export const Container = styled.View<Props>`
 
 export const TextInput = styled.TextInput<Props>`
     height: 80%;
+    font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+    font-size: ${({ theme }) => theme.FONT_SIZE.X_SM};
     border-width: 2px;
     border-color: ${({ error }) => (error ? 'red' : '#A7A7A7')};
     border-radius: 6px;
@@ -30,11 +32,13 @@ export const LabelContainer = styled.View<Props>`
 `;
 
 export const LabelText = styled.Text<Props>`
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.FONT_SIZE.SM};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
     color: ${({ error }) => (error ? 'red' : 'black')};
 `;
 
 export const ErrorText = styled.Text`
     color: red;
-    font-size: 12px;
+    font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+    font-size: ${({ theme }) => theme.FONT_SIZE.XX_SM};
 `;

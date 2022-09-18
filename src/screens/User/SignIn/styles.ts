@@ -3,16 +3,16 @@ import styled from 'styled-components/native';
 import { Image } from 'react-native';
 
 export const Logo = styled(Image)`
-    width: 32vw;
+    width: 124px;
     max-width: 150px;
     max-height: 150px;
-    height: 32vw;
+    height: 124px;
     align-self: center;
 `;
 export const Title = styled.Text`
-    font-size: 32px;
-    font-weight: 700;
-    margin-top: 15px;
+    font-size: ${({ theme }) => theme.FONT_SIZE.X_LG};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+    margin-top: 64px;
 `;
 
 export const CheckboxContainer = styled.View`
@@ -20,25 +20,33 @@ export const CheckboxContainer = styled.View`
     margin-top: 15px;
 `;
 
+export const Footer = styled.View`
+    width: 100%;
+    align-items: center;
+    margin-top: 80px;
+`;
+
 export const GoToRegisterContainer = styled.View`
     flex-direction: row;
-    align-self: center;
     margin-top: 15px;
 `;
 
 export const GoToRegiserTitle = styled.Text`
     color: #8F8F8F;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.FONT_SIZE.X_SM};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.SEMIBOLD};
 `;
 
 export const GoToRegisterLink = styled.Text`
     color: #00C2C6;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.FONT_SIZE.X_SM};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.SEMIBOLD};
 `;
 
 export const GoToForgotPassLink = styled.Text`
     color: #00C2C6;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.FONT_SIZE.X_SM};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.SEMIBOLD};
     margin-top: 5%;
     text-align: right;
 `;

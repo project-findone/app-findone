@@ -15,7 +15,14 @@ import { ValidationError } from 'yup';
 import { FieldsValidate } from './utils/SignInValidation';
 
 import {
-  Logo, Title, GoToForgotPassLink, GoToRegiserTitle, GoToRegisterContainer, GoToRegisterLink,
+  Logo,
+  Title,
+  GoToForgotPassLink,
+  GoToRegiserTitle,
+  GoToRegisterContainer,
+  GoToRegisterLink,
+  Footer,
+
 } from './styles';
 
 type SignInFormData = {
@@ -65,16 +72,17 @@ export const SignIn: React.FC = () => {
 
         <GoToForgotPassLink> Esqueceu a senha? </GoToForgotPassLink>
 
-        <Button insideText="Login" marginTop={20} onPress={() => formRef.current?.submitForm()} />
+        <Footer>
+          <Button insideText="Login" marginTop={20} onPress={() => formRef.current?.submitForm()} />
 
+          <GoToRegisterContainer>
+            <GoToRegiserTitle>Não possui conta? </GoToRegiserTitle>
+            <GoToRegisterLink onPress={() => navigation.navigate('SignUp')}>
+              Cadastrar
+            </GoToRegisterLink>
+          </GoToRegisterContainer>
+        </Footer>
       </Form>
-
-      <GoToRegisterContainer>
-        <GoToRegiserTitle>Não possui conta? </GoToRegiserTitle>
-        <GoToRegisterLink onPress={() => navigation.navigate('SignUp')}>
-          Cadastrar
-        </GoToRegisterLink>
-      </GoToRegisterContainer>
     </SafeAreaView>
   );
 };

@@ -1,14 +1,11 @@
-import styled, { DefaultTheme } from 'styled-components/native';
+import { Platform, StatusBar } from 'react-native';
+import styled from 'styled-components/native';
 
-interface SafeViewProps extends DefaultTheme {
-  AppDimensions: { width: number, height: number };
-}
-
-export const SafeView = styled.SafeAreaView<SafeViewProps>`
-    flex: 1;
-    padding-top: 15px;
+export const SafeView = styled.SafeAreaView`
+    width: 100%;
+    height: 100%;
+    padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 0}px;
     padding-left: 10%;
     padding-right: 10%;
-    position: relative;
-    background-color: #fff;
+    background-color: ${(props) => props.theme.COLORS.BG};
 `;
