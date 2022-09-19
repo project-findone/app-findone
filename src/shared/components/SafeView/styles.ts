@@ -5,7 +5,5 @@ export const SafeView = styled.SafeAreaView`
     width: 100%;
     height: 100%;
     padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 0}px;
-    padding-left: 10%;
-    padding-right: 10%;
     background-color: ${(props) => props.theme.COLORS.BG};
 `;

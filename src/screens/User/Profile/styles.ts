@@ -54,7 +54,6 @@ font-size: 22px;
 font-weight: 500px;
 margin-top: 10px;
 margin-bottom: 10px;
-
 `;
 
 export const IconAbout = styled.Image`

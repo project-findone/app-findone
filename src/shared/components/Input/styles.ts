@@ -8,22 +8,25 @@ interface Props extends DefaultTheme {
 export const Container = styled.View<Props>`
     width: 100%;
     height: 75px;
-    margin-top: 20px;
+    margin-top: ${({ marginTop }) => marginTop || 20}px;
 `;
 
 export const TextInput = styled.TextInput<Props>`
     height: 80%;
+    color: ${({ theme }) => theme.COLORS.CAPTION_700};
     font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
     font-size: ${({ theme }) => theme.FONT_SIZE.X_SM};
-    border-width: 2px;
-    border-color: ${({ error }) => (error ? 'red' : '#A7A7A7')};
+    border: 2px solid;
+    border-color: ${({ error, theme }) => (error
+    ? theme.COLORS.ALERT
+    : theme.COLORS.CAPTION_400)};
     border-radius: 6px;
     padding: 15px;
     justify-content: center;
 `;
 
 export const LabelContainer = styled.View<Props>`
-    background-color: #FFF;
+    background-color: ${({ theme }) => theme.COLORS.BG};
     align-self: flex-start;
     padding: 6px;
     margin-bottom: -14px;
@@ -34,11 +37,14 @@ export const LabelContainer = styled.View<Props>`
 export const LabelText = styled.Text<Props>`
     font-size: ${({ theme }) => theme.FONT_SIZE.SM};
     font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-    color: ${({ error }) => (error ? 'red' : 'black')};
+    color: ${({ error, theme }) => (error
+    ? theme.COLORS.ALERT
+    : theme.COLORS.CAPTION_700)};
 `;
 
 export const ErrorText = styled.Text`
-    color: red;
-    font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+    margin-top: 4px;
+    color: ${({ theme }) => theme.COLORS.ALERT};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.SEMIBOLD};
     font-size: ${({ theme }) => theme.FONT_SIZE.XX_SM};
 `;

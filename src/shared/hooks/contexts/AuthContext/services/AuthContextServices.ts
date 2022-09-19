@@ -8,14 +8,20 @@ import type {
 
 export class AuthContextServices implements IauthContextServices {
   async signIn(credentials: TsignInCredentials): Promise<void> {
-    const response = await api.post('sessions', credentials);
+    try {
+      const response = await api.post('sessions', credentials);
 
-    const { token, userResponse } = response.data.user;
+      console.log(response);
 
-    console.log(response);
-    console.log(userResponse);
+      const { token, userResponse } = response.data.user;
 
-    await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(userResponse)]]);
+      console.log(response);
+      console.log(userResponse);
+
+      await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(userResponse)]]);
+    } catch (error: any) {
+      console.error(error.response);
+    }
   }
 
   async signUp(credentials: TsignUpCredentials): Promise<void> {

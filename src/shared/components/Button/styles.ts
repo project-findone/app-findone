@@ -9,20 +9,21 @@ interface Props extends DefaultTheme {
 
 export const Touchable = styled.TouchableOpacity<Props>`
     align-items: center;
-    padding: 10px;
+    justify-content: center;
+    padding: 14px;
     width: 100%;
+    height: 56px;
     margin-top: ${({ marginTop }) => (marginTop || 0)}px;
     margin-bottom: ${({ marginBottom }) => (marginBottom || 0)}px;
     margin-left: ${({ marginLeft }) => (marginLeft || 0)}px;
     margin-right: ${({ marginRight }) => (marginRight || 0)}px;
-    border-radius: 30;
-    background-color: #1CB8C2;
+    border-radius: 30px;
+    background-color: ${({ theme }) => theme.COLORS.PRIMARY};
 `;
 
 export const Text = styled.Text`
-    color: #FFFF;
-    font-weight: bold;
-    font-size: 14px;
+    color: ${({ theme }) => theme.COLORS.TEXT_INVERTED};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.SEMIBOLD};
+    font-size: ${({ theme }) => theme.FONT_SIZE.MD};
     text-align: center;
-    padding: 4px;
 `;

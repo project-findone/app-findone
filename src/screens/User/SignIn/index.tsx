@@ -1,17 +1,18 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ValidationError } from 'yup';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 
+import { getValidationErrors } from '@shared/utils/getValidationErrors';
+import { useAuth } from '@shared/hooks/contexts/AuthContext';
+
+import LogoImg from '@shared/assets/up-logo.png';
 import { Input } from '@shared/components/Input';
 import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
-import LogoImg from '@shared/assets/up-logo.png';
-
-import { getValidationErrors } from '@shared/utils/getValidationErrors';
-import { useAuth } from '@shared/hooks/contexts/AuthContext';
-import { ValidationError } from 'yup';
 import { FieldsValidate } from './utils/SignInValidation';
 
 import {
@@ -22,7 +23,6 @@ import {
   GoToRegisterContainer,
   GoToRegisterLink,
   Footer,
-
 } from './styles';
 
 type SignInFormData = {
@@ -31,23 +31,23 @@ type SignInFormData = {
 };
 
 export const SignIn: React.FC = () => {
+  const [isSending, setIsSending] = useState(false);
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
   const { services: { signIn } } = useAuth();
 
   const handleSubmit = useCallback(async (values: SignInFormData) => {
+    setIsSending(true);
     try {
       formRef.current?.setErrors({});
 
       await FieldsValidate(values);
 
-      const response = await signIn({
+      await signIn({
         email: values.email,
         password: values.password,
       });
-
-      console.log(response);
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -56,33 +56,54 @@ export const SignIn: React.FC = () => {
         console.error(err);
       }
     }
+    setIsSending(false);
   }, [signIn]);
+
+  const styles = StyleSheet.create({
+    scrollContainer: {
+      paddingHorizontal: '10%',
+    },
+    content: {
+      paddingBottom: 10,
+    },
+  });
 
   return (
     <SafeAreaView>
-      <Logo source={LogoImg} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.content}
+      >
+        <Logo source={LogoImg} />
 
-      <Title>Login</Title>
+        <Title>Login</Title>
 
-      <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handleSubmit}>
 
-        <Input name="email" marginTop={20} labelText="Email" />
+          <Input name="email" marginTop={20} labelText="Email" />
 
-        <Input name="password" marginTop={20} labelText="Senha" />
+          <Input name="password" marginTop={28} labelText="Senha" />
 
-        <GoToForgotPassLink> Esqueceu a senha? </GoToForgotPassLink>
+          <GoToForgotPassLink> Esqueceu a senha? </GoToForgotPassLink>
 
-        <Footer>
-          <Button insideText="Login" marginTop={20} onPress={() => formRef.current?.submitForm()} />
+          <Footer>
+            <Button
+              insideText="Login"
+              isLoading={isSending}
+              marginTop={20}
+              onPress={() => formRef.current?.submitForm()}
+            />
 
-          <GoToRegisterContainer>
-            <GoToRegiserTitle>Não possui conta? </GoToRegiserTitle>
-            <GoToRegisterLink onPress={() => navigation.navigate('SignUp')}>
-              Cadastrar
-            </GoToRegisterLink>
-          </GoToRegisterContainer>
-        </Footer>
-      </Form>
+            <GoToRegisterContainer>
+              <GoToRegiserTitle>Não possui conta? </GoToRegiserTitle>
+              <GoToRegisterLink onPress={() => navigation.navigate('SignUp')}>
+                Cadastrar
+              </GoToRegisterLink>
+            </GoToRegisterContainer>
+          </Footer>
+        </Form>
+      </ScrollView>
     </SafeAreaView>
   );
 };

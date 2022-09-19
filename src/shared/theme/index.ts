@@ -13,8 +13,8 @@ export const Theme = {
 
     CAPTION_400: '#8D8D8D',
     CAPTION_500: '#7D7D7E',
-    CAPTION_600: '#494949',
-    CAPTION_700: 'rgba(0,0,0,0.5)',
+    CAPTION_600: 'rgba(0,0,0,0.5)',
+    CAPTION_700: '#494949',
 
     TITLE_800: 'rgba(0,0,0,0.6)',
     TITLE_900: 'rgba(0,0,0,1)',
@@ -36,7 +36,7 @@ export const Theme = {
     XX_SM: '12px',
     X_SM: '14px',
     SM: '16px',
-    MD: '24px',
+    MD: '20px',
     LG: '32px',
     X_LG: '36px',
   },
