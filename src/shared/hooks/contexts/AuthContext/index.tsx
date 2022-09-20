@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AxiosError } from 'axios';
 
 import { api, ResponseError } from '@shared/services/api';
+import { showToast } from '@shared/components/Toast';
 
 type TSignInCredentials = {
   email: string;
@@ -42,10 +43,11 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     } catch (error: any) {
       if (error instanceof AxiosError) {
         if (error.response) {
-          const err = error.response.data as ResponseError;
-          console.log(err.message);
+          const { message } = error.response.data as ResponseError;
+          showToast({ message, type: 'alert' });
         }
       }
+      showToast({ message: 'Houve um erro ao realizar o login', type: 'alert' });
     }
   }, []);
 

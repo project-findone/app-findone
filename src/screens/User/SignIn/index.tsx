@@ -8,6 +8,7 @@ import { Form } from '@unform/mobile';
 
 import { getValidationErrors } from '@shared/utils/getValidationErrors';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
+import { showToast } from '@shared/components/Toast';
 
 import LogoImg from '@shared/assets/up-logo.png';
 import { Input } from '@shared/components/Input';
@@ -35,7 +36,7 @@ export const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
-  const { user, services: { signIn } } = useAuth();
+  const { services: { signIn } } = useAuth();
 
   const handleSubmit = useCallback(async (values: SignInFormData) => {
     setIsSending(true);
@@ -49,13 +50,13 @@ export const SignIn: React.FC = () => {
         password: values.password,
       });
 
-      console.log(user);
+      navigation.navigate('Profile');
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
       } else {
-        console.error(err);
+        showToast({ message: 'Erro desconhecido', type: 'alert' });
       }
     }
     setIsSending(false);
