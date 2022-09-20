@@ -35,7 +35,7 @@ export const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
-  const { services: { signIn } } = useAuth();
+  const { user, services: { signIn } } = useAuth();
 
   const handleSubmit = useCallback(async (values: SignInFormData) => {
     setIsSending(true);
@@ -48,6 +48,8 @@ export const SignIn: React.FC = () => {
         email: values.email,
         password: values.password,
       });
+
+      console.log(user);
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -83,7 +85,7 @@ export const SignIn: React.FC = () => {
 
           <Input name="email" marginTop={20} labelText="Email" />
 
-          <Input name="password" marginTop={28} labelText="Senha" />
+          <Input name="password" secureTextEntry marginTop={28} labelText="Senha" />
 
           <GoToForgotPassLink> Esqueceu a senha? </GoToForgotPassLink>
 
