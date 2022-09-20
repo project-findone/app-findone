@@ -42,16 +42,6 @@ export const Title2 = styled.Text`
     margin-bottom: 5px;
 `;
 
-export const Button = styled.TouchableOpacity`
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    margin-top: 40px;
-    margin-bottom: 30px;
-    border-radius: 30px;
-    background-color: #1CB8C2;
-`;
-
 export const CheckboxContainer = styled.View`
     flex-direction: row;
     margin-top: 15px;

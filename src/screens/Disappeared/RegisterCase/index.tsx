@@ -1,31 +1,92 @@
 /* eslint-disable no-console */
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import { ValidationError } from 'yup';
+
+import { getValidationErrors } from '@shared/utils/getValidationErrors';
 
 import { Input } from '@shared/components/Input';
+import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
 import UnknownImage from '@shared/assets/unknown.png';
+import { FieldsValidate } from './utils/SignInValidation';
 import {
-  Title, Title2, Button, ImagePerfil, ScrollView, Header, TextButton,
+  Title, Title2, ImagePerfil, ScrollView, Header,
   IconView, ImageArea, ImageButton, IconBack,
 } from './styles';
 
+type SignInFormData = {
+  name: string;
+  last_name: string;
+  age: string;
+  cpf: string;
+  cep: string;
+  state: string;
+  city: string;
+  caracteristica: string;
+  others: string;
+  street: string;
+  description: string;
+};
+
 export const RegisterCase: React.FC = () => {
+  const [isSending, setIsSending] = useState(false);
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback((values: Object) => {
-    console.log(values);
-  }, []);
+  const handleSubmit = useCallback(async (values: SignInFormData) => {
+    setIsSending(true);
+    try {
+      formRef.current?.setErrors({});
+
+      await FieldsValidate(values);
+
+      await RegisterCase({
+        name: values.name,
+        last_name: values.last_name,
+        age: values.age,
+        cpf: values.cpf,
+        cep: values.cep,
+        state: values.state,
+        city: values.city,
+        caracteristica: values.caracteristica,
+        others: values.others,
+        street: values.street,
+        description: values.description,
+      });
+    } catch (err: any) {
+      if (err instanceof ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+      } else {
+        console.error(err);
+      }
+    }
+    setIsSending(false);
+  }, [RegisterCase]);
+
+  const styles = StyleSheet.create({
+    scrollContainer: {
+      paddingHorizontal: '10%',
+    },
+    content: {
+      paddingBottom: 10,
+    },
+  });
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.content}
+      >
 
         <IconBack onPress={() => navigation.goBack()}>
           <Icon
@@ -96,9 +157,12 @@ export const RegisterCase: React.FC = () => {
 
           <Input name="description" marginTop={20} labelText="Descrição" />
 
-          <Button onPress={() => formRef.current?.submitForm()}>
-            <TextButton>REGISTRAR</TextButton>
-          </Button>
+          <Button
+            insideText="CADASTRAR"
+            isLoading={isSending}
+            marginTop={20}
+            onPress={() => formRef.current?.submitForm()}
+          />
 
         </Form>
       </ScrollView>
