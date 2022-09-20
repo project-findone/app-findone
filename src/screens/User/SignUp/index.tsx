@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
+
+import { DropDown } from '@shared/components/DropDown';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
@@ -7,14 +11,22 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
-import { Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
+
 import {
   Title, Text, Button, Viewinicio, ScrollView, Header, TextButton,
 } from './styles';
 
 export const SignUp: React.FC = () => {
+  const [genderItems, setGenderItems] = useState([
+    { label: 'Masculino', value: 'male' },
+    { label: 'Feminino', value: 'female' },
+    { label: 'Prefiro não Informar', value: 'undefined' },
+  ]);
+  const [genderValue, setGenderValue] = useState(null);
+  const [genderOpen, setGenderOpen] = useState(false);
   const navigation = useNavigation();
+
+  console.log(genderValue);
 
   const formRef = useRef<FormHandles>(null);
 
@@ -25,9 +37,7 @@ export const SignUp: React.FC = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-
         <Header>
-
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Icon
               name="arrow-left"
@@ -50,15 +60,26 @@ export const SignUp: React.FC = () => {
 
           <Input name="name" marginTop={20} labelText="Nome" />
 
-          <Input name="last_name" marginTop={20} labelText="Sobrenome" />
+          <Input name="lastName" marginTop={20} labelText="Sobrenome" />
 
-          <Input name="cpf" marginTop={20} labelText="CPF" />
+          <Input name="personCPF" marginTop={20} labelText="CPF" />
 
           <Input name="celphone" marginTop={20} labelText="Celular" />
 
-          <Input name="date" marginTop={20} labelText="Data de nascimento" />
+          <Input name="birthDate" marginTop={20} labelText="Data de nascimento" />
 
-          <Input name="sex" marginTop={20} labelText="Sexo" />
+          <DropDown
+            name="gender"
+            placeholder="Selecione o seu gênero"
+            listMode="SCROLLVIEW"
+            open={genderOpen}
+            setOpen={setGenderOpen}
+            multiple={false}
+            value={genderValue}
+            setValue={setGenderValue}
+            items={genderItems}
+            dropDownDirection="TOP"
+          />
 
           <Input name="cep" marginTop={20} labelText="CEP" />
 

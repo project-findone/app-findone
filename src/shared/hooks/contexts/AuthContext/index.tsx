@@ -45,9 +45,10 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         if (error.response) {
           const { message } = error.response.data as ResponseError;
           showToast({ message, type: 'alert' });
+        } else {
+          showToast({ message: 'Houve um erro ao realizar o login', type: 'alert' });
         }
       }
-      showToast({ message: 'Houve um erro ao realizar o login', type: 'alert' });
     }
   }, []);
 

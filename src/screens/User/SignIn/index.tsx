@@ -36,7 +36,7 @@ export const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
-  const { services: { signIn } } = useAuth();
+  const { user, services: { signIn } } = useAuth();
 
   const handleSubmit = useCallback(async (values: SignInFormData) => {
     setIsSending(true);
@@ -50,7 +50,7 @@ export const SignIn: React.FC = () => {
         password: values.password,
       });
 
-      navigation.navigate('Profile');
+      if (user) { navigation.navigate('ProfileIndex'); }
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -60,7 +60,7 @@ export const SignIn: React.FC = () => {
       }
     }
     setIsSending(false);
-  }, [signIn]);
+  }, [signIn, navigation]);
 
   const styles = StyleSheet.create({
     scrollContainer: {

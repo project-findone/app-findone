@@ -11,7 +11,7 @@ import { EditUser } from 'src/screens/User/EditUser';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 
 export interface ProfileParamsList {
-  Profile: undefined
+  ProfileIndex: undefined
   SignIn: unknown
   SignUp: undefined
   ForgotPass: undefined

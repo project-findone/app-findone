@@ -1,4 +1,7 @@
-import styled from 'styled-components/native';
+import styled, { DefaultTheme } from 'styled-components/native';
+import { ScrollViewProps } from 'react-native';
+
+interface Props extends DefaultTheme, ScrollViewProps {}
 
 export const Container = styled.View`
     width: '100%';
@@ -13,7 +16,7 @@ export const Header = styled.View`
     margin-top: 20px;
 `;
 
-export const ScrollView = styled.ScrollView`
+export const ScrollView = styled.ScrollView<Props>`
     padding-left: 35px;
     padding-right: 35px;
     height: 100%;
