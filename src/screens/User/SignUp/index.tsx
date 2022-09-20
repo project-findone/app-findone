@@ -70,15 +70,7 @@ export const SignUp: React.FC = () => {
 
           <DropDown
             name="gender"
-            placeholder="Selecione o seu gênero"
-            listMode="SCROLLVIEW"
-            open={genderOpen}
-            setOpen={setGenderOpen}
-            multiple={false}
-            value={genderValue}
-            setValue={setGenderValue}
-            items={genderItems}
-            dropDownDirection="TOP"
+            data={genderItems}
           />
 
           <Input name="cep" marginTop={20} labelText="CEP" />

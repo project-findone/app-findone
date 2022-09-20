@@ -1,17 +1,21 @@
 import React, { useRef, useEffect, useState } from 'react';
-import DropDownPicker, { DropDownPickerProps } from 'react-native-dropdown-picker';
+import DropDownSelect, { SelectDropdownProps } from 'react-native-select-dropdown';
 
 import { useField } from '@unform/core';
 
-type Props = DropDownPickerProps<string> & {
+interface DropDownRefReference extends DropDownSelect {
+  value: string;
+}
+
+type Props = SelectDropdownProps & {
   name: string
 };
 
 export const DropDown: React.FC<Props> = ({
-  name, value, setValue, ...rest
+  name, onSelect, ...rest
 }) => {
-  const dropRef = useRef(null);
   const { defaultValue = '', fieldName, registerField } = useField(name);
+  const dropRef = useRef<DropDownRefReference>(null);
 
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
@@ -26,10 +30,9 @@ export const DropDown: React.FC<Props> = ({
   }, [fieldName, registerField]);
 
   return (
-    <DropDownPicker
+    <DropDownSelect
       ref={dropRef}
-      value={selectedValue}
-      setValue={setSelectedValue}
+      onSelect={(selectedItem) => { if (dropRef.current) dropRef.current.value = selectedItem; }}
       {...rest}
     />
   );
