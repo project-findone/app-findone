@@ -50,7 +50,7 @@ export const SignIn: React.FC = () => {
         password: values.password,
       });
 
-      if (user) { navigation.navigate('ProfileIndex'); }
+      if (user.personID) { navigation.navigate('ProfileIndex'); }
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -60,7 +60,7 @@ export const SignIn: React.FC = () => {
       }
     }
     setIsSending(false);
-  }, [signIn, navigation]);
+  }, [signIn, navigation, user]);
 
   const styles = StyleSheet.create({
     scrollContainer: {

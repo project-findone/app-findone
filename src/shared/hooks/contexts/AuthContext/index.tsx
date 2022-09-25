@@ -20,7 +20,7 @@ type IPersonState = {
 };
 
 type IAuthContextData = {
-  user: Object;
+  user: Object | any;
   services: {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
   };

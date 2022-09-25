@@ -17,16 +17,12 @@ import {
 } from './styles';
 
 export const SignUp: React.FC = () => {
-  const [genderItems, setGenderItems] = useState([
+  const [genderItems] = useState([
     { label: 'Masculino', value: 'male' },
     { label: 'Feminino', value: 'female' },
     { label: 'Prefiro não Informar', value: 'undefined' },
   ]);
-  const [genderValue, setGenderValue] = useState(null);
-  const [genderOpen, setGenderOpen] = useState(false);
   const navigation = useNavigation();
-
-  console.log(genderValue);
 
   const formRef = useRef<FormHandles>(null);
 
@@ -69,6 +65,7 @@ export const SignUp: React.FC = () => {
           <Input name="birthDate" marginTop={20} labelText="Data de nascimento" />
 
           <DropDown
+            labelText="Gênero"
             name="gender"
             data={genderItems}
           />
