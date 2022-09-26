@@ -15,10 +15,11 @@ interface InputProps extends TextInputProps {
   name: string;
   labelText?: string;
   marginTop?: number;
+  width?: number;
 }
 
 export const Input: React.FC<InputProps> = ({
-  labelText, marginTop, name, ...TextProps
+  labelText, marginTop, name, width, ...TextProps
 }) => {
   const {
     defaultValue = '', fieldName, registerField, error,
@@ -55,7 +56,7 @@ export const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <Container marginTop={marginTop}>
+    <Container width={width} marginTop={marginTop}>
       <Label />
       <TextInput
         error={error !== undefined}

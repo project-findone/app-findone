@@ -3,10 +3,11 @@ import styled, { DefaultTheme } from 'styled-components/native';
 interface Props extends DefaultTheme {
   error: boolean;
   marginTop: number;
+  width: number;
 }
 
 export const Container = styled.View<Props>`
-    width: 100%;
+    width: ${({ width }) => width || 100}%;
     height: 75px;
     margin-top: ${({ marginTop }) => marginTop || 20}px;
 `;

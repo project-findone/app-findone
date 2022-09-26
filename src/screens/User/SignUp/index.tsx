@@ -68,6 +68,7 @@ export const SignUp: React.FC = () => {
             labelText="Gênero"
             name="gender"
             data={genderItems}
+
           />
 
           <Input name="cep" marginTop={20} labelText="CEP" />

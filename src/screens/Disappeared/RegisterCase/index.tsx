@@ -119,7 +119,7 @@ export const RegisterCase: React.FC = () => {
 
           <Input name="last_name" marginTop={26} labelText="Sobrenome" />
 
-          <Input name="age" marginTop={26} labelText="Idade" />
+          <Input name="age" width={50} marginTop={26} labelText="Idade" />
 
           <Input name="cpf" marginTop={26} labelText="CPF" />
 
