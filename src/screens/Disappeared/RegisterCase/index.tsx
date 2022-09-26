@@ -47,19 +47,7 @@ export const RegisterCase: React.FC = () => {
 
       await FieldsValidate(values);
 
-      await RegisterCase({
-        name: values.name,
-        last_name: values.last_name,
-        age: values.age,
-        cpf: values.cpf,
-        cep: values.cep,
-        state: values.state,
-        city: values.city,
-        caracteristica: values.caracteristica,
-        others: values.others,
-        street: values.street,
-        description: values.description,
-      });
+      console.log(values);
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -129,38 +117,38 @@ export const RegisterCase: React.FC = () => {
 
           <Input name="name" marginTop={20} labelText="Nome" />
 
-          <Input name="last_name" marginTop={20} labelText="Sobrenome" />
+          <Input name="last_name" marginTop={26} labelText="Sobrenome" />
 
-          <Input name="age" marginTop={20} labelText="Idade" />
+          <Input name="age" marginTop={26} labelText="Idade" />
 
-          <Input name="cpf" marginTop={20} labelText="CPF" />
+          <Input name="cpf" marginTop={26} labelText="CPF" />
 
-          <Input name="cep" marginTop={20} labelText="CEP" />
+          <Input name="cep" marginTop={26} labelText="CEP" />
 
-          <Input name="state" marginTop={20} labelText="Estado" />
+          <Input name="state" marginTop={26} labelText="Estado" />
 
-          <Input name="city" marginTop={20} labelText="Cidade" />
+          <Input name="city" marginTop={26} labelText="Cidade" />
 
-          <Input name="caracteristica" marginTop={20} labelText="Cor pele/cabelo/olho/cabelo" />
+          <Input name="caracteristica" marginTop={26} labelText="Caracteristica" />
 
-          <Input name="others" marginTop={20} labelText="Outros" />
+          <Input name="others" marginTop={26} labelText="Outros" />
 
           <Title2>Ultimo local visto</Title2>
 
-          <Input name="cep" marginTop={20} labelText="CEP" />
+          <Input name="cep" marginTop={5} labelText="CEP" />
 
-          <Input name="state" marginTop={20} labelText="Estado" />
+          <Input name="state" marginTop={26} labelText="Estado" />
 
-          <Input name="city" marginTop={20} labelText="Cidade" />
+          <Input name="city" marginTop={26} labelText="Cidade" />
 
-          <Input name="street" marginTop={20} labelText="Rua" />
+          <Input name="street" marginTop={26} labelText="Rua" />
 
-          <Input name="description" marginTop={20} labelText="Descrição" />
+          <Input name="description" marginTop={26} labelText="Descrição" />
 
           <Button
             insideText="CADASTRAR"
             isLoading={isSending}
-            marginTop={20}
+            marginTop={32}
             onPress={() => formRef.current?.submitForm()}
           />
 
