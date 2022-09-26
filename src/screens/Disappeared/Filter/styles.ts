@@ -70,3 +70,9 @@ export const TextButton = styled.Text`
     font-size: 15px;
     font-stretch: expanded;
 `;
+
+export const Align = styled.View`
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+`;

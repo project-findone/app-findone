@@ -110,3 +110,9 @@ export const ImageButton = styled.TouchableOpacity`
     height: 120px;
     width: 120px;
 `;
+
+export const Align = styled.View`
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+`;
