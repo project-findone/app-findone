@@ -38,8 +38,7 @@ export const IconBack = styled.TouchableOpacity`
 export const Title2 = styled.Text`
     font-size: 32px;
     font-weight: 700;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-top: 40px;
 `;
 
 export const CheckboxContainer = styled.View`
@@ -110,4 +109,10 @@ export const IconView = styled.View`
 export const ImageButton = styled.TouchableOpacity`
     height: 120px;
     width: 120px;
+`;
+
+export const Align = styled.View`
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
 `;

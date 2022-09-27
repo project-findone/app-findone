@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 
 import { FormHandles } from '@unform/core';
+import { DropDown } from '@shared/components/DropDown';
 import { Form } from '@unform/mobile';
 import { ValidationError } from 'yup';
 
@@ -17,7 +18,7 @@ import UnknownImage from '@shared/assets/unknown.png';
 import { FieldsValidate } from './utils/SignInValidation';
 import {
   Title, Title2, ImagePerfil, ScrollView, Header,
-  IconView, ImageArea, ImageButton, IconBack,
+  IconView, ImageArea, ImageButton, IconBack, Align,
 } from './styles';
 
 type SignInFormData = {
@@ -26,15 +27,76 @@ type SignInFormData = {
   age: string;
   cpf: string;
   cep: string;
-  state: string;
   city: string;
-  caracteristica: string;
   others: string;
   street: string;
   description: string;
 };
 
 export const RegisterCase: React.FC = () => {
+  const [genderItems] = useState([
+    { label: 'Masculino', value: 'male' },
+    { label: 'Feminino', value: 'female' },
+    { label: 'Prefiro não Informar', value: 'undefined' },
+  ]);
+
+  const [stateItems] = useState([
+    { label: 'AC', value: 'AC' },
+    { label: 'AL', value: 'AL' },
+    { label: 'AP', value: 'AP' },
+    { label: 'AM', value: 'AM' },
+    { label: 'BA', value: 'BA' },
+    { label: 'CE', value: 'CE' },
+    { label: 'DF', value: 'DF' },
+    { label: 'ES', value: 'ES' },
+    { label: 'GO', value: 'GO' },
+    { label: 'MA', value: 'MA' },
+    { label: 'MT', value: 'MT' },
+    { label: 'MS', value: 'MS' },
+    { label: 'MG', value: 'MG' },
+    { label: 'PA', value: 'PA' },
+    { label: 'PB', value: 'PB' },
+    { label: 'PR', value: 'PR' },
+    { label: 'PE', value: 'PE' },
+    { label: 'PI', value: 'PI' },
+    { label: 'RJ', value: 'RJ' },
+    { label: 'RN', value: 'RN' },
+    { label: 'RS', value: 'RS' },
+    { label: 'RO', value: 'RO' },
+    { label: 'RR', value: 'RR' },
+    { label: 'SC', value: 'SC' },
+    { label: 'SP', value: 'SP' },
+    { label: 'SE', value: 'SE' },
+    { label: 'TO', value: 'TO' },
+  ]);
+
+  const [skinItems] = useState([
+    { label: 'Branco(a)', value: 'branco' },
+    { label: 'Moreno(a)', value: 'moreno' },
+    { label: 'Negro(a)', value: 'negro' },
+  ]);
+
+  const [haircolorItems] = useState([
+    { label: 'Loiro(a)', value: 'Loiro' },
+    { label: 'Preto(a)', value: 'Preto' },
+    { label: 'Castanho(a)', value: 'Castanho' },
+    { label: 'Ruivo(a)', value: 'Ruivo' },
+  ]);
+
+  const [eyeItems] = useState([
+    { label: 'Verde', value: 'Verde' },
+    { label: 'Azul', value: 'Azul' },
+    { label: 'Castanho', value: 'Castanho' },
+    { label: 'Castanho Escuro', value: 'CastanhoEscuro' },
+  ]);
+
+  const [hairItems] = useState([
+    { label: 'Liso', value: 'Liso' },
+    { label: 'Ondulado', value: 'Ondulado' },
+    { label: 'Cacheado', value: 'Cacheado' },
+    { label: 'Crespo', value: 'Crespo' },
+  ]);
+
   const [isSending, setIsSending] = useState(false);
   const navigation = useNavigation();
 
@@ -47,19 +109,7 @@ export const RegisterCase: React.FC = () => {
 
       await FieldsValidate(values);
 
-      await RegisterCase({
-        name: values.name,
-        last_name: values.last_name,
-        age: values.age,
-        cpf: values.cpf,
-        cep: values.cep,
-        state: values.state,
-        city: values.city,
-        caracteristica: values.caracteristica,
-        others: values.others,
-        street: values.street,
-        description: values.description,
-      });
+      console.log(values);
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -129,38 +179,90 @@ export const RegisterCase: React.FC = () => {
 
           <Input name="name" marginTop={20} labelText="Nome" />
 
-          <Input name="last_name" marginTop={20} labelText="Sobrenome" />
+          <Input name="last_name" marginTop={26} labelText="Sobrenome" />
 
-          <Input name="age" marginTop={20} labelText="Idade" />
+          <Align>
+            <Input name="age" width={35} marginTop={15} labelText="Idade" />
 
-          <Input name="cpf" marginTop={20} labelText="CPF" />
+            <DropDown
+              labelText="Gênero"
+              name="gender"
+              data={genderItems}
+              placeholder="Gênero"
+              width={60}
+            />
+          </Align>
 
-          <Input name="cep" marginTop={20} labelText="CEP" />
+          <Input name="cpf" marginTop={26} labelText="CPF" />
 
-          <Input name="state" marginTop={20} labelText="Estado" />
+          <Input name="cep" marginTop={26} labelText="CEP" />
 
-          <Input name="city" marginTop={20} labelText="Cidade" />
+          <Align>
+            <Input name="city" marginTop={15} width={60} labelText="Cidade" />
 
-          <Input name="caracteristica" marginTop={20} labelText="Cor pele/cabelo/olho/cabelo" />
+            <DropDown
+              labelText="Estado"
+              name="state"
+              data={stateItems}
+              placeholder="Estado"
+              width={35}
+            />
+          </Align>
 
-          <Input name="others" marginTop={20} labelText="Outros" />
+          <DropDown
+            labelText="Cor pele"
+            name="skin"
+            data={skinItems}
+            width={45}
+          />
+
+          <DropDown
+            labelText="Cor cabelo"
+            name="haircolor"
+            data={haircolorItems}
+            width={45}
+          />
+
+          <DropDown
+            labelText="Cor olho"
+            name="eye"
+            data={eyeItems}
+            width={45}
+          />
+
+          <DropDown
+            labelText="Tipo cabelo"
+            name="hair"
+            data={hairItems}
+            width={45}
+          />
+
+          <Input name="others" marginTop={26} labelText="Outros" />
 
           <Title2>Ultimo local visto</Title2>
 
-          <Input name="cep" marginTop={20} labelText="CEP" />
+          <Input name="cep" marginTop={5} labelText="CEP" />
 
-          <Input name="state" marginTop={20} labelText="Estado" />
+          <Align>
+            <Input name="city" marginTop={15} width={60} labelText="Cidade" />
 
-          <Input name="city" marginTop={20} labelText="Cidade" />
+            <DropDown
+              labelText="Estado"
+              name="state"
+              data={stateItems}
+              placeholder="Estado"
+              width={35}
+            />
+          </Align>
 
-          <Input name="street" marginTop={20} labelText="Rua" />
+          <Input name="street" marginTop={26} labelText="Rua" />
 
-          <Input name="description" marginTop={20} labelText="Descrição" />
+          <Input name="description" marginTop={26} labelText="Descrição" />
 
           <Button
             insideText="CADASTRAR"
             isLoading={isSending}
-            marginTop={20}
+            marginTop={32}
             onPress={() => formRef.current?.submitForm()}
           />
 

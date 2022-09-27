@@ -5,6 +5,7 @@ import { Theme } from '@shared/theme';
 
 interface Props extends DefaultTheme {
   error: boolean
+  width: number
 }
 
 export const originalDropDownStyle = StyleSheet.create({
@@ -31,7 +32,7 @@ export const originalDropDownStyle = StyleSheet.create({
 });
 
 export const ButtonDropdownContainer = styled.View<Props>`
-    width: 100%;
+    width: ${({ width }) => width || 100}%;
     height: 65px;
     flex-direction: row;
     align-items: center;

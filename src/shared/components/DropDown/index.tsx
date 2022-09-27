@@ -23,11 +23,15 @@ type Props = Omit<SelectDropdownProps,
   name: string;
   labelText?: string;
   placeholder?: string;
+<<<<<<< HEAD
   margin: string[] | number[]
+=======
+  width?: number;
+>>>>>>> 68ba8c268c50696ac8bcd378872be95024a729fe
 };
 
 export const DropDown: React.FC<Props> = memo(({
-  name, placeholder = 'Selecione uma opção', labelText, ...rest
+  name, width, placeholder = 'Selecione uma opção', labelText, ...rest
 }: Props) => {
   const {
     defaultValue = '', fieldName, registerField, error,
@@ -86,7 +90,7 @@ export const DropDown: React.FC<Props> = memo(({
       renderCustomizedButtonChild={() => (
         <>
           <Label />
-          <ButtonDropdownContainer>
+          <ButtonDropdownContainer width={width}>
             <ButtonText>
               {selectedValue && placeholder ? selectedValue : placeholder}
             </ButtonText>

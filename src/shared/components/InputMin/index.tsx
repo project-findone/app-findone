@@ -4,7 +4,7 @@ import type { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
 
 import {
-  Container, TextInput, LabelContainer, LabelText, ErrorText,
+  Container, TextInput, ErrorText,
 } from './styles';
 
 interface InputValueReference {
@@ -15,11 +15,10 @@ interface InputProps extends TextInputProps {
   name: string;
   labelText?: string;
   marginTop?: number;
-  width?: number;
 }
 
-export const Input: React.FC<InputProps> = ({
-  labelText, marginTop, name, width, ...TextProps
+export const InputMin: React.FC<InputProps> = ({
+  labelText, marginTop, name, ...TextProps
 }) => {
   const {
     defaultValue = '', fieldName, registerField, error,
@@ -43,21 +42,8 @@ export const Input: React.FC<InputProps> = ({
     });
   }, [fieldName, registerField]);
 
-  const Label: React.FC = () => {
-    const label = labelText
-      ? (
-        <LabelContainer>
-          <LabelText error={error !== undefined}>{labelText}</LabelText>
-        </LabelContainer>
-      )
-      : null;
-
-    return label;
-  };
-
   return (
-    <Container width={width} marginTop={marginTop}>
-      <Label />
+    <Container marginTop={marginTop}>
       <TextInput
         error={error !== undefined}
         ref={inputElementRef}
