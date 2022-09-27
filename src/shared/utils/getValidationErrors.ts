@@ -8,9 +8,9 @@ interface Error {
 export function getValidationErrors(error: ValidationError): Error {
   const validationErrors: Error = {};
 
-  console.log(error);
-
   error.inner.forEach((err) => validationErrors[err.path as string] = err.message);
+
+  console.log(validationErrors);
 
   return validationErrors;
 }

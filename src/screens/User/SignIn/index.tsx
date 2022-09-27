@@ -56,6 +56,7 @@ export const SignIn: React.FC = () => {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
       } else {
+        console.debug(err);
         showToast({ message: 'Erro desconhecido', type: 'alert' });
       }
     }

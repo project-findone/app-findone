@@ -119,7 +119,7 @@ export const RegisterCase: React.FC = () => {
       }
     }
     setIsSending(false);
-  }, [RegisterCase]);
+  }, []);
 
   const styles = StyleSheet.create({
     scrollContainer: {

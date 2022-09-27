@@ -14,6 +14,18 @@ type TSignInCredentials = {
   password: string;
 };
 
+type TSignUpCredentials = {
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+  personCPF: string;
+  phoneNumber: string;
+  personCEP: string;
+  birthDate: string;
+  gender: string;
+};
+
 type IPersonState = {
   token: string;
   user: object;
@@ -23,6 +35,7 @@ type IAuthContextData = {
   user: Object | any;
   services: {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
+    signUp: (credentials: TSignUpCredentials) => Promise<void>;
   };
 };
 
@@ -34,6 +47,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const signIn = useCallback(async (credentials: TSignInCredentials): Promise<void> => {
     try {
       const response = await api.post('sessions', credentials);
+
+      console.log(credentials);
 
       const { token, user } = response.data;
 
@@ -49,6 +64,23 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
           showToast({ message: 'Houve um erro ao realizar o login', type: 'alert' });
         }
       }
+    }
+  }, []);
+
+  const signUp = useCallback(async (credentials: TSignUpCredentials) => {
+    try {
+      const response = await api.post('users', credentials);
+
+      if (response) showToast({ message: 'Cadastro realizado com sucesso!', type: 'sucess' });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error(error);
+        if (error.response) {
+          const { message } = error.response.data as ResponseError;
+          showToast({ message, type: 'alert' });
+        }
+      }
+      showToast({ message: 'Erro desconhecido', type: 'alert' });
     }
   }, []);
 
@@ -70,7 +102,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         token: data.token,
         data: data.user,
       },
-      services: { signIn },
+      services: { signIn, signUp },
     }}
     >
       {children}

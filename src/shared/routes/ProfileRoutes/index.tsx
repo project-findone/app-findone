@@ -28,7 +28,7 @@ const ProfileNav = createNativeStackNavigator();
 
 export const ProfileRouter: React.FC = () => (
   <AuthProvider>
-    <ProfileNav.Navigator initialRouteName="RegisterCase" screenOptions={{ headerShown: false }}>
+    <ProfileNav.Navigator initialRouteName="ProfileIndex" screenOptions={{ headerShown: false }}>
       <ProfileNav.Screen name="ProfileIndex" component={Profile} />
       <ProfileNav.Screen name="SignIn" component={SignIn} />
       <ProfileNav.Screen name="SignUp" component={SignUp} />
