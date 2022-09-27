@@ -23,6 +23,7 @@ type Props = Omit<SelectDropdownProps,
   name: string;
   labelText?: string;
   placeholder?: string;
+  margin: string[] | number[]
 };
 
 export const DropDown: React.FC<Props> = memo(({

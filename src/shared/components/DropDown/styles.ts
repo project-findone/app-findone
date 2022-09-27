@@ -15,7 +15,6 @@ export const originalDropDownStyle = StyleSheet.create({
     paddingLeft: 0,
     paddingRight: 0,
     marginTop: 20,
-    overflow: 'scroll',
   },
 
   dropDownContainer: {
