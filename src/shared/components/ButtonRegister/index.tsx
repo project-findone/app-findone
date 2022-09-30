@@ -7,7 +7,7 @@ export const ButtonRegister: React.FC = () => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => navigation.navigate('Register')}>
+    <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => navigation.navigate('RegisterMenu')}>
 
       <View style={{
         width: 55,

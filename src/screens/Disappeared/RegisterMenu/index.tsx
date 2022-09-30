@@ -11,7 +11,7 @@ import {
   TextButtonBlue, TextGreen, ButtonGreen, TextButtonGreen, ViewComunicado, TextComunicado,
 } from './styles';
 
-export const RegisterMenu: React.FC = () => {
+export const RegisterMenuIndex: React.FC = () => {
   const navigation = useNavigation();
 
   return (

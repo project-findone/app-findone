@@ -3,8 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 
-import { Search } from 'src/screens/Disappeared/Search';
-import { RegisterCase } from 'src/screens/Disappeared/RegisterCase';
 import { Cases } from 'src/screens/Supporter/Cases';
 import { Supporter } from 'src/screens/Supporter';
 
@@ -12,6 +10,8 @@ import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
 import { ProfileRouter } from './ProfileRoutes';
+import { RegisterRouter } from './RegisterRoutes';
+import { SearchRouter } from './SearchRoutes';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,8 +30,8 @@ export const Router: React.FC = () => (
       }}
     >
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="Filter"
+        component={SearchRouter}
         options={{
           title: 'Busca',
           tabBarIcon: (props: { color: string }) => (
@@ -64,8 +64,8 @@ export const Router: React.FC = () => (
       />
 
       <Tab.Screen
-        name="RegisterCase"
-        component={RegisterCase}
+        name="RegisterMenu"
+        component={RegisterRouter}
         options={{
           title: 'Registrar Caso',
           tabBarIcon: () => (
