@@ -10,6 +10,7 @@ import { VerifyUserEmail } from 'src/screens/User/VerifyUserEmail';
 import { EditUser } from 'src/screens/User/EditUser';
 import { Filter } from 'src/screens/Disappeared/Filter';
 import { RegisterCase } from 'src/screens/Disappeared/RegisterCase';
+import { List } from 'src/screens/Disappeared/List';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 
 export interface ProfileParamsList {
@@ -22,13 +23,14 @@ export interface ProfileParamsList {
   EditUser: undefined
   Filter: undefined
   RegisterCase: undefined
+  List: undefined
 }
 
 const ProfileNav = createNativeStackNavigator();
 
 export const ProfileRouter: React.FC = () => (
   <AuthProvider>
-    <ProfileNav.Navigator initialRouteName="ProfileIndex" screenOptions={{ headerShown: false }}>
+    <ProfileNav.Navigator initialRouteName="List" screenOptions={{ headerShown: false }}>
       <ProfileNav.Screen name="ProfileIndex" component={Profile} />
       <ProfileNav.Screen name="SignIn" component={SignIn} />
       <ProfileNav.Screen name="SignUp" component={SignUp} />
@@ -38,6 +40,7 @@ export const ProfileRouter: React.FC = () => (
       <ProfileNav.Screen name="EditUser" component={EditUser} />
       <ProfileNav.Screen name="Filter" component={Filter} />
       <ProfileNav.Screen name="RegisterCase" component={RegisterCase} />
+      <ProfileNav.Screen name="List" component={List} />
     </ProfileNav.Navigator>
   </AuthProvider>
 );
