@@ -1,11 +1,18 @@
 import styled from 'styled-components/native';
 
-export const View = styled.View`
+export const ViewMapa = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
     background-color: #d2d2d2;
     margin-top: 40px;
+`;
+
+export const ViewLista = styled.View`
+    flex: 1;
+    margin-top: 17%;
+    background-color: #E2E2E2;
+    padding: 15px 8% 0 8%;
 `;
 
 export const Text = styled.Text`
@@ -22,6 +29,7 @@ export const BarUp = styled.View`
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     align-items: center;
+    z-index: 1;
 `;
 
 export const Button1 = styled.TouchableOpacity`
@@ -49,41 +57,63 @@ export const ButtonsArea = styled.View`
     align-items: flex-end;
 `;
 
-export const Switch = styled.View`
-  height: 50px;
-  width: 48%;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #E9EDF0;
-  border-radius: 100px;
-  flex-direction: row;
-  padding: 1.7%;
+export const Header = styled.View`
+    flex-direction: row;
+    width: 100%;
+    margin-top: 60px;
 `;
 
-export const Selected = styled.View`
+export const Container = styled.View`
+    padding: 0px 30px 0px 30px;
     height: 100%;
-    width: 50%;
-    background-color: #FFF;
-    justify-content: center;
-    border-radius: 100px;
+    width: 100%;
+`;
+export const Title = styled.Text`
+    font-size: 33px;
+    font-weight: 700;
+    margin-top: 5px;
 `;
 
-export const OptionSelected = styled.Text`
-  color: #1ABFCA;
-  font-weight: bold;
-  font-size: 18px;
-  text-align: center;
+export const ButtonBlue = styled.TouchableOpacity`
+    padding: 14px;
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 25px;
+    border-Color: #0288D1;
+    border-Width: 5px;
+    flex-direction: row;
+    background-color: #fff;
 `;
 
-export const Unselected = styled.View`
-    height: 100%;
-    width: 50%;
-    justify-content: center;
+export const ButtonGreen = styled.TouchableOpacity`
+    padding: 12px;
+    width: 100%;
+    margin-top: 45px;
+    border-radius: 15px;
+    border-Color: #00B7A1;
+    border-Width: 5px;
 `;
 
-export const Option = styled.Text`
-  color: #494949;
-  font-weight: bold;
-  font-size: 18px;
-  text-align: center;
+export const TextName = styled.Text`
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+`;
+
+export const TextMenor = styled.Text`
+    color: #000;
+    font-size: 13px;
+`;
+
+export const ViewText = styled.View`
+    margin-left: 8%;
+`;
+
+export const ViewImage = styled.View`
+
+`;
+
+export const ImagePerfil = styled.Image`
+    height: 70px;
+    width: 70px;
 `;
