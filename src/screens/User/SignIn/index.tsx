@@ -50,7 +50,7 @@ export const SignIn: React.FC = () => {
         password: values.password,
       });
 
-      if (user.personID) { navigation.navigate('ProfileIndex'); }
+      navigation.navigate('ProfileIndex');
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);

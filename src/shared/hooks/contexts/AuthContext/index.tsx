@@ -28,7 +28,7 @@ type TSignUpCredentials = {
 
 type IPersonState = {
   token: string;
-  user: object;
+  userResponse: object;
 };
 
 type IAuthContextData = {
@@ -48,13 +48,11 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     try {
       const response = await api.post('sessions', credentials);
 
-      console.log(credentials);
+      const { token, userResponse } = response.data;
 
-      const { token, user } = response.data;
+      await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(userResponse)]]);
 
-      await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(user)]]);
-
-      setData({ token, user });
+      setData({ token, userResponse });
     } catch (error: any) {
       if (error instanceof AxiosError) {
         if (error.response) {
@@ -90,7 +88,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         'Person:token',
         'Person:self']);
       if (token[1] && user[1]) {
-        setData({ token: token[1], user: JSON.parse(user[1]) });
+        setData({ token: token[1], userResponse: JSON.parse(user[1]) });
       }
     }
     loadStorageData();
@@ -100,7 +98,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     <AuthContext.Provider value={{
       user: {
         token: data.token,
-        data: data.user,
+        data: data.userResponse,
       },
       services: { signIn, signUp },
     }}

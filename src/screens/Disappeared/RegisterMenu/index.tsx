@@ -34,7 +34,7 @@ export const RegisterMenuIndex: React.FC = () => {
 
         </Header>
 
-        <ButtonBlue>
+        <ButtonBlue onPress={() => navigation.navigate('RegisterCase')}>
           <TextButtonBlue>Registrar alguém</TextButtonBlue>
           <TextBlue>Estou procurando por alguém</TextBlue>
         </ButtonBlue>
