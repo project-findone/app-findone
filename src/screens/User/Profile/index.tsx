@@ -34,7 +34,7 @@ export const Profile: React.FC = () => {
           <Text3>Sobre Nós</Text3>
         </DivInput>
 
-        <DivInput2>
+        <DivInput2 onPress={() => navigation.navigate('Terms')}>
           <Icon
             style={{ marginLeft: 25 }}
             name="document-text-outline"
