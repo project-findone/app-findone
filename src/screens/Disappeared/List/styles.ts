@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+interface Props {
+  type: number;
+}
+
 export const Header = styled.View`
     flex-direction: row;
     width: 100%;
@@ -17,12 +21,12 @@ export const Title = styled.Text`
     margin-top: 5px;
 `;
 
-export const ButtonBlue = styled.TouchableOpacity`
+export const PersonCardContainer = styled.TouchableOpacity<Props>`
     padding: 14px;
     width: 100%;
     margin-top: 30px;
     border-radius: 15px;
-    border-Color: #008DAC;
+    border-Color: ${({ type, theme }) => (type === 2 ? theme.COLORS.SECONDARY : theme.COLORS.TERCIARY)};
     border-Width: 5px;
     flex-direction: row;
 `;
@@ -56,6 +60,6 @@ export const ViewImage = styled.View`
 `;
 
 export const ImagePerfil = styled.Image`
-    height: 60;
-    width: 60;
+    height: 60px;
+    width: 60px;
 `;

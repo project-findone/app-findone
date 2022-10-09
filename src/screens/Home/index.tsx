@@ -12,8 +12,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { Button } from '@shared/components/button';
 
-
- 
 import { fetchUserGithub, fetchLocalMapBox } from './api';
 
 import {
@@ -45,7 +43,7 @@ const initialRegion = {
   longitudeDelta: 100,
 };
 
-export const Map: React.FC = () => {
+export const Map: React.FC<{ name: string }> = ({ name }) => {
   const [devs, setDevs] = useState<Dev[]>([]);
   const [username, setUsername] = useState('');
   const [region, setRegion] = useState<Region>();

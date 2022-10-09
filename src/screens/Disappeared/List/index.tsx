@@ -5,12 +5,13 @@ import { SafeAreaView } from '@shared/components/SafeView/index';
 import { FlatList, ListRenderItem } from 'react-native';
 import UnknownImage from '@shared/assets/unknown.png';
 import {
-  Title, ButtonBlue, Container, Header,
+  Title, PersonCardContainer, Header,
   Text, TextMenor, ViewText, ViewImage, ImagePerfil,
 } from './styles';
 
 interface IUser {
-  id: string;
+  id: number;
+  personTypeID: number;
   name: string;
   city: string;
   age: string;
@@ -19,63 +20,72 @@ interface IUser {
 
 const DATA = [
   {
-    id: '1',
+    id: 1,
+    personTypeID: 3,
     name: 'Maria Carolina Silva',
     city: 'Santana de Parnaíba',
     age: '20',
   },
   {
-    id: '2',
+    id: 2,
+    personTypeID: 2,
     name: 'Carlos Alberto',
     city: 'São Paulo',
     age: '35',
   },
   {
-    id: '3',
+    id: 3,
+    personTypeID: 3,
     name: 'Paula Oliveira',
     city: 'Barueri',
     age: '10',
   },
   {
-    id: '4',
+    id: 4,
+    personTypeID: 2,
     name: 'João Oliveira',
     city: 'Barueri',
     age: '10',
   },
   {
-    id: '5',
+    id: 5,
+    personTypeID: 3,
     name: 'Paula Oliveira',
     city: 'Barueri',
     age: '10',
   },
   {
-    id: '6',
+    id: 6,
+    personTypeID: 2,
     name: 'Paula Oliveira',
     city: 'Barueri',
     age: '10',
   },
   {
-    id: '7',
+    id: 7,
+    personTypeID: 3,
     name: 'Paula Oliveira',
     city: 'Barueri',
     age: '10',
   },
   {
-    id: '8',
+    id: 8,
+    personTypeID: 2,
     name: 'Paula Oliveira',
     city: 'Barueri',
     age: '10',
   },
   {
-    id: '9',
+    id: 9,
+    personTypeID: 3,
     name: 'Paula Oliveira',
     city: 'Barueri',
     age: '10',
   },
 ];
 
-const Item = ({ data }: { data: IUser }) => (
-  <ButtonBlue>
+const Item: React.FC<{ data: IUser }> = ({ data }) => (
+  <PersonCardContainer type={data.personTypeID}>
     <ViewImage>
       <ImagePerfil source={UnknownImage} />
     </ViewImage>
@@ -92,7 +102,7 @@ const Item = ({ data }: { data: IUser }) => (
         anos
       </TextMenor>
     </ViewText>
-  </ButtonBlue>
+  </PersonCardContainer>
 );
 
 export const List: React.FC = () => {
@@ -100,21 +110,18 @@ export const List: React.FC = () => {
 
   return (
     <SafeAreaView>
-      <Container>
-
-        <Header>
-
-          <Title>Meus casos</Title>
-
-        </Header>
-
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={(item: IUser) => item.id}
-        />
-
-      </Container>
+      <FlatList
+        ListHeaderComponent={(
+          <Header>
+            <Title>Meus casos</Title>
+          </Header>
+)}
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => String(item.id)}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 30, paddingBottom: 30 }}
+      />
     </SafeAreaView>
   );
 };
