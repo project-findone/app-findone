@@ -5,14 +5,17 @@ import { Icon } from 'react-native-elements';
 
 import TopIcon from '@shared/assets/userPhoto.jpg';
 
+import { useAuth } from '@shared/hooks/contexts/AuthContext';
+
 import {
   Button1, Title, UserImage, Button2, TextEdit, TextExit, Name,
 } from './styles';
 
 export const Logged: React.FC = () => {
+  const { user: { data } } = useAuth();
   const navigation = useNavigation();
 
-  const name = 'Jhonny Lima Santos';
+  const { name, lastname } = data;
   const type = 'Apoiador';
   const pontos = 150;
 
@@ -26,7 +29,7 @@ export const Logged: React.FC = () => {
       />
 
       <Name>
-        {name}
+        {`${name} ${lastname}`}
       </Name>
 
       <Title>

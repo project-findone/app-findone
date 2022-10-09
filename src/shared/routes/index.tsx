@@ -30,7 +30,7 @@ export const Router: React.FC = () => (
       }}
     >
       <Tab.Screen
-        name="Filter"
+        name="Search"
         component={SearchRouter}
         options={{
           title: 'Busca',
