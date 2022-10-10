@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 
 import { Cases } from 'src/screens/Supporter/Cases';
-import { Supporter } from 'src/screens/Supporter';
 
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
@@ -12,6 +11,7 @@ import { TabBarStyles } from './styles';
 import { ProfileRouter } from './ProfileRoutes';
 import { RegisterRouter } from './RegisterRoutes';
 import { SearchRouter } from './SearchRoutes';
+import { SupporterRouter } from './SupporterRoutes';
 
 const Tab = createBottomTabNavigator();
 
@@ -77,7 +77,7 @@ export const Router: React.FC = () => (
 
       <Tab.Screen
         name="Supporter"
-        component={Supporter}
+        component={SupporterRouter}
         options={{
           title: 'Apoiador',
           tabBarIcon: (props: { color: string }) => (

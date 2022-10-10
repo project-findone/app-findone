@@ -9,7 +9,6 @@ import { ResetPass } from 'src/screens/User/ResetPass';
 import { VerifyUserEmail } from 'src/screens/User/VerifyUserEmail';
 import { EditUser } from 'src/screens/User/EditUser';
 import { RegisterCase } from 'src/screens/Disappeared/RegisterCase';
-import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 
 import { About } from 'src/screens/User/About';
@@ -34,7 +33,7 @@ const ProfileNav = createNativeStackNavigator();
 
 export const ProfileRouter: React.FC = () => (
   <AuthProvider>
-    <ProfileNav.Navigator initialRouteName="CaseInformation" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#fff' } }}>
+    <ProfileNav.Navigator initialRouteName="Profileindex" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#fff' } }}>
       <ProfileNav.Screen name="ProfileIndex" component={Profile} />
       <ProfileNav.Screen name="SignIn" component={SignIn} />
       <ProfileNav.Screen name="SignUp" component={SignUp} />
@@ -45,7 +44,6 @@ export const ProfileRouter: React.FC = () => (
       <ProfileNav.Screen name="RegisterCase" component={RegisterCase} />
       <ProfileNav.Screen name="About" component={About} />
       <ProfileNav.Screen name="Terms" component={Terms} />
-      <ProfileNav.Screen name="CaseInformation" component={CaseInformation} />
     </ProfileNav.Navigator>
   </AuthProvider>
 );
