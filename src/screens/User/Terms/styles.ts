@@ -9,7 +9,7 @@ export const TopGroup = styled.View`
     padding: 7% 10% 0 10%;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 `;
 
 export const Title = styled.Text`
@@ -43,4 +43,22 @@ export const BottomText = styled.Text`
     font-size: 25px;
     color: rgba(0, 0, 0, 0.25);
     font-weight: 500;
+`;
+
+export const ButtonRight = styled.TouchableOpacity`
+    align-items: center;
+    align-self: center;
+    padding: 11px;
+    width: 100%;
+    margin: -35px 0 75px 0;
+    border-radius: 30px;
+    background-color: #06B6C0;
+`;
+
+export const TextButtonRight = styled.Text`
+    color: #FFF;
+    font-weight: 600;
+    margin: 3px;
+    font-size: 20px;
+    font-stretch: expanded;
 `;

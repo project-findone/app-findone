@@ -3,29 +3,43 @@ import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from 'react-native-elements';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   Title, Text, BottomArea, InfoArea,
-  ScrollView, TopGroup, BottomText,
+  ScrollView, TopGroup, BottomText, ButtonRight, TextButtonRight,
 } from './styles';
 
 export const Terms: React.FC = () => {
   const navigation = useNavigation();
+  const params = useRoute();
+  const typePage = params.params.initial;
 
   return (
     <>
       <SafeAreaView>
         <TopGroup>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon
-              name="arrow-left"
-              color="#000"
-              type="octicon"
-              size={60}
-              tvParallaxProperties={undefined}
-            />
+            {typePage === false
+              ? (
+                <Icon
+                  name="arrow-left"
+                  color="#000"
+                  type="octicon"
+                  size={60}
+                  tvParallaxProperties={undefined}
+                />
+              )
+              : (
+                <Icon
+                  name="file-multiple"
+                  color="#00B8D8"
+                  type="material-community"
+                  size={52}
+                  tvParallaxProperties={undefined}
+                />
+              )}
           </TouchableOpacity>
 
           <Title>Termos de Uso</Title>
@@ -62,14 +76,20 @@ export const Terms: React.FC = () => {
             litora torquent per conubia nostra, per inceptos himenaeos. Cras tincidunt aliquet sem,
             vitae varius dolor luctus ac. Morbi euismod aliquam sapien et posuere.
           </Text>
+          {typePage === true
+            ? (
+              <ButtonRight onPress={() => navigation.navigate('SearchIndex')}>
+                <TextButtonRight> LI E CONCORDO </TextButtonRight>
+              </ButtonRight>
+            ) : ('')}
         </ScrollView>
       </SafeAreaView>
 
       <BottomArea>
         <LinearGradient
           colors={['transparent', '#fff']}
-          style={{ width: '100%', height: '50%' }}
-          locations={[0.5, 0.7]}
+          style={{ width: '100%', height: '22%' }}
+          locations={[0, 0.25]}
         >
           <InfoArea>
             <Icon

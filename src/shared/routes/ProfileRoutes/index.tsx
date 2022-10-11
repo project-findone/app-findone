@@ -43,7 +43,7 @@ export const ProfileRouter: React.FC = () => (
       <ProfileNav.Screen name="EditUser" component={EditUser} />
       <ProfileNav.Screen name="RegisterCase" component={RegisterCase} />
       <ProfileNav.Screen name="About" component={About} />
-      <ProfileNav.Screen name="Terms" component={Terms} />
+      <ProfileNav.Screen name="Terms" component={Terms} initialParams={{ initial: false }} />
     </ProfileNav.Navigator>
   </AuthProvider>
 );
