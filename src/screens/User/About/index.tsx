@@ -15,7 +15,7 @@ export const About: React.FC = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
         <TopGroup>
 

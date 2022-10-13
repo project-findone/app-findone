@@ -10,6 +10,7 @@ import {
 
 import UnknownImage from '@shared/assets/unknown.png';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DATA } from './Data';
 import { ModalInit } from './Modal';
 
@@ -56,12 +57,20 @@ const Item = ({ data }: { data: IUser }) => (
 export const SearchIndex = () => {
   const navigation = useNavigation();
   const [optionSelected, setOptionSelected] = useState(1);
+  const [firstTime, setFirstTime] = useState('true');
 
   const onSelectSwitch = (index: any) => {
     setOptionSelected(index);
   };
 
   const renderItem: ListRenderItem<IUser> = ({ item }) => <Item data={item} />;
+
+  const readStorage = async () => {
+    const first = await AsyncStorage.getItem('firstTime').toString();
+    setFirstTime(first);
+  };
+
+  readStorage();
 
   return (
     <SafeAreaView>
@@ -90,7 +99,7 @@ export const SearchIndex = () => {
 
       { optionSelected === 1 ? (
         <ViewMapa>
-          <ModalInit />
+          { firstTime === 'true' && <ModalInit /> }
         </ViewMapa>
       ) : (
         <ViewLista>

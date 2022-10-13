@@ -2,21 +2,16 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RegisterMenuIndex } from 'src/screens/Disappeared/RegisterMenu';
-import { RegisterCase } from 'src/screens/Disappeared/RegisterCase';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
+import { RegisterCase } from 'src/screens/Disappeared/RegisterCase';
 
-export interface RegisterParamsList {
-  RegisterMenu: undefined
-  RegisterCase: undefined
-}
-
-const RegisterNav = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const RegisterRouter: React.FC = () => (
   <AuthProvider>
-    <RegisterNav.Navigator screenOptions={{ headerShown: false }}>
-      <RegisterNav.Screen name="RegisterMenuIndex" component={RegisterMenuIndex} />
-      <RegisterNav.Screen name="RegisterCase" component={RegisterCase} />
-    </RegisterNav.Navigator>
+    <Stack.Navigator initialRouteName="RegisterMenuIndex" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="RegisterMenuIndex" component={RegisterMenuIndex} />
+      <Stack.Screen name="RegisterCase" component={RegisterCase} />
+    </Stack.Navigator>
   </AuthProvider>
 );

@@ -13,15 +13,15 @@ export interface SupporterParamsList {
   RecognizeFaces: undefined
 }
 
-const SearchNav = createNativeStackNavigator();
+const SupprterNav = createNativeStackNavigator();
 
 export const SupporterRouter: React.FC = () => (
   <AuthProvider>
-    <SearchNav.Navigator initialRouteName="SupporterIndex" screenOptions={{ headerShown: false }}>
-      <SearchNav.Screen name="SupporterIndex" component={Supporter} />
-      <SearchNav.Screen name="InvolvedCases" component={InvolvedCases} />
-      <SearchNav.Screen name="Ranking" component={Ranking} />
-      <SearchNav.Screen name="RecognizeFaces" component={RecognizeFaces} />
-    </SearchNav.Navigator>
+    <SupprterNav.Navigator initialRouteName="SupporterIndex" screenOptions={{ headerShown: false }}>
+      <SupprterNav.Screen name="SupporterIndex" component={Supporter} />
+      <SupprterNav.Screen name="InvolvedCases" component={InvolvedCases} />
+      <SupprterNav.Screen name="Ranking" component={Ranking} />
+      <SupprterNav.Screen name="RecognizeFaces" component={RecognizeFaces} />
+    </SupprterNav.Navigator>
   </AuthProvider>
 );

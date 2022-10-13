@@ -13,7 +13,6 @@ export const Container = styled.View`
 export const Header = styled.View`
     flex-direction: row;
     width: 100%;
-    margin-top: 20px;
 `;
 
 export const TextAge = styled.Text`

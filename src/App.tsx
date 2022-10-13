@@ -13,6 +13,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { RootSiblingParent } from 'react-native-root-siblings';
 
 import { Theme } from '@shared/theme';
+import { NavigationContainer } from '@react-navigation/native';
 import { Router } from './shared/routes';
 
 SplashScreen.preventAutoHideAsync();
@@ -39,7 +40,7 @@ const App = () => {
     <View style={{ flex: 1 }} onLayout={onLayoutLoaded}>
       <RootSiblingParent>
         <ThemeProvider theme={Theme}>
-          <Router />
+          <NavigationContainer><Router /></NavigationContainer>
           <StatusBar />
         </ThemeProvider>
       </RootSiblingParent>

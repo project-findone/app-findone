@@ -20,7 +20,7 @@ export const Terms: React.FC = () => {
     <>
       <SafeAreaView>
         <TopGroup>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate('Home', { screen: 'Profile' })}>
             {typePage === false
               ? (
                 <Icon
@@ -78,7 +78,7 @@ export const Terms: React.FC = () => {
           </Text>
           {typePage === true
             ? (
-              <ButtonRight onPress={() => navigation.navigate('SearchIndex')}>
+              <ButtonRight onPress={() => navigation.navigate('Home')}>
                 <TextButtonRight> LI E CONCORDO </TextButtonRight>
               </ButtonRight>
             ) : ('')}
