@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, SafeAreaView,
 } from 'react-native';
@@ -8,6 +8,7 @@ import SafeViewAndroid from '@shared/components/SafeView';
 import IconFindone from '@shared/assets/icon-findone.png';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import { Terms } from 'src/screens/Initials/Terms';
 import { NoLogged } from './NoLogged';
 import { Logged } from './Logged';
 
@@ -16,6 +17,7 @@ import {
 } from './styles';
 
 export const Profile: React.FC = () => {
+  const [openModal, setOpenModal] = useState(false);
   const navigation = useNavigation();
 
   const data = useAuth();
@@ -34,7 +36,7 @@ export const Profile: React.FC = () => {
           <Text3>Sobre Nós</Text3>
         </DivInput>
 
-        <DivInput2 onPress={() => navigation.navigate('Terms', { initial: false })}>
+        <DivInput2 onPress={() => setOpenModal(true)}>
           <Icon
             style={{ marginLeft: 25 }}
             name="document-text-outline"
@@ -46,6 +48,8 @@ export const Profile: React.FC = () => {
           <Text3>Termos de Uso</Text3>
         </DivInput2>
       </View>
+
+      {openModal && <Terms initial={false} /> }
     </SafeAreaView>
   );
 };

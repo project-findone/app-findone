@@ -5,8 +5,6 @@ import { Icon } from 'react-native-elements';
 import { Cases } from 'src/screens/Supporter/Cases';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { FirstScreec } from 'src/screens/Initials/Welcome';
-import { Terms } from 'src/screens/User/Terms';
 import { Filter } from 'src/screens/Disappeared/Filter';
 import { About } from 'src/screens/User/About';
 import { EditUser } from 'src/screens/User/EditUser';
@@ -119,10 +117,8 @@ const HomeTabs: React.FC = () => (
 );
 
 export const Router: React.FC = () => (
-  <Stack.Navigator initialRouteName="FirstScreen" screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={HomeTabs} />
-    <Stack.Screen name="FirstScreen" component={FirstScreec} />
-    <Stack.Screen name="Terms" component={Terms} initialParams={{ initial: false }} />
     <Stack.Screen name="Filter" component={Filter} />
     <Stack.Screen name="About" component={About} />
     <Stack.Screen name="EditUser" component={EditUser} />

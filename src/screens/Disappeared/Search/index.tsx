@@ -11,6 +11,8 @@ import {
 import UnknownImage from '@shared/assets/unknown.png';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Welcome } from 'src/screens/Initials/Welcome';
+import { Terms } from 'src/screens/Initials/Terms';
 import { DATA } from './Data';
 import { ModalInit } from './Modal';
 
@@ -99,7 +101,13 @@ export const SearchIndex = () => {
 
       { optionSelected === 1 ? (
         <ViewMapa>
-          { firstTime === 'true' && <ModalInit /> }
+          { firstTime === 'true' && (
+          <>
+            <ModalInit />
+            <Terms initial />
+            <Welcome />
+          </>
+          ) }
         </ViewMapa>
       ) : (
         <ViewLista>

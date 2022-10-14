@@ -1,9 +1,7 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Modal, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from 'react-native-elements';
-
-import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import {
@@ -11,16 +9,24 @@ import {
   ScrollView, TopGroup, BottomText, ButtonRight, TextButtonRight,
 } from './styles';
 
-export const Terms: React.FC = () => {
-  const navigation = useNavigation();
-  const params = useRoute();
-  const typePage = params.params.initial;
+interface Props {
+  initial: boolean;
+}
+
+export const Terms: React.FC<Props> = ({ initial }) => {
+  const [termsVisible, setTermsVisible] = useState(true);
+  const typePage = initial;
 
   return (
-    <>
+    <Modal
+      visible={termsVisible}
+      onRequestClose={() => {
+        setTermsVisible(!termsVisible);
+      }}
+    >
       <SafeAreaView>
         <TopGroup>
-          <TouchableOpacity onPress={() => navigation.navigate('Home', { screen: 'Profile' })}>
+          <TouchableOpacity onPress={() => setTermsVisible(!termsVisible)}>
             {typePage === false
               ? (
                 <Icon
@@ -78,7 +84,7 @@ export const Terms: React.FC = () => {
           </Text>
           {typePage === true
             ? (
-              <ButtonRight onPress={() => navigation.navigate('Home')}>
+              <ButtonRight onPress={() => setTermsVisible(!termsVisible)}>
                 <TextButtonRight> LI E CONCORDO </TextButtonRight>
               </ButtonRight>
             ) : ('')}
@@ -105,6 +111,6 @@ export const Terms: React.FC = () => {
           </InfoArea>
         </LinearGradient>
       </BottomArea>
-    </>
+    </Modal>
   );
 };

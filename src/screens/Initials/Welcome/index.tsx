@@ -1,17 +1,23 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 
 import White_logo from '@shared/assets/white_logo.png';
 import Background_image from '@shared/assets/background_image.jpeg';
 
+import { Modal } from 'react-native';
 import {
   Background, ButtonProsseguir, Logo, Tittle, TextButton,
 } from './styles';
 
-export const FirstScreec: React.FC = () => {
-  const navigation = useNavigation();
+export const Welcome: React.FC = () => {
+  const [welcomeVisible, setWelcomeVisible] = useState(true);
+
   return (
-    <>
+    <Modal
+      visible={welcomeVisible}
+      onRequestClose={() => {
+        setWelcomeVisible(!welcomeVisible);
+      }}
+    >
       <Background
         source={Background_image}
       />
@@ -22,9 +28,9 @@ export const FirstScreec: React.FC = () => {
 
       <Tittle>Bem Vindo(a)!</Tittle>
 
-      <ButtonProsseguir onPress={() => navigation.navigate('Terms', { initial: true })}>
+      <ButtonProsseguir onPress={() => setWelcomeVisible(!welcomeVisible)}>
         <TextButton>PROSSEGUIR</TextButton>
       </ButtonProsseguir>
-    </>
+    </Modal>
   );
 };
