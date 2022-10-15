@@ -16,9 +16,12 @@ import {
   Text3, DivInput, DivInput2, IconAbout,
 } from './styles';
 
-export const Profile: React.FC = () => {
+type Props = { route: any };
+
+export const Profile: React.FC<Props> = ({ route }) => {
   const [openModal, setOpenModal] = useState(false);
   const navigation = useNavigation();
+  console.log(route);
 
   const data = useAuth();
 

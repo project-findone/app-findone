@@ -14,10 +14,12 @@ export interface RegisterParamsList {
 
 const SearchNav = createNativeStackNavigator();
 
-export const SearchRouter: React.FC = () => (
+type Props = { route: any };
+
+export const SearchRouter: React.FC<Props> = ({ route: params }) => (
   <AuthProvider>
     <SearchNav.Navigator initialRouteName="SearchIndex" screenOptions={{ headerShown: false }}>
-      <SearchNav.Screen name="SearchIndex" component={SearchIndex} />
+      <SearchNav.Screen name="SearchIndex" component={SearchIndex} initialParams={params.params} />
     </SearchNav.Navigator>
   </AuthProvider>
 );

@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
-import { Modal, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from '@shared/components/SafeView';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import {
-  Title, Text, BottomArea, InfoArea,
-  ScrollView, TopGroup, BottomText, ButtonRight, TextButtonRight,
+  Title, Text, BottomArea, InfoArea, Container,
+  TopGroup, BottomText, ButtonRight, TextButtonRight, ScrollView,
 } from './styles';
 
-interface Props {
-  initial: boolean;
-}
+type Props = { route: any };
 
-export const Terms: React.FC<Props> = ({ initial }) => {
-  const [termsVisible, setTermsVisible] = useState(true);
-  const typePage = initial;
+export const Terms: React.FC<Props> = ({ route }) => {
+  const navigation = useNavigation();
+  const typePage = route.params.initial;
 
   return (
-    <Modal
-      visible={termsVisible}
-      onRequestClose={() => {
-        setTermsVisible(!termsVisible);
-      }}
-    >
-      <SafeAreaView>
+    <SafeAreaView>
+      <Container>
         <TopGroup>
-          <TouchableOpacity onPress={() => setTermsVisible(!termsVisible)}>
-            {typePage === false
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            {typePage === 'false'
               ? (
                 <Icon
                   name="arrow-left"
@@ -82,35 +76,35 @@ export const Terms: React.FC<Props> = ({ initial }) => {
             litora torquent per conubia nostra, per inceptos himenaeos. Cras tincidunt aliquet sem,
             vitae varius dolor luctus ac. Morbi euismod aliquam sapien et posuere.
           </Text>
-          {typePage === true
+          {typePage === 'true'
             ? (
-              <ButtonRight onPress={() => setTermsVisible(!termsVisible)}>
+              <ButtonRight onPress={() => navigation.navigate('Local')}>
                 <TextButtonRight> LI E CONCORDO </TextButtonRight>
               </ButtonRight>
             ) : ('')}
         </ScrollView>
-      </SafeAreaView>
 
-      <BottomArea>
-        <LinearGradient
-          colors={['transparent', '#fff']}
-          style={{ width: '100%', height: '22%' }}
-          locations={[0, 0.25]}
-        >
-          <InfoArea>
-            <Icon
-              name="angle-double-up"
-              color="rgba(0, 0, 0, 0.25)"
-              type="font-awesome"
-              size={50}
-              tvParallaxProperties={undefined}
-            />
-            <BottomText>
-              Deslize
-            </BottomText>
-          </InfoArea>
-        </LinearGradient>
-      </BottomArea>
-    </Modal>
+        <BottomArea>
+          <LinearGradient
+            colors={['transparent', '#fff']}
+            style={{ width: '100%', height: '22%' }}
+            locations={[0, 0.25]}
+          >
+            <InfoArea>
+              <Icon
+                name="angle-double-up"
+                color="rgba(0, 0, 0, 0.25)"
+                type="font-awesome"
+                size={50}
+                tvParallaxProperties={undefined}
+              />
+              <BottomText>
+                Deslize
+              </BottomText>
+            </InfoArea>
+          </LinearGradient>
+        </BottomArea>
+      </Container>
+    </SafeAreaView>
   );
 };

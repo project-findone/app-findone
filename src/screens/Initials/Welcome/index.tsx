@@ -1,23 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import White_logo from '@shared/assets/white_logo.png';
 import Background_image from '@shared/assets/background_image.jpeg';
 
-import { Modal } from 'react-native';
 import {
   Background, ButtonProsseguir, Logo, Tittle, TextButton,
 } from './styles';
 
 export const Welcome: React.FC = () => {
-  const [welcomeVisible, setWelcomeVisible] = useState(true);
+  const navigation = useNavigation();
 
   return (
-    <Modal
-      visible={welcomeVisible}
-      onRequestClose={() => {
-        setWelcomeVisible(!welcomeVisible);
-      }}
-    >
+    <>
       <Background
         source={Background_image}
       />
@@ -28,9 +23,9 @@ export const Welcome: React.FC = () => {
 
       <Tittle>Bem Vindo(a)!</Tittle>
 
-      <ButtonProsseguir onPress={() => setWelcomeVisible(!welcomeVisible)}>
+      <ButtonProsseguir onPress={() => navigation.navigate('Terms', {initial: 'true'})}>
         <TextButton>PROSSEGUIR</TextButton>
       </ButtonProsseguir>
-    </Modal>
+    </>
   );
 };

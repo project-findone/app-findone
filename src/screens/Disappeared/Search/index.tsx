@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import { SafeAreaView } from '@shared/components/SafeView';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Icon } from 'react-native-elements';
 import CustomSwitch from '@shared/components/Switch';
+import * as Location from 'expo-location';
 import {
   FlatList,
   ListRenderItem,
@@ -10,9 +12,8 @@ import {
 
 import UnknownImage from '@shared/assets/unknown.png';
 
+import MapView from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Welcome } from 'src/screens/Initials/Welcome';
-import { Terms } from 'src/screens/Initials/Terms';
 import { DATA } from './Data';
 import { ModalInit } from './Modal';
 
@@ -56,26 +57,42 @@ const Item = ({ data }: { data: IUser }) => (
   </ButtonBlue>
 );
 
-export const SearchIndex = () => {
+type Props = { route: any };
+
+export const SearchIndex: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
   const [optionSelected, setOptionSelected] = useState(1);
-  const [firstTime, setFirstTime] = useState('true');
 
   const onSelectSwitch = (index: any) => {
     setOptionSelected(index);
   };
 
   const renderItem: ListRenderItem<IUser> = ({ item }) => <Item data={item} />;
-
-  const readStorage = async () => {
-    const first = await AsyncStorage.getItem('firstTime').toString();
-    setFirstTime(first);
+  const origin = {
+    latitude: -23.5559942160993,
+    longitude: -46.63910562391042,
+    latitudeDelta: 0.000922,
+    longitudeDelta: 0.010021,
   };
 
-  readStorage();
+  if (route?.params?.origin !== undefined) {
+    origin.latitude = route.params.origin.latitude;
+    origin.longitude = route.params.origin.longitude;
+  }
+
+  const [firstTime, setFirstTime] = useState('');
+  const readData = async () => {
+    let value = await AsyncStorage.getItem('firstTime');
+    if (value === null || '') {
+      value = 'true';
+    }setFirstTime(value);
+  };
+  readData();
 
   return (
     <SafeAreaView>
+      {firstTime === 'true' && <ModalInit />}
+
       <BarUp>
         <ButtonsArea>
           <CustomSwitch
@@ -101,13 +118,12 @@ export const SearchIndex = () => {
 
       { optionSelected === 1 ? (
         <ViewMapa>
-          { firstTime === 'true' && (
-          <>
-            <ModalInit />
-            <Terms initial />
-            <Welcome />
-          </>
-          ) }
+          <MapView
+            style={{ width: '100%', height: '100%' }}
+            initialRegion={origin}
+            showsUserLocation
+            loadingEnabled
+          />
         </ViewMapa>
       ) : (
         <ViewLista>
