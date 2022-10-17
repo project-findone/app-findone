@@ -21,6 +21,7 @@ import { ProfileRouter } from './ProfileRoutes';
 import { SearchRouter } from './SearchRoutes';
 import { RegisterRouter } from './RegisterRoutes';
 import { SupporterRouter } from './SupporterRoutes';
+import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -142,6 +143,7 @@ export const Router: React.FC = () => {
         <Stack.Screen name="Filter" component={Filter} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="EditUser" component={EditUser} />
+        <Stack.Screen name="InfoCase" component={CaseInformation} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Welcome" component={Welcome} />

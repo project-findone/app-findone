@@ -42,13 +42,12 @@ export const CaseInformation: React.FC = () => {
     <SafeAreaView>
       <ScrollView>
         <BarUp>
+          <ImageHeader source={userPhoto} />
           <LinearGradient
-            colors={[
-              'transparent', '#0288D1']}
-            locations={[0.5, 0.7]}
-          >
-            <ImageHeader source={userPhoto} />
-          </LinearGradient>
+            colors={['transparent', '#0288D1']}
+            style={{ width: '100%', height: '100%', position: 'absolute' }}
+            locations={[0.2, 0.7]}
+          />
           <ViewDadosImagem>
             <TextImagem>Jhonny Lima Santos</TextImagem>
             <TextImagemMenor> Desaparecido • 25 Anos • Homem </TextImagemMenor>
