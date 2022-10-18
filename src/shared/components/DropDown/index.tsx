@@ -36,6 +36,11 @@ export const DropDown: React.FC<Props> = memo(({
   const dropValueRef = useRef<DropDownValueRefReference>({ value: defaultValue });
   const dropElementRef = useRef<DropDownSelect>(null);
 
+  if (width === undefined) {
+    // eslint-disable-next-line no-param-reassign
+    width = 100;
+  }
+
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   useEffect(() => {
@@ -79,10 +84,10 @@ export const DropDown: React.FC<Props> = memo(({
       rowTextForSelection={(
         item: { label: string, value: string },
       ) => item.label}
-      buttonStyle={originalDropDownStyle.buttonContainer}
+      buttonStyle={originalDropDownStyle(width).buttonContainer}
       dropdownOverlayColor="transparent"
-      dropdownStyle={originalDropDownStyle.dropDownContainer}
-      rowTextStyle={originalDropDownStyle.dropDownText}
+      dropdownStyle={originalDropDownStyle(width).dropDownContainer}
+      rowTextStyle={originalDropDownStyle(width).dropDownText}
       renderCustomizedButtonChild={() => (
         <>
           <Label />

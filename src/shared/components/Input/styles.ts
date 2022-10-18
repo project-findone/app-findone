@@ -16,7 +16,7 @@ export const TextInput = styled.TextInput<Props>`
     height: 80%;
     color: ${({ theme }) => theme.COLORS.CAPTION_700};
     font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-    font-size: ${({ theme }) => theme.FONT_SIZE.X_SM};
+    font-size: ${({ theme }) => theme.FONT_SIZE.MD};
     border: 2px solid;
     border-color: ${({ error, theme }) => (error
     ? theme.COLORS.ALERT
@@ -29,14 +29,14 @@ export const TextInput = styled.TextInput<Props>`
 export const LabelContainer = styled.View<Props>`
     background-color: ${({ theme }) => theme.COLORS.BG};
     align-self: flex-start;
-    padding: 6px;
-    margin-bottom: -14px;
+    padding: 3px 9px 3px 9px;
+    margin-bottom: -15px;
     margin-left: 18px;
     z-index: 1;
 `;
 
 export const LabelText = styled.Text<Props>`
-    font-size: ${({ theme }) => theme.FONT_SIZE.SM};
+    font-size: ${({ theme }) => theme.FONT_SIZE.MD};
     font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
     color: ${({ error, theme }) => (error
     ? theme.COLORS.ALERT
