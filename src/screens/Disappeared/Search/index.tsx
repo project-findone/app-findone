@@ -85,9 +85,9 @@ export const SearchIndex: React.FC<Props> = ({ route }) => {
   };
 
   const getUserLocation = async () => {
-    const servicesEnabled = await Location.hasServicesEnabledAsync();
-    console.log(servicesEnabled);
-    if (servicesEnabled) {
+    const { status } = await Location.getForegroundPermissionsAsync();
+    console.log(status);
+    if (status === 'granted') {
       const coordsPosition = await Location.getCurrentPositionAsync();
       const geocodePosition = await Location.reverseGeocodeAsync({
         latitude: coordsPosition.coords.latitude,
@@ -95,7 +95,7 @@ export const SearchIndex: React.FC<Props> = ({ route }) => {
       });
       return { coordsPosition, geocodePosition };
     }
-    await Location.getForegroundPermissionsAsync();
+    await Location.requestForegroundPermissionsAsync();
 
     return { coordsPosition: null, geocodePosition: null };
   };
