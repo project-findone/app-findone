@@ -48,35 +48,6 @@ export const SignUp: React.FC = () => {
     { label: 'Feminino', value: 'female' },
     { label: 'Prefiro não Informar', value: 'undefined' },
   ]);
-  const [stateItems] = useState([
-    { label: 'AC', value: 'AC' },
-    { label: 'AL', value: 'AL' },
-    { label: 'AP', value: 'AP' },
-    { label: 'AM', value: 'AM' },
-    { label: 'BA', value: 'BA' },
-    { label: 'CE', value: 'CE' },
-    { label: 'DF', value: 'DF' },
-    { label: 'ES', value: 'ES' },
-    { label: 'GO', value: 'GO' },
-    { label: 'MA', value: 'MA' },
-    { label: 'MT', value: 'MT' },
-    { label: 'MS', value: 'MS' },
-    { label: 'MG', value: 'MG' },
-    { label: 'PA', value: 'PA' },
-    { label: 'PB', value: 'PB' },
-    { label: 'PR', value: 'PR' },
-    { label: 'PE', value: 'PE' },
-    { label: 'PI', value: 'PI' },
-    { label: 'RJ', value: 'RJ' },
-    { label: 'RN', value: 'RN' },
-    { label: 'RS', value: 'RS' },
-    { label: 'RO', value: 'RO' },
-    { label: 'RR', value: 'RR' },
-    { label: 'SC', value: 'SC' },
-    { label: 'SP', value: 'SP' },
-    { label: 'SE', value: 'SE' },
-    { label: 'TO', value: 'TO' },
-  ]);
   const navigation = useNavigation();
   const { services: { signUp } } = useAuth();
 
@@ -111,7 +82,7 @@ export const SignUp: React.FC = () => {
       .then((res) => res.json()).then((data) => {
         setStateValue(data.uf);
         setCityValue(data.localidade);
-      });
+      }).catch((error) => { console.error(error); });
   }
 
   return (
@@ -159,25 +130,13 @@ export const SignUp: React.FC = () => {
 
           <DivLocal>
 
-            <DropDown
-              labelText="Estado"
-              name="state"
-              data={stateItems}
-              width={35}
-              placeholder={stateValue}
-            />
+            <Input name="state" marginTop={20} labelText="Estado" width={35} editable={false} value={stateValue} />
 
-            <DropDown
-              labelText="Cidade"
-              name="city"
-              data={genderItems}
-              placeholder={cityValue}
-              width={60}
-            />
+            <Input name="city" marginTop={20} labelText="Cidade" width={60} editable={false} value={cityValue} />
 
           </DivLocal>
 
-          <Input name="email" marginTop={20} labelText="Email" />
+          <Input name="email" marginTop={12} labelText="Email" />
 
           <Input name="password" marginTop={20} labelText="Senha" />
 

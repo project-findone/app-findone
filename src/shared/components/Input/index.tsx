@@ -16,13 +16,14 @@ interface InputProps extends TextInputProps {
   labelText?: string;
   marginTop?: number;
   width?: number;
+  value?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
-  labelText, marginTop, name, width, ...TextProps
+  labelText, marginTop, name, width, value, ...TextProps
 }) => {
   const {
-    defaultValue = '', fieldName, registerField, error,
+    defaultValue = value, fieldName, registerField, error,
   } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   const inputElementRef = useRef<any>(null);
@@ -62,8 +63,9 @@ export const Input: React.FC<InputProps> = ({
         error={error !== undefined}
         ref={inputElementRef}
         {...TextProps}
-        onChangeText={(value: string) => {
-          inputValueRef.current.value = value;
+        value={value}
+        onChangeText={(valueText: string) => {
+          inputValueRef.current.value = valueText;
         }}
       />
       {error !== undefined ? <ErrorText>{error}</ErrorText> : null}
