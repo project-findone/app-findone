@@ -17,7 +17,6 @@ import {
 } from './styles';
 
 export const Profile: React.FC = () => {
-  const [openModal, setOpenModal] = useState(false);
   const navigation = useNavigation();
 
   const data = useAuth();
@@ -36,7 +35,7 @@ export const Profile: React.FC = () => {
           <Text3>Sobre Nós</Text3>
         </DivInput>
 
-        <DivInput2 onPress={() => setOpenModal(true)}>
+        <DivInput2 onPress={() => navigation.navigate('Terms', { initial: 'false' })}>
           <Icon
             style={{ marginLeft: 25 }}
             name="document-text-outline"
@@ -48,8 +47,6 @@ export const Profile: React.FC = () => {
           <Text3>Termos de Uso</Text3>
         </DivInput2>
       </View>
-
-      {openModal && <Terms initial={false} /> }
     </SafeAreaView>
   );
 };

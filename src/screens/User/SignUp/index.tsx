@@ -33,8 +33,6 @@ type SignUpFormData = {
   personCPF: string;
   phoneNumber: string;
   personCEP: string;
-  state: string;
-  city: string;
   birthDate: string;
   gender: string;
 };
@@ -57,6 +55,8 @@ export const SignUp: React.FC = () => {
     setIsSending(true);
     try {
       console.log(values);
+      console.log(stateValue);
+      console.log(cityValue);
 
       formRef.current?.setErrors({});
 
@@ -64,7 +64,7 @@ export const SignUp: React.FC = () => {
 
       delete values.confirmPass;
 
-      await signUp(values);
+      await signUp({ state: stateValue, city: cityValue, ...values });
     } catch (error) {
       if (error instanceof ValidationError) {
         const errors = getValidationErrors(error);
@@ -130,9 +130,9 @@ export const SignUp: React.FC = () => {
 
           <DivLocal>
 
-            <Input name="state" marginTop={20} labelText="Estado" width={35} editable={false} value={stateValue} />
+            <Input name="state" marginTop={20} labelText="Estado" width={35} />
 
-            <Input name="city" marginTop={20} labelText="Cidade" width={60} editable={false} value={cityValue} />
+            <Input name="city" marginTop={20} labelText="Cidade" width={60} />
 
           </DivLocal>
 

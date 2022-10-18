@@ -24,6 +24,8 @@ type TSignUpCredentials = {
   personCEP: string;
   birthDate: string;
   gender: string;
+  state: string;
+  city: string;
 };
 
 type IPersonState = {
@@ -78,7 +80,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
           showToast({ message, type: 'alert' });
         }
       }
-      showToast({ message: 'Erro desconhecido', type: 'alert' });
+      //showToast({ message: 'Erro desconhecido', type: 'alert' });
     }
   }, []);
 

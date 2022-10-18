@@ -42,7 +42,7 @@ export const Input: React.FC<InputProps> = ({
         inputElementRef.current?.clear();
       },
     });
-  }, [fieldName, registerField]);
+  }, [fieldName, registerField, value]);
 
   const Label: React.FC = () => {
     const label = labelText
@@ -64,6 +64,10 @@ export const Input: React.FC<InputProps> = ({
         ref={inputElementRef}
         {...TextProps}
         value={value}
+        onChange={({ nativeEvent }) => {
+          console.log(nativeEvent.text);
+          inputValueRef.current.value = nativeEvent.text;
+        }}
         onChangeText={(valueText: string) => {
           inputValueRef.current.value = valueText;
         }}
