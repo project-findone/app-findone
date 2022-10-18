@@ -28,10 +28,10 @@ const ProfileNav = createNativeStackNavigator();
 
 export const ProfileRouter: React.FC = () => (
   <AuthProvider>
-    <ProfileNav.Navigator initialRouteName="RegisteSelf" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#fff' } }}>
+    <ProfileNav.Navigator initialRouteName="ProfileIndex" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#fff' } }}>
+      <ProfileNav.Screen name="ProfileIndex" component={Profile} />
       <ProfileNav.Screen name="RegistSelf" component={RegistSelf} />
       <ProfileNav.Screen name="ChangeDisappearData" component={ChangeDisappearData} />
-      <ProfileNav.Screen name="ProfileIndex" component={Profile} />
       <ProfileNav.Screen name="SignIn" component={SignIn} />
       <ProfileNav.Screen name="SignUp" component={SignUp} />
       <ProfileNav.Screen name="ForgotPass" component={ForgotPass} />
