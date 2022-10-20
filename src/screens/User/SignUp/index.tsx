@@ -55,14 +55,10 @@ export const SignUp: React.FC = () => {
     setIsSending(true);
     try {
       console.log(values);
-      console.log(stateValue);
-      console.log(cityValue);
 
       formRef.current?.setErrors({});
 
       await FieldsValidate(values);
-
-      delete values.confirmPass;
 
       await signUp({ state: stateValue, city: cityValue, ...values });
     } catch (error) {

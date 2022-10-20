@@ -9,11 +9,10 @@ export const Container = styled.View`
 export const Header = styled.View`
     flex-direction: column;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
 `;
 
 export const ScrollView = styled.ScrollView`
-    margin-top: 20px;
     padding-left: 35px;
     padding-right: 35px;
     height: 100%;
@@ -28,7 +27,6 @@ export const Title = styled.Text`
 
 export const IconBack = styled.TouchableOpacity`
     position: absolute;
-    margin-top: 18px;
     height: 50px;
     width: 50px;
     z-index: 1;
@@ -114,4 +112,6 @@ export const Align = styled.View`
     align-items: center;
     flex-direction: row;
     width: 100%;
+    justify-content: space-between;
+    margin-top: 8px;
 `;

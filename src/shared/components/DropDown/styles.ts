@@ -15,7 +15,7 @@ export const originalDropDownStyle = (width: any) => StyleSheet.create({
     paddingLeft: 0,
     paddingRight: 0,
     marginTop: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
   },
 
   dropDownContainer: {
@@ -33,7 +33,7 @@ export const originalDropDownStyle = (width: any) => StyleSheet.create({
 
 export const ButtonDropdownContainer = styled.View<Props>`
     width: 100%;
-    height: 65px;
+    height: 60px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -54,7 +54,7 @@ export const ButtonText = styled.Text<Props>`
 
 export const LabelContainer = styled.View<Props>`
     background-color: ${({ theme }) => theme.COLORS.BG};
-    padding: 6px 9px 6px 9px;
+    padding: 0 9px 6px 9px;
     align-self: flex-start;
     margin-bottom: -18px;
     margin-left: 18px;

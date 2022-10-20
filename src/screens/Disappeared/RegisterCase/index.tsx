@@ -15,18 +15,22 @@ import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
 import UnknownImage from '@shared/assets/unknown.png';
+import { useUser } from '@shared/hooks/contexts/CaseContext';
+import { showToast } from '@shared/components/Toast';
 import { FieldsValidate } from './utils/SignInValidation';
 import {
   Title, Title2, ImagePerfil, ScrollView, Header,
   IconView, ImageArea, ImageButton, IconBack, Align,
 } from './styles';
 
-type SignInFormData = {
+type RegisterFormData = {
   name: string;
-  last_name: string;
+  lastname: string;
   age: string;
+  gender: string;
   cpf: string;
   cep: string;
+  state: string;
   city: string;
   others: string;
   street: string;
@@ -40,47 +44,17 @@ export const RegisterCase: React.FC = () => {
     { label: 'Prefiro não Informar', value: 'undefined' },
   ]);
 
-  const [stateItems] = useState([
-    { label: 'AC', value: 'AC' },
-    { label: 'AL', value: 'AL' },
-    { label: 'AP', value: 'AP' },
-    { label: 'AM', value: 'AM' },
-    { label: 'BA', value: 'BA' },
-    { label: 'CE', value: 'CE' },
-    { label: 'DF', value: 'DF' },
-    { label: 'ES', value: 'ES' },
-    { label: 'GO', value: 'GO' },
-    { label: 'MA', value: 'MA' },
-    { label: 'MT', value: 'MT' },
-    { label: 'MS', value: 'MS' },
-    { label: 'MG', value: 'MG' },
-    { label: 'PA', value: 'PA' },
-    { label: 'PB', value: 'PB' },
-    { label: 'PR', value: 'PR' },
-    { label: 'PE', value: 'PE' },
-    { label: 'PI', value: 'PI' },
-    { label: 'RJ', value: 'RJ' },
-    { label: 'RN', value: 'RN' },
-    { label: 'RS', value: 'RS' },
-    { label: 'RO', value: 'RO' },
-    { label: 'RR', value: 'RR' },
-    { label: 'SC', value: 'SC' },
-    { label: 'SP', value: 'SP' },
-    { label: 'SE', value: 'SE' },
-    { label: 'TO', value: 'TO' },
-  ]);
-
   const [skinItems] = useState([
-    { label: 'Branco(a)', value: 'branco' },
-    { label: 'Moreno(a)', value: 'moreno' },
-    { label: 'Negro(a)', value: 'negro' },
+    { label: 'Branca', value: 'branco' },
+    { label: 'Morena', value: 'moreno' },
+    { label: 'Negra', value: 'negro' },
   ]);
 
   const [haircolorItems] = useState([
-    { label: 'Loiro(a)', value: 'Loiro' },
-    { label: 'Preto(a)', value: 'Preto' },
-    { label: 'Castanho(a)', value: 'Castanho' },
-    { label: 'Ruivo(a)', value: 'Ruivo' },
+    { label: 'Loiro', value: 'Loiro' },
+    { label: 'Preto', value: 'Preto' },
+    { label: 'Castanho', value: 'Castanho' },
+    { label: 'Ruivo', value: 'Ruivo' },
   ]);
 
   const [eyeItems] = useState([
@@ -99,23 +73,26 @@ export const RegisterCase: React.FC = () => {
 
   const [isSending, setIsSending] = useState(false);
   const navigation = useNavigation();
+  const { services: { register } } = useUser();
 
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (values: SignInFormData) => {
+  const handleSubmit = useCallback(async (values: RegisterFormData) => {
     setIsSending(true);
     try {
+      console.log(values);
+
       formRef.current?.setErrors({});
 
       await FieldsValidate(values);
 
-      console.log(values);
+      await register(values);
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
       } else {
-        console.error(err);
+        showToast({ message: 'Houve um erro', type: 'alert' });
       }
     }
     setIsSending(false);
@@ -138,17 +115,16 @@ export const RegisterCase: React.FC = () => {
         contentContainerStyle={styles.content}
       >
 
-        <IconBack onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-left"
-            color="#000"
-            type="octicon"
-            size={55}
-            tvParallaxProperties={undefined}
-          />
-        </IconBack>
-
         <Header>
+          <IconBack onPress={() => navigation.goBack()}>
+            <Icon
+              name="arrow-left"
+              color="#000"
+              type="octicon"
+              size={55}
+              tvParallaxProperties={undefined}
+            />
+          </IconBack>
 
           <Title>Registrar</Title>
           <Title>Desaparecido</Title>
@@ -179,63 +155,61 @@ export const RegisterCase: React.FC = () => {
 
           <Input name="name" marginTop={20} labelText="Nome" />
 
-          <Input name="last_name" marginTop={26} labelText="Sobrenome" />
+          <Input name="lastname" marginTop={20} labelText="Sobrenome" />
 
           <Align>
-            <Input name="age" width={35} marginTop={15} labelText="Idade" />
+            <Input name="age" width={30} marginTop={15} labelText="Idade" keyboardType="numeric" maxLength={2} />
 
             <DropDown
               labelText="Gênero"
               name="gender"
               data={genderItems}
               placeholder="Gênero"
-              width={60}
+              width={65}
             />
           </Align>
 
-          <Input name="cpf" marginTop={26} labelText="CPF" />
+          <Input name="cpf" marginTop={20} labelText="CPF" />
 
           <Input name="cep" marginTop={26} labelText="CEP" />
 
           <Align>
-            <Input name="city" marginTop={15} width={60} labelText="Cidade" />
+            <Input name="state" marginTop={15} width={33} labelText="Estado" />
+
+            <Input name="city" marginTop={15} width={62} labelText="Cidade" />
+          </Align>
+
+          <Align>
+            <DropDown
+              labelText="Cor pele"
+              name="skin"
+              data={skinItems}
+              width={48}
+            />
 
             <DropDown
-              labelText="Estado"
-              name="state"
-              data={stateItems}
-              placeholder="Estado"
-              width={35}
+              labelText="Cor cabelo"
+              name="haircolor"
+              data={haircolorItems}
+              width={48}
             />
           </Align>
 
-          <DropDown
-            labelText="Cor pele"
-            name="skin"
-            data={skinItems}
-            width={45}
-          />
+          <Align>
+            <DropDown
+              labelText="Cor olho"
+              name="eye"
+              data={eyeItems}
+              width={48}
+            />
 
-          <DropDown
-            labelText="Cor cabelo"
-            name="haircolor"
-            data={haircolorItems}
-            width={45}
-          />
-
-          <DropDown
-            labelText="Cor olho"
-            name="eye"
-            data={eyeItems}
-            width={45}
-          />
-
-          <DropDown
-            labelText="Tipo cabelo"
-            name="hair"
-            data={hairItems}
-            width={45}
-          />
+            <DropDown
+              labelText="Tipo cabelo"
+              name="hair"
+              data={hairItems}
+              width={48}
+            />
+          </Align>
 
           <Input name="others" marginTop={26} labelText="Outros" />
 
@@ -244,15 +218,9 @@ export const RegisterCase: React.FC = () => {
           <Input name="cep" marginTop={5} labelText="CEP" />
 
           <Align>
-            <Input name="city" marginTop={15} width={60} labelText="Cidade" />
+            <Input name="state" marginTop={15} width={33} labelText="Estado" />
 
-            <DropDown
-              labelText="Estado"
-              name="state"
-              data={stateItems}
-              placeholder="Estado"
-              width={35}
-            />
+            <Input name="city" marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
           <Input name="street" marginTop={26} labelText="Rua" />
@@ -260,9 +228,10 @@ export const RegisterCase: React.FC = () => {
           <Input name="description" marginTop={26} labelText="Descrição" />
 
           <Button
-            insideText="CADASTRAR"
+            insideText="REGISTRAR"
             isLoading={isSending}
-            marginTop={32}
+            marginTop={40}
+            marginBottom={45}
             onPress={() => formRef.current?.submitForm()}
           />
 
