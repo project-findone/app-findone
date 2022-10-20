@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
@@ -14,6 +14,16 @@ import {
 export const Logged: React.FC = () => {
   const { user: { data } } = useAuth();
   const navigation = useNavigation();
+
+  const { services: { signOut } } = useAuth();
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      await signOut();
+    } catch (error: any) {
+      console.log(error);
+    }
+  }, [signOut]);
 
   const { name, lastname } = data;
   const type = 'Apoiador';
@@ -48,7 +58,7 @@ export const Logged: React.FC = () => {
         <TextEdit> Editar Perfil</TextEdit>
       </Button1>
 
-      <Button2>
+      <Button2 onPress={handleSubmit}>
         <Icon
           name="exit-outline"
           color="#DF7C7C"
