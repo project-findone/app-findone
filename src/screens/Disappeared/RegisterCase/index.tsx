@@ -22,6 +22,7 @@ import {
   Title, Title2, ImagePerfil, ScrollView, Header,
   IconView, ImageArea, ImageButton, IconBack, Align,
 } from './styles';
+import { ModalParent } from './Modal';
 
 type RegisterFormData = {
   name: string;
@@ -109,6 +110,9 @@ export const RegisterCase: React.FC = () => {
 
   return (
     <SafeAreaView>
+
+      <ModalParent />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollContainer}

@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
           showToast({ message, type: 'alert' });
         }
       }
-      //showToast({ message: 'Erro desconhecido', type: 'alert' });
+      // showToast({ message: 'Erro desconhecido', type: 'alert' });
     }
   }, []);
 

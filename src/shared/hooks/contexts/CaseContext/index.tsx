@@ -38,7 +38,6 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       if (response) showToast({ message: 'Cadastro realizado com sucesso!', type: 'sucess' });
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.error(error);
         if (error.response) {
           const { message } = error.response.data as ResponseError;
           showToast({ message, type: 'alert' });
