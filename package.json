@@ -20,7 +20,6 @@
     "@unform/core": "^2.1.6",
     "@unform/mobile": "^2.1.6",
     "axios": "^0.27.2",
-    "dotenv": "^16.0.3",
     "expo": "^46.0.10",
     "expo-constants": "^13.2.4",
     "expo-font": "~10.2.0",

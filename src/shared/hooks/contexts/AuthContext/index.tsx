@@ -14,6 +14,10 @@ type TSignInCredentials = {
   password: string;
 };
 
+type TSignOutCredentials = {
+  personId: number;
+};
+
 type TSignUpCredentials = {
   name: string;
   lastname: string;
@@ -36,6 +40,7 @@ type IAuthContextData = {
   services: {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
     signUp: (credentials: TSignUpCredentials) => Promise<void>;
+    signOut: (personID: number) => Promise<void>;
   };
 };
 
@@ -43,6 +48,20 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [data, setData] = useState<IPersonState>({} as IPersonState);
+
+  const signOut = useCallback(async (credentials: TSignOutCredentials) => {
+    const response = await api.patch('users/logout', credentials);
+
+    const information = await AsyncStorage.multiGet(['Person:token', 'Person:self']);
+
+    // [['Person:token', 'qwasasasasa'], ['Person:self', '{name: Fulano, Lastname: ciclano}']]
+
+    if (information[0][0] && information[1][0]) {
+      await AsyncStorage.multiRemove(['Person:token', 'Person:self']);
+    } else {
+      showToast({ message: 'Deu erro!', type: 'alert' });
+    }
+  }, []);
 
   const signIn = useCallback(async (credentials: TSignInCredentials): Promise<void> => {
     try {
@@ -100,7 +119,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         token: data.token,
         data: data.userResponse,
       },
-      services: { signIn, signUp },
+      services: { signIn, signUp, signOut },
     }}
     >
       {children}

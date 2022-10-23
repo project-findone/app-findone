@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
+import dotenv from 'dotenv';
 import { ThemeProvider } from 'styled-components';
 import { StatusBar } from 'expo-status-bar';
 import {
@@ -18,7 +19,9 @@ import { Router } from './shared/routes';
 
 import { getCoordsByAdress } from './shared/services/mapbox';
 
-getCoordsByAdress('06528105').then((result) => {
+dotenv.config();
+
+getCoordsByAdress('Rua Colombina', 'Santana de Parnaíba').then((result) => {
   console.log(result);
 });
 
