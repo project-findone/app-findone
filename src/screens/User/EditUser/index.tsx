@@ -8,6 +8,7 @@ import { Form } from '@unform/mobile';
 import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import UnknownImage from '@shared/assets/unknown.png';
+import { useAuth } from '@shared/hooks/contexts/AuthContext';
 
 import { TouchableOpacity } from 'react-native';
 import {
@@ -18,6 +19,16 @@ export const EditUser: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const navigation = useNavigation();
+
+  const { services: { deleteUser } } = useAuth();
+
+  const handleSubmitButton = useCallback(async () => {
+    try {
+      await deleteUser();
+    } catch (error: any) {
+      console.log(error);
+    }
+  }, [deleteUser]);
 
   const handleSubmit = useCallback((values: Object) => {
     console.log(values);
@@ -71,7 +82,7 @@ export const EditUser: React.FC = () => {
 
         </Form>
 
-        <Button2>
+        <Button2 onPress={handleSubmitButton}>
           <Text2>Excluir Conta</Text2>
         </Button2>
 
