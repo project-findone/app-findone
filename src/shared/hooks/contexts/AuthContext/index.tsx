@@ -38,6 +38,7 @@ type IAuthContextData = {
   services: {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
     signUp: (credentials: TSignUpCredentials) => Promise<void>;
+    signOut: () => Promise<void>;
   };
 };
 
@@ -45,6 +46,39 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [data, setData] = useState<IPersonState>({} as IPersonState);
+
+  const signOut = useCallback(async () => {
+    try {
+      const information = await AsyncStorage.multiGet(['Person:token', 'Person:self']);
+
+      if (information[0][1] && information[1][1]) {
+        const personData = JSON.parse(information[1][1]);
+        const token = information[0][1];
+
+        await api.patch('users/logout', {
+          data: {
+            personID: personData.personId,
+          },
+          headers: {
+            authorization: token,
+          },
+        });
+
+        await AsyncStorage.multiRemove(['Person:token', 'Person:self']);
+      } else {
+        showToast({ message: 'Deu erro!', type: 'alert' });
+      }
+    } catch (error: any) {
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          const { message } = error.response.data as ResponseError;
+          showToast({ message, type: 'alert' });
+        } else {
+          showToast({ message: 'Erro ao sair', type: 'alert' });
+        }
+      }
+    }
+  }, []);
 
   const signIn = useCallback(async (credentials: TSignInCredentials): Promise<void> => {
     try {
@@ -102,7 +136,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         token: data.token,
         data: data.userResponse,
       },
-      services: { signIn, signUp },
+      services: { signIn, signUp, signOut },
     }}
     >
       {children}
