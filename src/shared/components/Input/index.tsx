@@ -16,13 +16,14 @@ interface InputProps extends TextInputProps {
   labelText?: string;
   marginTop?: number;
   width?: number;
+  value?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
-  labelText, marginTop, name, width, ...TextProps
+  labelText, marginTop, name, width, value, ...TextProps
 }) => {
   const {
-    defaultValue = '', fieldName, registerField, error,
+    defaultValue = value, fieldName, registerField, error,
   } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   const inputElementRef = useRef<any>(null);
@@ -32,16 +33,16 @@ export const Input: React.FC<InputProps> = ({
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value) {
-        inputValueRef.current.value = value;
-        inputElementRef.current?.setNativeProps({ text: { value } });
+      setValue(ref: any, valueText) {
+        inputValueRef.current.value = valueText;
+        inputElementRef.current?.setNativeProps({ text: { valueText } });
       },
       clearValue() {
         inputValueRef.current.value = '';
         inputElementRef.current?.clear();
       },
     });
-  }, [fieldName, registerField]);
+  }, [fieldName, registerField, value]);
 
   const Label: React.FC = () => {
     const label = labelText
@@ -62,8 +63,13 @@ export const Input: React.FC<InputProps> = ({
         error={error !== undefined}
         ref={inputElementRef}
         {...TextProps}
-        onChangeText={(value: string) => {
-          inputValueRef.current.value = value;
+        value={value}
+        onChange={({ nativeEvent }: any) => {
+          // console.log(nativeEvent.text);
+          inputValueRef.current.value = nativeEvent.text;
+        }}
+        onChangeText={(valueText: string) => {
+          inputValueRef.current.value = valueText;
         }}
       />
       {error !== undefined ? <ErrorText>{error}</ErrorText> : null}

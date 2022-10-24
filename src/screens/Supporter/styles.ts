@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const Header = styled.View`
     flex-direction: row;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 1%;
 `;
 
 export const Container = styled.View`
@@ -18,14 +18,13 @@ export const Title = styled.Text`
     font-size: 37px;
     font-weight: 700;
     margin-top: 10px;
-    margin-bottom: 8%;
+    margin-bottom: 3%;
 `;
 
 export const ViewButton = styled.View`
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    margin-top: 3%;
 `;
 
 export const ButtonBlue = styled.TouchableOpacity`

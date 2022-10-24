@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SearchIndex } from 'src/screens/Disappeared/Search';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 
-export interface RegisterParamsList {
+export interface SearchParamsList {
   SearchIndex: undefined
   Filter: undefined
   Terms: {

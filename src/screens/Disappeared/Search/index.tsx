@@ -2,9 +2,9 @@
 import { SafeAreaView } from '@shared/components/SafeView';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
+import * as Location from 'expo-location';
 import { Icon } from 'react-native-elements';
 import CustomSwitch from '@shared/components/Switch';
-import * as Location from 'expo-location';
 import {
   FlatList,
   ListRenderItem,
@@ -14,6 +14,7 @@ import UnknownImage from '@shared/assets/unknown.png';
 
 import MapView from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { DATA } from './Data';
 import { ModalInit } from './Modal';
 

@@ -21,7 +21,7 @@ import { showToast } from '@shared/components/Toast';
 import { FieldsValidate } from './utils/SignUpValidation';
 
 import {
-  Title, Text, Viewinicio, ScrollView, Header,
+  Title, Text, Viewinicio, ScrollView, Header, DivLocal,
 } from './styles';
 
 type SignUpFormData = {
@@ -39,6 +39,8 @@ type SignUpFormData = {
 
 export const SignUp: React.FC = () => {
   const [isSending, setIsSending] = useState(false);
+  const [stateValue, setStateValue] = useState('');
+  const [cityValue, setCityValue] = useState('');
   const [genderItems] = useState([
     { label: 'Masculino', value: 'male' },
     { label: 'Feminino', value: 'female' },
@@ -58,9 +60,7 @@ export const SignUp: React.FC = () => {
 
       await FieldsValidate(values);
 
-      delete values.confirmPass;
-
-      await signUp(values);
+      await signUp({ state: stateValue, city: cityValue, ...values });
     } catch (error) {
       if (error instanceof ValidationError) {
         const errors = getValidationErrors(error);
@@ -71,6 +71,15 @@ export const SignUp: React.FC = () => {
     }
     setIsSending(false);
   }, [signUp]);
+
+  function checkCEP(value:string) {
+    const cep = value.replace(/\D/g, '');
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((res) => res.json()).then((data) => {
+        setStateValue(data.uf);
+        setCityValue(data.localidade);
+      }).catch((error) => { console.error(error); });
+  }
 
   return (
     <SafeAreaView>
@@ -113,9 +122,17 @@ export const SignUp: React.FC = () => {
 
           />
 
-          <Input name="personCEP" marginTop={20} labelText="CEP" />
+          <Input name="personCEP" marginTop={20} labelText="CEP" onEndEditing={(e) => checkCEP(e.nativeEvent.text)} maxLength={8} />
 
-          <Input name="email" marginTop={20} labelText="Email" />
+          <DivLocal>
+
+            <Input name="state" marginTop={20} labelText="Estado" width={35} />
+
+            <Input name="city" marginTop={20} labelText="Cidade" width={60} />
+
+          </DivLocal>
+
+          <Input name="email" marginTop={12} labelText="Email" />
 
           <Input name="password" marginTop={20} labelText="Senha" />
 
@@ -125,7 +142,7 @@ export const SignUp: React.FC = () => {
             marginTop={40}
             marginBottom={40}
             isLoading={isSending}
-            insideText="Cadastrar"
+            insideText="CADASTRAR"
             onPress={() => formRef.current?.submitForm()}
           />
         </Form>

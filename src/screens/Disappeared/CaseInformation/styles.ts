@@ -41,21 +41,21 @@ export const ViewDadosImagem = styled.View`
     position: absolute;
     width: 100%;
     height: 20%;
-    margin-top: 60%;
+    margin-top: 57%;
     padding: 2%;
 `;
 
 export const TextImagem = styled.Text`
     color: #FFF;
     font-size: 27px;
-    font-weight: 690;
+    font-weight: 800;
     text-align: center;
 `;
 
 export const TextImagemMenor = styled.Text`
     color: #FFF;
     font-size: 20px;
-    font-weight: 690;
+    font-weight: 500;
     text-align: center;
 `;
 

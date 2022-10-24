@@ -14,10 +14,6 @@ type TSignInCredentials = {
   password: string;
 };
 
-type TSignOutCredentials = {
-  personId: number;
-};
-
 type TSignUpCredentials = {
   name: string;
   lastname: string;
@@ -28,6 +24,8 @@ type TSignUpCredentials = {
   personCEP: string;
   birthDate: string;
   gender: string;
+  state: string;
+  city: string;
 };
 
 type IPersonState = {
@@ -40,7 +38,6 @@ type IAuthContextData = {
   services: {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
     signUp: (credentials: TSignUpCredentials) => Promise<void>;
-    signOut: (personID: number) => Promise<void>;
   };
 };
 
@@ -83,7 +80,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
           showToast({ message, type: 'alert' });
         }
       }
-      showToast({ message: 'Erro desconhecido', type: 'alert' });
+      // showToast({ message: 'Erro desconhecido', type: 'alert' });
     }
   }, []);
 

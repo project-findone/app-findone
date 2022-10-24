@@ -16,12 +16,8 @@ import {
   Text3, DivInput, DivInput2, IconAbout,
 } from './styles';
 
-type Props = { route: any };
-
-export const Profile: React.FC<Props> = ({ route }) => {
-  const [openModal, setOpenModal] = useState(false);
+export const Profile: React.FC = () => {
   const navigation = useNavigation();
-  console.log(route);
 
   const data = useAuth();
 
@@ -39,7 +35,7 @@ export const Profile: React.FC<Props> = ({ route }) => {
           <Text3>Sobre Nós</Text3>
         </DivInput>
 
-        <DivInput2 onPress={() => setOpenModal(true)}>
+        <DivInput2 onPress={() => navigation.navigate('Terms', { initial: 'false' })}>
           <Icon
             style={{ marginLeft: 25 }}
             name="document-text-outline"
@@ -51,8 +47,6 @@ export const Profile: React.FC<Props> = ({ route }) => {
           <Text3>Termos de Uso</Text3>
         </DivInput2>
       </View>
-
-      {openModal && <Terms initial={false} /> }
     </SafeAreaView>
   );
 };

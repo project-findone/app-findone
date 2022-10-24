@@ -65,6 +65,13 @@ export const Cadastro = styled.View`
     margin-top: 15px;
 `;
 
+export const DivLocal = styled.View`
+    width: 100%;
+    height: 110px;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
 export const Text2 = styled.Text`
     color: #8F8F8F;
     font-size: 16px;
