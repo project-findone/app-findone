@@ -40,7 +40,7 @@ type IAuthContextData = {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
     signUp: (credentials: TSignUpCredentials) => Promise<void>;
     signOut: () => Promise<void>;
-    updateUser: (credentials: number) => Promise<void>;
+    deleteUser: () => Promise<void>
   };
 };
 
@@ -48,6 +48,25 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [data, setData] = useState<IPersonState>({} as IPersonState);
+
+  const deleteUser = useCallback(async () => {
+    try {
+      const personCache = await AsyncStorage.getItem('Person:token');
+      if (personCache) { await requestTimeout(api.patch('users/disable'), 5000); }
+    } catch (error: any) {
+      if (error instanceof AxiosError) {
+        if (error.response?.data.message) {
+          const { message } = error.response.data as ResponseError;
+          showToast({ message, type: 'alert' });
+        } else {
+          showToast({ message: 'Erro ao sair', type: 'alert' });
+        }
+      }
+    } finally {
+      await AsyncStorage.multiRemove(['Person:token', 'Person:self']);
+      setData({ userResponse: null, token: null });
+    }
+  }, []);
 
   const signOut = useCallback(async () => {
     try {
@@ -72,7 +91,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const signIn = useCallback(async (credentials: TSignInCredentials): Promise<void> => {
     try {
-      const response = await requestTimeout(api.post('sessions', credentials), 3000);
+      const response = await requestTimeout(api.post('sessions', credentials), 10000);
 
       const { token, userResponse } = response.data;
 
@@ -130,7 +149,9 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         token: data.token,
         data: data.userResponse,
       },
-      services: { signIn, signUp, signOut },
+      services: {
+        signIn, signUp, signOut, deleteUser,
+      },
     }}
     >
       {children}

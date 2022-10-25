@@ -20,7 +20,7 @@ export const getCoordsByAdress = async (adress: string, city: string) => {
       .get(`geocoding/v5/mapbox.places/${adress}
       .json?access_token=${MAPBOX_KEY}`);
     const { features } = data as IGeocodingResult;
-    const pattern = `^${adress}.*${city}`;
+    const pattern = `^${adress}.*${city}.*Brazil`;
     const regex = new RegExp(pattern, 'is');
     let match = null;
 

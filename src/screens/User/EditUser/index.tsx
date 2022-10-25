@@ -20,6 +20,18 @@ export const EditUser: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
+  const { services: { deleteUser } } = useAuth();
+
+  const handleDisable = useCallback(async () => {
+    try {
+      await deleteUser();
+
+      navigation.navigate('ProfileIndex');
+    } catch {
+      console.error('Erro!');
+    }
+  }, []);
+
   const handleSubmit = useCallback((values: Object) => {
     console.log(values);
   }, []);
@@ -87,7 +99,7 @@ export const EditUser: React.FC = () => {
 
         </Form>
 
-        <Button2>
+        <Button2 onPress={handleDisable}>
           <Text2>Excluir Conta</Text2>
         </Button2>
 
