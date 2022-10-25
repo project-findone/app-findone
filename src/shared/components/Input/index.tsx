@@ -35,7 +35,7 @@ export const Input: React.FC<InputProps> = ({
       path: 'value',
       setValue(ref: any, valueText) {
         inputValueRef.current.value = valueText;
-        inputElementRef.current?.setNativeProps({ text: { valueText } });
+        ref.current?.setNativeProps({ text: { valueText } });
       },
       clearValue() {
         inputValueRef.current.value = '';

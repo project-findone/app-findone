@@ -1,13 +1,15 @@
 /* eslint-disable no-console */
 import { SafeAreaView } from '@shared/components/SafeView';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Location from 'expo-location';
 import { Icon } from 'react-native-elements';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomSwitch from '@shared/components/Switch';
 import {
   FlatList,
   ListRenderItem,
+  TouchableOpacity,
 } from 'react-native';
 
 import UnknownImage from '@shared/assets/unknown.png';
@@ -15,8 +17,8 @@ import UnknownImage from '@shared/assets/unknown.png';
 import MapView from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { Theme } from '@shared/theme';
 import { DATA } from './Data';
-import { ModalInit } from './Modal';
 
 import {
   ViewMapa, BarUp, Text2, Button1,
@@ -28,6 +30,7 @@ import {
   ViewImage,
   ViewText,
   ViewLista,
+  ButtonLocationContainer,
 } from './styles';
 
 interface IUser {
@@ -60,7 +63,7 @@ const Item = ({ data }: { data: IUser }) => (
 
 type Props = { route: any };
 
-export const SearchIndex: React.FC<Props> = ({ route }) => {
+export const SearchIndex: React.FC<Props> = () => {
   const [optionSelected, setOptionSelected] = useState(1);
   const [origin, setOrigin] = useState({
     latitude: -23.5559942160993,
@@ -68,9 +71,8 @@ export const SearchIndex: React.FC<Props> = ({ route }) => {
     latitudeDelta: 0.000922,
     longitudeDelta: 0.010021,
   });
-  const [firstTime, setFirstTime] = useState('');
-
   const navigation = useNavigation();
+  const mapRef = useRef<MapView>(null);
 
   const onSelectSwitch = (index: any) => {
     setOptionSelected(index);
@@ -79,17 +81,17 @@ export const SearchIndex: React.FC<Props> = ({ route }) => {
   const renderItem: ListRenderItem<IUser> = ({ item }) => <Item data={item} />;
 
   const readData = async () => {
-    let value = await AsyncStorage.getItem('firstTime');
+    const value = await AsyncStorage.getItem('firstTime');
     if (value === null || '') {
-      value = 'true';
-    }setFirstTime(value);
+      await AsyncStorage.setItem('firstTime', 'false');
+    }
   };
 
   const getUserLocation = async () => {
     const { status } = await Location.getForegroundPermissionsAsync();
-    console.log(status);
     if (status === 'granted') {
       const coordsPosition = await Location.getCurrentPositionAsync();
+      console.log(coordsPosition.coords);
       const geocodePosition = await Location.reverseGeocodeAsync({
         latitude: coordsPosition.coords.latitude,
         longitude: coordsPosition.coords.longitude,
@@ -101,24 +103,27 @@ export const SearchIndex: React.FC<Props> = ({ route }) => {
     return { coordsPosition: null, geocodePosition: null };
   };
 
-  readData();
-
   useEffect(() => {
-    if (route?.params?.origin !== undefined) {
-      setOrigin(({ latitude, longitude, ...rest }) => ({
-        latitude: route.params.latitude,
-        longitude: route.params.longitude,
-        ...rest,
-      }));
-    }
+    (async () => {
+      navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+      });
 
-    getUserLocation().then((result) => { console.log(result); });
-  }, [route]);
+      const { coordsPosition } = await getUserLocation();
+      if (coordsPosition) {
+        const { coords } = coordsPosition;
+        setOrigin(({ latitude, longitude, ...rest }) => ({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          ...rest,
+        }));
+      }
+      await readData();
+    })();
+  }, []);
 
   return (
     <SafeAreaView>
-      {firstTime === 'true' && <ModalInit />}
-
       <BarUp>
         <ButtonsArea>
           <CustomSwitch
@@ -145,11 +150,20 @@ export const SearchIndex: React.FC<Props> = ({ route }) => {
       { optionSelected === 1 ? (
         <ViewMapa>
           <MapView
+            ref={mapRef}
             style={{ width: '100%', height: '100%' }}
             initialRegion={origin}
+            region={origin}
             showsUserLocation
             loadingEnabled
+            showsMyLocationButton={false}
           />
+          <TouchableOpacity
+            style={ButtonLocationContainer}
+            onPress={() => { mapRef.current?.animateToRegion(origin); }}
+          >
+            <MaterialCommunityIcons name="crosshairs-gps" color={Theme.COLORS.CAPTION_500} size={24} />
+          </TouchableOpacity>
         </ViewMapa>
       ) : (
         <ViewLista>

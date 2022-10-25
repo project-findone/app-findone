@@ -7,7 +7,7 @@ import { Icon } from 'react-native-elements';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 
-import { useNavigation } from '@react-navigation/native';
+import { PrivateValueStore, useNavigation } from '@react-navigation/native';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 
 import { getValidationErrors } from '@shared/utils/getValidationErrors';
@@ -59,6 +59,13 @@ export const SignUp: React.FC = () => {
       formRef.current?.setErrors({});
 
       await FieldsValidate(values);
+
+      if (values.password !== values.confirmPass) {
+        formRef.current?.setErrors({ password: 'As senhas precisam coincidir', confirmPass: 'As senhas precisam coincidir' });
+        throw new Error();
+      }
+
+      delete values.confirmPass;
 
       await signUp({ state: stateValue, city: cityValue, ...values });
     } catch (error) {
@@ -134,9 +141,9 @@ export const SignUp: React.FC = () => {
 
           <Input name="email" marginTop={12} labelText="Email" />
 
-          <Input name="password" marginTop={20} labelText="Senha" />
+          <Input name="password" secureTextEntry marginTop={20} labelText="Senha" />
 
-          <Input name="confirmPass" marginTop={20} labelText="Confirmar Senha" />
+          <Input name="confirmPass" secureTextEntry marginTop={20} labelText="Confirmar Senha" />
 
           <Button
             marginTop={40}

@@ -36,6 +36,7 @@ type RegisterFormData = {
   others: string;
   street: string;
   description: string;
+  characteristics: number[]
 };
 
 export const RegisterCase: React.FC = () => {
@@ -86,6 +87,8 @@ export const RegisterCase: React.FC = () => {
       formRef.current?.setErrors({});
 
       await FieldsValidate(values);
+
+      values.characteristics = [0, 0, 0];
 
       await register(values);
     } catch (err: any) {

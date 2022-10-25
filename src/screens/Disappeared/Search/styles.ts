@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const ViewMapa = styled.View`
@@ -117,3 +118,16 @@ export const ImagePerfil = styled.Image`
     height: 70px;
     width: 70px;
 `;
+
+export const { ButtonLocationContainer } = StyleSheet.create({
+  ButtonLocationContainer: {
+    position: 'absolute',
+    padding: 16,
+    bottom: 16,
+    right: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    backgroundColor: 'white',
+  },
+});

@@ -3,7 +3,6 @@ import { Modal } from 'react-native';
 import { Icon } from 'react-native-elements';
 import UnknownImage from '@shared/assets/unknown.png';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ButtonBlueModal, ButtonGreenModal, ButtonModel, ButtonYellowModal, CenteredViewModel,
   ModelTransparent, TextButtonModel, TextCaso, TextCorCaso, TextExplicacao,
@@ -13,20 +12,8 @@ import {
 export const ModalInit: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(true);
 
-  const saveStorage = async () => {
-    try {
-      await AsyncStorage.setItem(
-        'firstTime',
-        'false',
-      );
-    } catch (error) {
-      // Error saving data
-    }
-  };
-
   function rightClick() {
     setModalVisible(!modalVisible);
-    saveStorage();
   }
 
   return (

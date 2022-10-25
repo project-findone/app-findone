@@ -20,8 +20,10 @@ export const Logged: React.FC = () => {
   const handleSubmit = useCallback(async () => {
     try {
       await signOut();
+
+      navigation.navigate('ProfileIndex');
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
     }
   }, [signOut]);
 

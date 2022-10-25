@@ -8,6 +8,7 @@ import { AxiosError } from 'axios';
 
 import { api, ResponseError } from '@shared/services/api';
 import { showToast } from '@shared/components/Toast';
+import { requestTimeout } from '@shared/utils/requestTimeout';
 
 type TSignInCredentials = {
   email: string;
@@ -29,8 +30,8 @@ type TSignUpCredentials = {
 };
 
 type IPersonState = {
-  token: string;
-  userResponse: object;
+  token: string | null;
+  userResponse: object | null;
 };
 
 type IAuthContextData = {
@@ -39,6 +40,7 @@ type IAuthContextData = {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
     signUp: (credentials: TSignUpCredentials) => Promise<void>;
     signOut: () => Promise<void>;
+    updateUser: (credentials: number) => Promise<void>;
   };
 };
 
@@ -49,42 +51,32 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const signOut = useCallback(async () => {
     try {
-      const information = await AsyncStorage.multiGet(['Person:token', 'Person:self']);
-
-      if (information[0][1] && information[1][1]) {
-        const personData = JSON.parse(information[1][1]);
-        const token = information[0][1];
-
-        await api.patch('users/logout', {
-          data: {
-            personID: personData.personId,
-          },
-          headers: {
-            authorization: token,
-          },
-        });
-
-        await AsyncStorage.multiRemove(['Person:token', 'Person:self']);
-      } else {
-        showToast({ message: 'Deu erro!', type: 'alert' });
+      const personCache = await AsyncStorage.multiGet(['Person:token', 'Person:self']);
+      if (personCache[0][1]) {
+        await requestTimeout(api.patch('users/logout'), 5000);
       }
     } catch (error: any) {
       if (error instanceof AxiosError) {
-        if (error.response) {
+        if (error.response?.data.message) {
           const { message } = error.response.data as ResponseError;
           showToast({ message, type: 'alert' });
         } else {
           showToast({ message: 'Erro ao sair', type: 'alert' });
         }
       }
+    } finally {
+      await AsyncStorage.multiRemove(['Person:token', 'Person:self']);
+      setData({ token: null, userResponse: null });
     }
   }, []);
 
   const signIn = useCallback(async (credentials: TSignInCredentials): Promise<void> => {
     try {
-      const response = await api.post('sessions', credentials);
+      const response = await requestTimeout(api.post('sessions', credentials), 3000);
 
       const { token, userResponse } = response.data;
+
+      api.defaults.headers.common.authorization = `Bearer ${token}`;
 
       await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(userResponse)]]);
 
@@ -94,6 +86,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         if (error.response) {
           const { message } = error.response.data as ResponseError;
           showToast({ message, type: 'alert' });
+        } else if (error.message === 'Request timed out') {
+          showToast({ message: 'Não foi possível se comunicar com o servidor', type: 'alert' });
         } else {
           showToast({ message: 'Houve um erro ao realizar o login', type: 'alert' });
         }
