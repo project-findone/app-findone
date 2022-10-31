@@ -13,6 +13,7 @@ import { Welcome } from 'src/screens/Initials/Welcome';
 import { Terms } from 'src/screens/Initials/Terms';
 import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
+import { SupporterAd } from 'src/screens/User/SupporterAd';
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
@@ -60,9 +61,10 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
 
     <Tab.Screen
       name="Cases"
-      component={CaseInformation}
+      component={SupporterAd}
       options={{
         title: 'Casos',
+        tabBarStyle: { display: 'none' },
         tabBarIcon: (props: { color: string }) => (
           <Icon
             name="people"
