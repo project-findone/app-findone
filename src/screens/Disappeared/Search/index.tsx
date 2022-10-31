@@ -160,7 +160,7 @@ export const SearchIndex: React.FC<Props> = () => {
           />
           <TouchableOpacity
             style={ButtonLocationContainer}
-            onPress={() => { mapRef.current?.animateToRegion(origin); }}
+            onPress={async () => { mapRef.current?.animateToRegion(origin); }}
           >
             <MaterialCommunityIcons name="crosshairs-gps" color={Theme.COLORS.CAPTION_500} size={24} />
           </TouchableOpacity>

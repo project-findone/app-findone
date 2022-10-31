@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -27,9 +28,9 @@ export const Logged: React.FC = () => {
     }
   }, [signOut]);
 
-  const { name, lastname } = data;
-  const type = 'Apoiador';
-  const pontos = 150;
+  const {
+    name, lastname, personTypeID, score,
+  } = data;
 
   return (
     <View style={{
@@ -45,8 +46,8 @@ export const Logged: React.FC = () => {
       </Name>
 
       <Title>
-        {type}
-        {type === 'Apoiador' && ` | ${pontos} Pontos`}
+        {personTypeID === 1 ? 'Usuário' : 'Apoiador'}
+        {` | ${!!score ? score : 0} Pontos`}
       </Title>
 
       <Button1 onPress={() => navigation.navigate('EditUser')}>

@@ -6,5 +6,5 @@ export interface ResponseError {
 }
 
 export const api = axios.create({
-  baseURL: 'http://192.168.1.10:3333/',
+  baseURL: 'http://10.42.0.240:3333/',
 });

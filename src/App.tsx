@@ -16,10 +16,6 @@ import { Theme } from '@shared/theme';
 import { NavigationContainer } from '@react-navigation/native';
 import { Router } from './shared/routes';
 
-import { getCoordsByAdress } from './shared/services/mapbox';
-
-getCoordsByAdress('Rua Colombina', 'Santana de Parnaíba').then((result) => console.log(result));
-
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
