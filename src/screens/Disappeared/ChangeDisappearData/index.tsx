@@ -4,9 +4,9 @@ import { Icon } from 'react-native-elements';
 import { ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from '@shared/components/SafeView';
-import { Form } from '@unform/mobile'
+import { Form } from '@unform/mobile';
 import Unknown from '@shared/assets/unknown.png';
-import { FormHandles } from '@unform/core'
+import { FormHandles } from '@unform/core';
 import { Input } from '@shared/components/Input';
 import { DropDown } from '@shared/components/DropDown';
 

@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 export const Title = styled.Text`
     font-size: 32px;
     font-weight: 700;
-
 `;
 export const Label = styled.Text`
     color: #545454;

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { SafeAreaView } from '@shared/components/SafeView';
-import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
 import { Icon } from 'react-native-elements';
 import CustomSwitch from '@shared/components/Switch';
 import {
@@ -59,34 +60,59 @@ const Item = ({ data }: { data: IUser }) => (
 type Props = { route: any };
 
 export const SearchIndex: React.FC<Props> = ({ route }) => {
-  const navigation = useNavigation();
   const [optionSelected, setOptionSelected] = useState(1);
+  const [origin, setOrigin] = useState({
+    latitude: -23.5559942160993,
+    longitude: -46.63910562391042,
+    latitudeDelta: 0.000922,
+    longitudeDelta: 0.010021,
+  });
+  const [firstTime, setFirstTime] = useState('');
+
+  const navigation = useNavigation();
 
   const onSelectSwitch = (index: any) => {
     setOptionSelected(index);
   };
 
   const renderItem: ListRenderItem<IUser> = ({ item }) => <Item data={item} />;
-  const origin = {
-    latitude: -23.5559942160993,
-    longitude: -46.63910562391042,
-    latitudeDelta: 0.000922,
-    longitudeDelta: 0.010021,
-  };
 
-  if (route?.params?.origin !== undefined) {
-    origin.latitude = route.params.origin.latitude;
-    origin.longitude = route.params.origin.longitude;
-  }
-
-  const [firstTime, setFirstTime] = useState('');
   const readData = async () => {
     let value = await AsyncStorage.getItem('firstTime');
     if (value === null || '') {
       value = 'true';
     }setFirstTime(value);
   };
+
+  const getUserLocation = async () => {
+    const { status } = await Location.getForegroundPermissionsAsync();
+    console.log(status);
+    if (status === 'granted') {
+      const coordsPosition = await Location.getCurrentPositionAsync();
+      const geocodePosition = await Location.reverseGeocodeAsync({
+        latitude: coordsPosition.coords.latitude,
+        longitude: coordsPosition.coords.longitude,
+      });
+      return { coordsPosition, geocodePosition };
+    }
+    await Location.requestForegroundPermissionsAsync();
+
+    return { coordsPosition: null, geocodePosition: null };
+  };
+
   readData();
+
+  useEffect(() => {
+    if (route?.params?.origin !== undefined) {
+      setOrigin(({ latitude, longitude, ...rest }) => ({
+        latitude: route.params.latitude,
+        longitude: route.params.longitude,
+        ...rest,
+      }));
+    }
+
+    getUserLocation().then((result) => { console.log(result); });
+  }, [route]);
 
   return (
     <SafeAreaView>
