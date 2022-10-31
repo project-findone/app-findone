@@ -1,0 +1,31 @@
+export const Text2 = styled.Text`
+    color: #0288D1;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    padding: 4px;
+    margin-left: 3px;
+`;
+
+export const Button = styled.TouchableOpacity`
+    align-Items: center;
+    padding: 8px;
+    width: 50%;
+    border-Radius: 30px;
+    border-Color: #0288D1;
+    border-Width: 3px;
+    margin-Top: 2%;
+    margin-bottom: 2%;
+    flex-direction: row;
+`;
+
+<Button>
+            <Icon
+              name="pencil"
+              color="#0288D1"
+              type="ionicon"
+              size={31}
+              tvParallaxProperties={undefined}
+            />
+            <Text2>Editar Caso</Text2>
+          </Button>

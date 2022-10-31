@@ -1,0 +1,12 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "target": "ES6",
+    "allowJs": true,
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+    "@shared/*": ["src/shared/*"],
+    }
+  }
+}
