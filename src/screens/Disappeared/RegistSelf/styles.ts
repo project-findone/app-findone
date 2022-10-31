@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 export const Title = styled.Text`
     font-size: 32px;
     font-weight: 700;
-    
 `;
 export const Label = styled.Text`
     color: #545454;
@@ -26,7 +25,6 @@ export const ImageGroup = styled.TouchableOpacity`
     position: relative;
     align-self: center;
     margin-top: 2px;
-
 `;
 export const IconView = styled.View`
     height: 45px;

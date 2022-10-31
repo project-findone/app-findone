@@ -7,6 +7,7 @@ export const Theme = {
     TERCIARY: '#00B7A1',
     BG: '#FFFFFF',
     BG_GRADIENT: 'linear-gradient(180deg, #0097A2 13.54%, #00D1B4 100%)',
+    TRANSPARENT: 'transparent',
 
     SUCESS: '#4FBC83',
     ALERT: '#DF7C7C',
@@ -14,7 +15,7 @@ export const Theme = {
     CAPTION_400: '#8D8D8D',
     CAPTION_500: '#7D7D7E',
     CAPTION_600: 'rgba(0,0,0,0.5)',
-    CAPTION_700: '#494949',
+    CAPTION_700: '#000',
 
     TITLE_800: 'rgba(0,0,0,0.6)',
     TITLE_900: 'rgba(0,0,0,1)',
@@ -36,7 +37,7 @@ export const Theme = {
     XX_SM: '12px',
     X_SM: '14px',
     SM: '16px',
-    MD: '20px',
+    MD: '17px',
     LG: '32px',
     X_LG: '36px',
   },
@@ -50,6 +51,7 @@ export interface ThemeTypes {
     TERCIARY: string,
     BG: string,
     BG_GRADIENT: string,
+    TRANSPARENT: string,
 
     SUCESS: string,
     ALERT: string,
