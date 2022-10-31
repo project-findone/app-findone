@@ -63,3 +63,16 @@ export const ImagePerfil = styled.Image`
     height: 60px;
     width: 60px;
 `;
+
+export const NotFoundContainer = styled.View`
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const NotFoundText = styled.Text`
+    font-size: ${({ theme }) => theme.FONT_SIZE.MD};
+    font-family: ${({ theme }) => theme.FONT_FAMILY.MEDIUM};
+    color: ${({ theme }) => theme.COLORS.CAPTION_600};
+`;

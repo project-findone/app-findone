@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 
 import { api, ResponseError } from '@shared/services/api';
 import { showToast } from '@shared/components/Toast';
+import { requestTimeout } from '@shared/utils/requestTimeout';
 
 type TregisterCredentials = {
   name: string;
@@ -34,7 +35,7 @@ export type ICaseData = {
   }
 };
 
-type ICaseContextData = {
+type IUserContextData = {
   services: {
     register: (credentials: TregisterCredentials) => Promise<void>;
     listCases: () => Promise<void>
@@ -42,14 +43,14 @@ type ICaseContextData = {
   casesOfDisappeareds: ICaseData[] | null
 };
 
-const CaseContext = createContext<ICaseContextData>({} as ICaseContextData);
+const UserContext = createContext<IUserContextData>({} as IUserContextData);
 
 export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [cases, setCases] = useState<ICaseData[] | null>(null);
 
   const listCases = useCallback(async () => {
     try {
-      const disappeareds = await api.get('disappeareds');
+      const disappeareds = await requestTimeout(api.get('disappeared'), 5000);
       if (disappeareds.data) setCases(disappeareds.data);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -77,18 +78,18 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   return (
-    <CaseContext.Provider value={{
+    <UserContext.Provider value={{
       services: { register, listCases },
       casesOfDisappeareds: cases,
     }}
     >
       {children}
-    </CaseContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export function useUser(): ICaseContextData {
-  const context = useContext(CaseContext);
+export function useUser(): IUserContextData {
+  const context = useContext(UserContext);
 
   if (!context) {
     throw new Error('useAuth must be used within an CaseProvider');

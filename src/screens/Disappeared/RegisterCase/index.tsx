@@ -15,7 +15,7 @@ import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
 import UnknownImage from '@shared/assets/unknown.png';
-import { useUser } from '@shared/hooks/contexts/CaseContext';
+import { useUser } from '@shared/hooks/contexts/UserContext';
 import { showToast } from '@shared/components/Toast';
 import { FieldsValidate } from './utils/SignInValidation';
 import {

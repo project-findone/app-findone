@@ -7,59 +7,20 @@ import { Icon } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomSwitch from '@shared/components/Switch';
 import {
-  FlatList,
-  ListRenderItem,
   TouchableOpacity,
 } from 'react-native';
-
-import UnknownImage from '@shared/assets/unknown.png';
 
 import MapView from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Theme } from '@shared/theme';
-import { DATA } from './Data';
+import { List } from '../List';
 
 import {
   ViewMapa, BarUp, Text2, Button1,
   ButtonsArea,
-  ButtonBlue,
-  ImagePerfil,
-  TextMenor,
-  TextName,
-  ViewImage,
-  ViewText,
-  ViewLista,
   ButtonLocationContainer,
 } from './styles';
-
-interface IUser {
-  id: string;
-  name: string;
-  city: string;
-  age: string;
-}
-
-const Item = ({ data }: { data: IUser }) => (
-  <ButtonBlue>
-    <ViewImage>
-      <ImagePerfil source={UnknownImage} />
-    </ViewImage>
-    <ViewText>
-      <TextName>{data.name}</TextName>
-      <TextMenor>
-        Visto em
-        {' '}
-        {data.city}
-      </TextMenor>
-      <TextMenor>
-        {data.age}
-        {' '}
-        anos
-      </TextMenor>
-    </ViewText>
-  </ButtonBlue>
-);
 
 type Props = { route: any };
 
@@ -77,8 +38,6 @@ export const SearchIndex: React.FC<Props> = () => {
   const onSelectSwitch = (index: any) => {
     setOptionSelected(index);
   };
-
-  const renderItem: ListRenderItem<IUser> = ({ item }) => <Item data={item} />;
 
   const readData = async () => {
     const value = await AsyncStorage.getItem('firstTime');
@@ -166,13 +125,7 @@ export const SearchIndex: React.FC<Props> = () => {
           </TouchableOpacity>
         </ViewMapa>
       ) : (
-        <ViewLista>
-          <FlatList
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={(item: IUser) => item.id}
-          />
-        </ViewLista>
+        <List />
       )}
 
     </SafeAreaView>
