@@ -21,6 +21,11 @@ export const ScrollView = styled.ScrollView`
     width: 100%;
 `;
 
+export const Container = styled.View<{ error: boolean }>`
+    height: ${({ error }) => (error ? 100 : 104)}%;
+    ${({ error }) => (error ? 'align-items: center; justify-content: center; padding: 16px' : '')}
+`;
+
 export const ViewInformações = styled.View`
     height: 100%;
     width: 100%;
@@ -28,8 +33,8 @@ export const ViewInformações = styled.View`
     background-color: #FFF;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    align-items: center;
     z-index: 1;
+    padding: 6% 8% 6% 8%;
 `;
 
 export const ImageHeader = styled.Image`
@@ -39,7 +44,8 @@ export const ImageHeader = styled.Image`
 
 export const ViewDadosImagem = styled.View`
     position: absolute;
-    width: 100%;
+    align-self: center;
+    width: 90%;
     height: 20%;
     margin-top: 57%;
     padding: 2%;
@@ -59,80 +65,34 @@ export const TextImagemMenor = styled.Text`
     text-align: center;
 `;
 
-export const ViewRow = styled.View`
-    flex-direction: row;
-    margin-top: 5%;
-    height: 30px;
-`;
-
-export const ViewRowBlack = styled.View`
-    flex-direction: row;
-    height: 50px;
-`;
-
-export const ViewRow2 = styled.View`
-    flex-direction: row;
-    height: 30px;
-`;
-
-export const ViewDescMenor = styled.View`
-    width: 40%;
-    height: 25px;
-    margin-left: 7%;
-`;
-
-export const ViewDescMaior = styled.View`
-    width: 88%;
-    height: 25px;
-    margin-left: 7%;
-`;
-
 export const ViewDescMaior2 = styled.View`
     width: 88%;
     height: 25px;
-    margin-left: 7%;
     margin-top: 5%;
-`;
-
-export const ViewDescBlack = styled.View`
-    width: 40%;
-    height: 30px;
-    margin-left: 7%;
 `;
 
 export const ViewDescBlackMaior = styled.View`
     width: 78%;
-    margin-left: 7%;
-    margin-right: 10%;
 `;
 
 export const TextDescAzul = styled.Text`
     color: #0288D1;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: justify;
-`;
-
-export const TextDescBlack = styled.Text`
-    color: #000;
-    font-size: 20px;
-    text-align: justify;
-`;
-
-export const TextResponsavelBlack = styled.Text`
-    color: #000;
-    font-size: 18px;
+    font-size: ${({ theme: { FONT_SIZE } }) => FONT_SIZE.MD};
+    font-family: ${({ theme: { FONT_FAMILY } }) => FONT_FAMILY.SEMIBOLD};
     text-align: justify;
 `;
 
 export const ViewButton = styled.View`
     width: 85%;
+    align-self: center;
+    justify-self: flex-end;
     padding: 3px;
     border-Radius: 100px;
-    margin-Top: 2%;
+    margin-top: 8%;
     margin-bottom: 2%;
     background-color: #F2F2F2;
     flex-direction: row;
+    justify-content: space-between;
 `;
 
 export const ViewImage = styled.View`
@@ -148,7 +108,6 @@ export const ImagePerfil = styled.Image`
 
 export const ViewTextButton = styled.View`
     width: 50%;
-    margin-left: 4%;
     margin-top: 5px;
 `;
 
@@ -158,9 +117,27 @@ export const ButtonChat = styled.TouchableOpacity`
     height: 65px;
     width: 65px;
     border-radius: 50px;
-    margin-left: 3%;
     background-color: #0288D1;
     aspect-ratio: 1;
     border-radius: 100px;
     border: 3px solid #DADADA;
+    right: 0;
+`;
+
+export const CharacContainer = styled.View`
+    flex-flow: row wrap;
+    width: 100%;
+`;
+
+export const CharacGroup = styled.View<{ positionType: 'right' | 'left'; initialGroup?: boolean }>`
+    width: 45%;
+    margin-left: ${({ positionType }) => (positionType === 'right' ? 4 : 0)}%;
+    margin-top: ${({ initialGroup }) => (initialGroup ? 0 : 4)}%;
+`;
+
+export const InfoText = styled.Text<{ positionType: 'top' | 'bottom'; owner?: boolean }>`
+    font-family: ${({ positionType, theme: { FONT_FAMILY } }) => (positionType === 'top' ? FONT_FAMILY.SEMIBOLD : FONT_FAMILY.REGULAR)};
+    font-size: ${({ positionType, owner, theme: { FONT_SIZE } }) => (owner ? FONT_SIZE.SM : positionType === 'top' ? FONT_SIZE.MD : FONT_SIZE.X_MD)};
+    color: ${({ positionType, theme: { COLORS } }) => (positionType === 'top' ? COLORS.SECONDARY : COLORS.TITLE_900)};
+    margin-top: ${({ positionType, owner }) => (owner ? 0 : positionType === 'bottom' ? 4 : 0)}px;
 `;

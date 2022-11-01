@@ -13,6 +13,7 @@ import { Welcome } from 'src/screens/Initials/Welcome';
 import { Terms } from 'src/screens/Initials/Terms';
 import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
+import { ICaseData, UserProvider } from '@shared/hooks/contexts/UserContext';
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
@@ -130,27 +131,29 @@ export interface IndexParamsList {
   Filter: undefined
   About: undefined
   EditUser: undefined
-  InfoCase: undefined
+  InfoCase: ICaseData | undefined
   Welcome: undefined
   Terms: undefined
   Local: undefined
 }
 
 export const Router: React.FC = () => (
-  <AuthProvider>
-    <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
-      <Stack.Group>
-        <Stack.Screen name="Home" component={HomeTabs} />
-        <Stack.Screen name="Filter" component={Filter} />
-        <Stack.Screen name="About" component={About} />
-        <Stack.Screen name="EditUser" component={EditUser} />
-        <Stack.Screen name="InfoCase" component={CaseInformation} />
-      </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Terms" component={Terms} />
-        <Stack.Screen name="Local" component={LocalModal} />
-      </Stack.Group>
-    </Stack.Navigator>
-  </AuthProvider>
+  <UserProvider>
+    <AuthProvider>
+      <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
+        <Stack.Group>
+          <Stack.Screen name="Home" component={HomeTabs} />
+          <Stack.Screen name="Filter" component={Filter} />
+          <Stack.Screen name="About" component={About} />
+          <Stack.Screen name="EditUser" component={EditUser} />
+          <Stack.Screen name="InfoCase" component={CaseInformation} />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Terms" component={Terms} />
+          <Stack.Screen name="Local" component={LocalModal} />
+        </Stack.Group>
+      </Stack.Navigator>
+    </AuthProvider>
+  </UserProvider>
 );

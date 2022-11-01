@@ -72,6 +72,8 @@ export const TextButton = styled.Text`
 
 export const Align = styled.View`
     align-items: center;
-    flex-direction: row;
+    margin-top: 4%;
+    flex-flow: row wrap;
+    justify-content: space-between;
     width: 100%;
 `;
