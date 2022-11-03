@@ -31,27 +31,49 @@ type Props = {
   hair?: string,
 };
 
-export const DisappearedValidate = async (data: Props) => {
-  const schema = Yup.object().shape({
-    disappeared: Yup.object().shape({
-      name: Yup.string().required('Este campo é obrigatório'),
-      lastname: Yup.string().required('Este campo é obrigatório'),
-      age: Yup.number().required('Campo obrigatório'),
-      gender: Yup.string().required('Este campo é obrigatório'),
-      birthDate: Yup.string().required('Este campo é obrigatório'),
-      personCPF: Yup.number().required('Este campo é obrigatório'),
-      personCEP: Yup.number().required('Este campo é obrigatório'),
-      state: Yup.string().required('Campo obrigatório'),
-      city: Yup.string().required('Este campo é obrigatório'),
-    }),
-    case: Yup.object().shape({
-      state: Yup.string().required('Campo obrigatório'),
-      city: Yup.string().required('Este campo é obrigatório'),
-      district: Yup.string().required('Este campo é obrigatório'),
-      street: Yup.string().required('Este campo é obrigatório'),
-    }),
-  });
+export const DisappearedValidate = async (data: Props, parent: string) => {
+  console.log(parent);
+  let schema;
+  if (parent === 'Parente') {
+    schema = Yup.object().shape({
+      disappeared: Yup.object().shape({
+        name: Yup.string().required('Este campo é obrigatório'),
+        lastname: Yup.string().required('Este campo é obrigatório'),
+        age: Yup.number().required('Obrigatório'),
+        gender: Yup.string().required('Este campo é obrigatório'),
+        birthDate: Yup.string().required('Este campo é obrigatório'),
+        personCPF: Yup.number().required('Este campo é obrigatório'),
+        personCEP: Yup.number().required('Este campo é obrigatório'),
+        state: Yup.string().required('Campo obrigatório'),
+        city: Yup.string().required('Este campo é obrigatório'),
+      }),
+      case: Yup.object().shape({
+        state: Yup.string().required('Campo obrigatório'),
+        city: Yup.string().required('Este campo é obrigatório'),
+        district: Yup.string().required('Este campo é obrigatório'),
+        street: Yup.string().required('Este campo é obrigatório'),
+      }),
+    });
+  } else if (parent === 'Amigo') {
+    schema = Yup.object().shape({
+      disappeared: Yup.object().shape({
+        name: Yup.string().required('Este campo é obrigatório'),
+        lastname: Yup.string().required('Este campo é obrigatório'),
+        age: Yup.number().required('Obrigatório'),
+        gender: Yup.string().required('Este campo é obrigatório'),
+        personCEP: Yup.number().required('Este campo é obrigatório'),
+        state: Yup.string().required('Campo obrigatório'),
+        city: Yup.string().required('Este campo é obrigatório'),
+      }),
+      case: Yup.object().shape({
+        state: Yup.string().required('Campo obrigatório'),
+        city: Yup.string().required('Este campo é obrigatório'),
+        district: Yup.string().required('Este campo é obrigatório'),
+        street: Yup.string().required('Este campo é obrigatório'),
+      }),
+    });
+  }
 
-  const validate = await schema.validate(data, { abortEarly: false });
+  const validate = await schema?.validate(data, { abortEarly: false });
   return validate;
 };

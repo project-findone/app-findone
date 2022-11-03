@@ -75,10 +75,9 @@ export const RegisterCase: React.FC = () => {
   const handleSubmit = useCallback(async (values: TregisterCredentials) => {
     setIsSending(true);
     try {
-      console.log('---befor--setParentesco-----', parentesco);
       formRef.current?.setErrors({});
 
-      await DisappearedValidate(values);
+      await DisappearedValidate(values, parentesco);
 
       values.disappeared.personKinship = parentesco;
       values.disappeared.age = +values.disappeared.age;
@@ -114,7 +113,7 @@ export const RegisterCase: React.FC = () => {
       }
     }
     setIsSending(false);
-  }, []);
+  }, [parentesco]);
 
   const styles = StyleSheet.create({
     scrollContainer: {
@@ -162,7 +161,8 @@ export const RegisterCase: React.FC = () => {
                 rowTextStyle={{ textAlign: 'justify', marginLeft: 20 }}
                 data={parentItems}
                 onSelect={(selectedItem) => { setParentesco(selectedItem); }}
-                defaultButtonText="Selecione"
+                defaultButtonText="Parente"
+                defaultValue="Parente"
                 buttonTextAfterSelection={(item) => item}
                 rowTextForSelection={(item) => item}
                 renderDropdownIcon={() => (
