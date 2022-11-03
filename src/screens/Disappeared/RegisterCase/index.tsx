@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-console */
 import React, { useCallback, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet, Modal } from 'react-native';
 import { FormHandles } from '@unform/core';
 import { DropDown } from '@shared/components/DropDown';
 import { Form } from '@unform/mobile';
@@ -18,12 +18,22 @@ import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
 import { useUser, TregisterCredentials } from '@shared/hooks/contexts/CaseContext';
 import { showToast } from '@shared/components/Toast';
-import { DisappearedValidate, CaseValidate } from './utils/SignInValidation';
+import SelectDropdown from 'react-native-select-dropdown';
+import { Entypo } from '@expo/vector-icons';
+import { DisappearedValidate } from './utils/RegisterValidation';
 import {
   Title, Title2, ScrollView, Header, IconBack, Align,
+  ButtonModel, CenteredViewModel, ModelTransparent, TextButtonModel,
+  TextCaso, ViewModel,
 } from './styles';
 
 export const RegisterCase: React.FC = () => {
+  const [modalVisible, setModalVisible] = useState(true);
+  const [parentesco, setParentesco] = useState('');
+  const navigation = useNavigation();
+
+  const [parentItems] = useState(['Parente', 'Amigo']);
+
   const [genderItems] = useState([
     { label: 'Masculino', value: 'male' },
     { label: 'Feminino', value: 'female' },
@@ -58,7 +68,6 @@ export const RegisterCase: React.FC = () => {
   ]);
 
   const [isSending, setIsSending] = useState(false);
-  const navigation = useNavigation();
   const { services: { register } } = useUser();
 
   const formRef = useRef<FormHandles>(null);
@@ -66,14 +75,19 @@ export const RegisterCase: React.FC = () => {
   const handleSubmit = useCallback(async (values: TregisterCredentials) => {
     setIsSending(true);
     try {
-      values.disappeared.personKinship = 'Desconhecido';
+      console.log('---befor--setParentesco-----', parentesco);
+      formRef.current?.setErrors({});
+
+      await DisappearedValidate(values);
+
+      values.disappeared.personKinship = parentesco;
       values.disappeared.age = +values.disappeared.age;
       values.case.latitude = 'x';
       values.case.longitude = 'y';
       values.passCheck = true;
 
       values.characteristics = [
-        Number(values.eye), Number(values.eye), Number(values.eye), Number(values.eye),
+        Number(values.eye), Number(values.hair), Number(values.haircolor), Number(values.skin),
       ];
       delete values.eye;
       delete values.hair;
@@ -88,11 +102,6 @@ export const RegisterCase: React.FC = () => {
       }
 
       console.log(values);
-
-      formRef.current?.setErrors({});
-
-      await DisappearedValidate(values.disappeared);
-      await CaseValidate(values.case);
 
       await register(values);
     } catch (err: any) {
@@ -118,6 +127,62 @@ export const RegisterCase: React.FC = () => {
 
   return (
     <SafeAreaView>
+
+      <CenteredViewModel>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => {
+            navigation.goBack();
+          }}
+        >
+
+          <ModelTransparent>
+            <ViewModel>
+              <TextCaso>Qual seu grau de parentesco com o desaparecido?</TextCaso>
+
+              <SelectDropdown
+                buttonStyle={{
+                  width: '100%',
+                  height: 65,
+                  backgroundColor: '#fff',
+                  borderColor: '#A7A7A7',
+                  borderWidth: 3,
+                  borderRadius: 10,
+                  marginVertical: 30,
+                }}
+                buttonTextStyle={{
+                  textAlign: 'left',
+                }}
+                dropdownStyle={{
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+                rowTextStyle={{ textAlign: 'justify', marginLeft: 20 }}
+                data={parentItems}
+                onSelect={(selectedItem) => { setParentesco(selectedItem); }}
+                defaultButtonText="Selecione"
+                buttonTextAfterSelection={(item) => item}
+                rowTextForSelection={(item) => item}
+                renderDropdownIcon={() => (
+                  <Entypo
+                    name="chevron-thin-down"
+                    size={28}
+                    color="#A7A7A7"
+                  />
+                )}
+              />
+              <ButtonModel
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <TextButtonModel>Confirmar</TextButtonModel>
+              </ButtonModel>
+            </ViewModel>
+
+          </ModelTransparent>
+        </Modal>
+      </CenteredViewModel>
 
       <ScrollView
         showsVerticalScrollIndicator={false}

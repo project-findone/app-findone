@@ -109,15 +109,21 @@ export const SearchIndex: React.FC<Props> = () => {
         e.preventDefault();
       });
 
-      const { coordsPosition } = await getUserLocation();
-      if (coordsPosition) {
-        const { coords } = coordsPosition;
-        setOrigin(({ latitude, longitude, ...rest }) => ({
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-          ...rest,
-        }));
+      try {
+        const { coordsPosition } = await getUserLocation();
+
+        if (coordsPosition) {
+          const { coords } = coordsPosition;
+          setOrigin(({ latitude, longitude, ...rest }) => ({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            ...rest,
+          }));
+        }
+      } catch (error) {
+        console.log('Acesso negado!');
       }
+
       await readData();
     })();
   }, []);
