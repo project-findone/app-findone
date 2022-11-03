@@ -46,7 +46,7 @@ export const Logged: React.FC = () => {
       </Name>
 
       <Title>
-        {personTypeID === 1 ? 'Usuário' : 'Apoiador'}
+        {personTypeID === 4 ? 'Apoiador' : 'Usuário'}
         {` | ${!!score ? score : 0} Pontos`}
       </Title>
 

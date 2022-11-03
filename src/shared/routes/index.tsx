@@ -61,10 +61,9 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
 
     <Tab.Screen
       name="Cases"
-      component={SupporterAd}
+      component={CaseInformation}
       options={{
         title: 'Casos',
-        tabBarStyle: { display: 'none' },
         tabBarIcon: (props: { color: string }) => (
           <Icon
             name="people"
@@ -147,6 +146,7 @@ export const Router: React.FC = () => (
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="EditUser" component={EditUser} />
         <Stack.Screen name="InfoCase" component={CaseInformation} />
+        <Stack.Screen name="SupporterAd" component={SupporterAd} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Welcome" component={Welcome} />
