@@ -46,7 +46,7 @@ export const SupporterAd: React.FC = () => {
             name="person-add-outline"
             color="#08B9C3"
             type="ionicon"
-            size={40}
+            size={32}
             tvParallaxProperties={undefined}
           />
           <ItemText color="#08B9C3">Cadastro de Casos</ItemText>
@@ -56,7 +56,7 @@ export const SupporterAd: React.FC = () => {
             name="md-chatbox-ellipses-outline"
             color="#00CFB3"
             type="ionicon"
-            size={40}
+            size={32}
             tvParallaxProperties={undefined}
           />
           <ItemText color="#00CFB3">Chat de Comunicação</ItemText>
@@ -66,7 +66,7 @@ export const SupporterAd: React.FC = () => {
             name="ios-search"
             color="#08B9C3"
             type="ionicon"
-            size={40}
+            size={32}
             tvParallaxProperties={undefined}
           />
           <ItemText color="#08B9C3">Casos Envolvidos</ItemText>
@@ -76,7 +76,7 @@ export const SupporterAd: React.FC = () => {
             name="people"
             color="#00CFB3"
             type="octicon"
-            size={40}
+            size={32}
             tvParallaxProperties={undefined}
           />
           <ItemText color="#00CFB3">Reconhecer Rostos</ItemText>
@@ -86,7 +86,7 @@ export const SupporterAd: React.FC = () => {
             name="newspaper-variant-multiple-outline"
             color="#08B9C3"
             type="material-community"
-            size={40}
+            size={32}
             tvParallaxProperties={undefined}
           />
           <ItemText color="#08B9C3">Certificado</ItemText>

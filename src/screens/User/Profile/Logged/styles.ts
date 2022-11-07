@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const UserImage = styled.Image`
-  margin-top: 25%;
+  margin-top: 20%;
   height: 140px;
   aspect-ratio: 1;
   border-radius: 100px;
@@ -23,7 +23,7 @@ margin-top: 8px;
 
 export const Button1 = styled.TouchableOpacity`
   align-items: center;
-  padding: 17px;
+  padding: 15px;
   border: #00B9C6 3px solid;
   border-radius: 10px;
   margin-top: 35px;
