@@ -3,15 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
+
 import White_logo from '@shared/assets/white_logo.png';
+import Inpat_logo from '@shared/assets/inpat.png';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import SupportMsg from '@shared/components/SupportMsg';
 import { SafeAreaView } from '@shared/components/SafeView';
 import {
-  Content, Title, InfoBottom, Text, Button1, Images, LineTop,
-  Button2, TextOption1, TextOption2, Buttons, Findone, Inpat
+  Content, Title, Text, Images, LineTop, Points, TextPoints,
+  Findone, Inpat, DivPoints, SideNumbers, Bar, GreyBar,
+  ColoredBar, TextSide, TextbtnConceder, BtnConceder,
 } from './styles';
 
 export const Certified: React.FC = () => {
@@ -29,15 +32,15 @@ export const Certified: React.FC = () => {
         : (
           <>
             <LinearGradient
-              colors={['#159aa3', '#00c7bd']}
+              colors={['#008892', '#0aaa95']}
               style={{
                 width: '100%',
-                height: 320,
+                height: 290,
                 paddingHorizontal: '8%',
-                paddingTop: 40,
+                paddingTop: 45,
                 alignItems: 'center',
               }}
-              locations={[0.0, 1]}
+              locations={[0.1, 1]}
             >
               <LineTop>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -56,19 +59,47 @@ export const Certified: React.FC = () => {
                 <Findone
                   source={White_logo}
                 />
+                <Icon
+                  name="plus"
+                  color="#FFF"
+                  type="octicon"
+                  size={55}
+                  tvParallaxProperties={undefined}
+                />
+                <Inpat
+                  source={Inpat_logo}
+                />
               </Images>
             </LinearGradient>
 
             <Content>
 
-              <InfoBottom>
-                <Text>Você reconhece essa pessoa?</Text>
+              <Text>
+                Junte 50 pontos para adquirir
+                um certificado do Instituto de
+                Perícias INPAT Forense!
+              </Text>
 
-                <Buttons>
-                  <Button1><TextOption1>SIM</TextOption1></Button1>
-                  <Button2><TextOption2>NÃO</TextOption2></Button2>
-                </Buttons>
-              </InfoBottom>
+              <DivPoints>
+                <SideNumbers>
+                  <TextSide>0</TextSide>
+                  <TextSide>50</TextSide>
+                </SideNumbers>
+                <Bar>
+                  <GreyBar />
+                  <ColoredBar />
+                </Bar>
+                <Points>
+                  <TextPoints>45 Pontos</TextPoints>
+                </Points>
+              </DivPoints>
+
+              <BtnConceder>
+                <TextbtnConceder>
+                  Solicitar Certificado
+                </TextbtnConceder>
+              </BtnConceder>
+
             </Content>
           </>
         )}

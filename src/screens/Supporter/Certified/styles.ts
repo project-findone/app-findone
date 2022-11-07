@@ -6,6 +6,7 @@ export const Content = styled.View`
     border-top-right-radius: 27px;
     margin-top: -20px;
     background-color: #fff;
+    padding: 8%;
 `;
 
 export const LineTop = styled.View`
@@ -15,10 +16,11 @@ export const LineTop = styled.View`
 `;
 
 export const Images = styled.View`
-    height: 60%;
+    height: 50%;
     width: 100%;
     margin-top: 8%;
-    background-color: #fff;
+    flex-direction: row;
+    align-items: center;
 `;
 
 export const Title = styled.Text`
@@ -41,55 +43,88 @@ export const ImagePerson = styled.Image`
 `;
 
 export const Findone = styled.Image`
-    width: 50px;
-    height: 50px;
+    width: 140px;
+    height: 120px;
+    margin-right: 3%;
 `;
 
-export const InfoBottom = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
+export const Inpat = styled.Image`
+    width: 80px;
+    height: 110px;
+    margin-left: 12%;
 `;
 
 export const Text = styled.Text`
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bold;
 `;
 
-export const Buttons = styled.View`
+export const TextSide = styled.Text`
+    font-size: 20px;
+    font-weight: bold;
+    color: #929292;
+`;
+
+export const TextPoints = styled.Text`
+    font-size: 19px;
+    font-weight: bold;
+    color: #000;
+`;
+
+export const DivPoints = styled.View`
+    width: 100%;
+    margin-top: 13%;
+    height: 120px;
+`;
+
+export const SideNumbers = styled.View`
+    width: 100%;
+    height: 37px;
     flex-direction: row;
-    margin-top: 25px;
     justify-content: space-between;
-    width: 85%;
-    margin-bottom: 40px;
 `;
 
-export const Button1 = styled.TouchableOpacity`
-  align-items: center;
+export const Bar = styled.View`
+    width: 100%;
+    height: 43px;
+`;
+
+export const GreyBar = styled.View`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #D9D9D9;
+    border-radius: 40px;
+`;
+
+export const ColoredBar = styled.View`
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    background-color: #00B9C6;
+    border-radius: 40px;
+`;
+export const Points = styled.View`
+    margin-top: 3%;
+    width: 100%;
+    height: 30px;
+    align-items: flex-end;
+    padding-right: 20%;
+`;
+
+export const BtnConceder = styled.TouchableOpacity`
+  height: 50px;
+  width: 100%;
   justify-content: center;
-  border: #00C673 4px solid;
-  border-radius: 14px;
-  height: 58px;
-  width: 47%;
-`;
-
-export const TextOption1 = styled.Text`
-    font-size: 20px;
-    font-weight: bold;
-    color: #00C673;
-`;
-
-export const Button2 = styled.TouchableOpacity`
   align-items: center;
-  justify-content: center;
-  border: #DF7C7C 4px solid;
-  border-radius: 14px;
-  height: 58px;
-  width: 47%;
+  margin-top: 14%;
+  border-radius: 30px;
+  background-color: #949494;
 `;
 
-export const TextOption2 = styled.Text`
-    font-size: 20px;
-    font-weight: bold;
-    color: #DF7C7C;
+export const TextbtnConceder = styled.Text`
+  color: #FFF;
+  font-weight: 500;
+  font-size: 18px;
+  font-stretch: expanded;
 `;
