@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View, SafeAreaView,
 } from 'react-native';
@@ -8,7 +8,6 @@ import SafeViewAndroid from '@shared/components/SafeView';
 import IconFindone from '@shared/assets/icon-findone.png';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import { Terms } from 'src/screens/Initials/Terms';
 import { NoLogged } from './NoLogged';
 import { Logged } from './Logged';
 

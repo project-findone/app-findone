@@ -10,9 +10,9 @@ import {
   Header, Content, Title,
 } from './styles';
 
-export const InvolvedCases: React.FC = () => {
-  const [user, setUser] = useState();
+export const Certified: React.FC = () => {
   const navigation = useNavigation();
+  const [user, setUser] = useState();
   const data = useAuth();
 
   useEffect(() => {

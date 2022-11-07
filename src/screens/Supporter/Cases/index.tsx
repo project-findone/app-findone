@@ -4,6 +4,7 @@ import { Text, View } from './styles';
 
 export const Cases: React.FC = () => (
   <SafeAreaView>
+
     <View>
       <Text>Cases Screen</Text>
     </View>

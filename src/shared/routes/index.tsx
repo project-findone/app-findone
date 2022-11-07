@@ -12,8 +12,8 @@ import { LocalModal } from 'src/screens/Initials/Local';
 import { Welcome } from 'src/screens/Initials/Welcome';
 import { Terms } from 'src/screens/Initials/Terms';
 import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
-import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
-import { SupporterAd } from 'src/screens/User/SupporterAd';
+import { AuthProvider, useAuth } from '@shared/hooks/contexts/AuthContext';
+import { SupporterAd } from 'src/screens/Supporter/SupporterAd';
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
@@ -37,7 +37,8 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
       tabBarLabelStyle: TabBarStyles.TabBarLabelStyle,
       tabBarActiveTintColor: '#009AA5',
       tabBarInactiveTintColor: '#7D7D7E',
-
+      tabBarHideOnKeyboard: true,
+      unmountOnBlur: true,
       headerShown: false,
     }}
   >
@@ -122,7 +123,6 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
         ),
       }}
     />
-
   </Tab.Navigator>
 );
 

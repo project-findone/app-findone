@@ -29,7 +29,7 @@ export const Logged: React.FC = () => {
   }, [signOut]);
 
   const {
-    name, lastname, personTypeID, score,
+    name, lastname, score,
   } = data;
 
   return (
@@ -46,7 +46,7 @@ export const Logged: React.FC = () => {
       </Name>
 
       <Title>
-        {personTypeID === 4 ? 'Apoiador' : 'Usuário'}
+        Apoiador
         {` | ${!!score ? score : 0} Pontos`}
       </Title>
 

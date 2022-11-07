@@ -5,9 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import {
-  BtnConceder, BtnNaopermitir, Description, DivButtons,
+  BtnConceder, BtnNaopermitir, DivButtons,
   Textbtn2, TextbtnConceder, Title, Container, LogoGold,
   List, TopContainer, Item, ItemText,
 } from './styles';
@@ -37,13 +36,21 @@ export const SupporterAd: React.FC = () => {
 
       <Title>
         Torne-se um Apoiador!
+        {'\n'}
+        Crie uma conta e desbloqueie:
       </Title>
 
-      <Description>
-        Ajude outras pessoas em seus casos e desbloqueie os seguintes recursos:
-      </Description>
-
       <List>
+        <Item>
+          <Icon
+            name="person-add-outline"
+            color="#08B9C3"
+            type="ionicon"
+            size={40}
+            tvParallaxProperties={undefined}
+          />
+          <ItemText color="#08B9C3">Cadastro de Casos</ItemText>
+        </Item>
         <Item>
           <Icon
             name="md-chatbox-ellipses-outline"
@@ -88,23 +95,11 @@ export const SupporterAd: React.FC = () => {
 
       <DivButtons>
 
-        <LinearGradient
-          style={{
-            height: '52%',
-            width: '90%',
-            borderRadius: 30,
-          }}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 1, y: 0 }}
-          locations={[0.2, 0.8]}
-          colors={['#E1BB00', '#D0AD01']}
-        >
-          <BtnConceder>
-            <TextbtnConceder>
-              Tornar-me Apoiador
-            </TextbtnConceder>
-          </BtnConceder>
-        </LinearGradient>
+        <BtnConceder onPress={() => navigation.navigate('Profile')}>
+          <TextbtnConceder>
+            Cadastre-se
+          </TextbtnConceder>
+        </BtnConceder>
 
         <BtnNaopermitir onPress={() => navigation.goBack()}>
           <Textbtn2>

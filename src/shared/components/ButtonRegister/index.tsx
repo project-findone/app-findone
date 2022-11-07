@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 
 export const ButtonRegister: React.FC = () => {
   const navigation = useNavigation();
-
   return (
     <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => navigation.navigate('RegisterMenu')}>
 

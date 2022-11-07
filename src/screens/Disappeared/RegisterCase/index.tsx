@@ -126,7 +126,6 @@ export const RegisterCase: React.FC = () => {
 
   return (
     <SafeAreaView>
-
       <CenteredViewModel>
         <Modal
           animationType="fade"
