@@ -95,8 +95,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response) {
+          const { status } = error.response;
           const { message } = error.response.data as ResponseError;
-          showToast({ message, type: 'alert' });
+          if (status !== 404) showToast({ message, type: 'alert' });
         }
       }
     }

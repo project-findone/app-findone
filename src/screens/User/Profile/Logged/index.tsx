@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import TopIcon from '@shared/assets/userPhoto.jpg';
+import TopIcon from '@shared/assets/unknown_profile.png';
 
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 

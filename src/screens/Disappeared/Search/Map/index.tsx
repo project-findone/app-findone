@@ -23,12 +23,14 @@ import {
   ButtonsArea,
   ButtonLocationContainer,
 } from './styles';
+import { ModalInit } from '../Modal';
 
 type Props = { route: any };
 
 export const SearchIndex: React.FC<Props> = () => {
   const { casesOfDisappeareds, services: { listCases } } = useUser();
   const [optionSelected, setOptionSelected] = useState(1);
+  const [firstTime, setFirstTime] = useState(false);
   const [origin, setOrigin] = useState({
     latitude: -23.5559942160993,
     longitude: -46.63910562391042,
@@ -45,6 +47,7 @@ export const SearchIndex: React.FC<Props> = () => {
   const readData = async () => {
     const value = await AsyncStorage.getItem('firstTime');
     if (value === null || '') {
+      setFirstTime(true);
       await AsyncStorage.setItem('firstTime', 'false');
     }
   };
@@ -110,6 +113,8 @@ export const SearchIndex: React.FC<Props> = () => {
           </Button1>
         </ButtonsArea>
       </BarUp>
+
+      {firstTime ? <ModalInit /> : null}
 
       { optionSelected === 1 ? (
         <ViewMapa>

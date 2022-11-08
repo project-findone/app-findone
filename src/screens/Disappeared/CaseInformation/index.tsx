@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import userPhoto from '@shared/assets/userPhoto.jpg';
+import userPhoto from '@shared/assets/unknown_profile.png';
 
 import { ICaseData } from '@shared/hooks/contexts/UserContext';
 import {

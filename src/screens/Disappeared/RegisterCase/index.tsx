@@ -316,14 +316,14 @@ export const RegisterCase: React.FC = () => {
           />
 
           <Align>
-            <Input editable={false} name="case.state" value={caseCEPData.state} marginTop={15} width={33} labelText="Estado" />
+            <Input name="case.state" value={caseCEPData.state} marginTop={15} width={33} labelText="Estado" />
 
-            <Input editable={false} name="case.city" marginTop={15} width={62} labelText="Cidade" />
+            <Input name="case.city" marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
-          <Input editable={false} name="case.district" marginTop={26} labelText="Bairro" />
+          <Input name="case.district" marginTop={26} labelText="Bairro" />
 
-          <Input editable={false} name="case.street" marginTop={26} labelText="Rua" />
+          <Input name="case.street" marginTop={26} labelText="Rua" />
 
           <Input name="case.description" marginTop={26} labelText="Descrição" />
 
