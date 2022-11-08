@@ -5,7 +5,6 @@ import { Icon } from 'react-native-elements';
 import UnknownImage from '@shared/assets/unknown.png';
 
 import SafeView from '@shared/components/SafeView';
-import { StatusBar } from 'expo-status-bar';
 import { ChatMessage } from '@shared/components/ChatMessage';
 import { InputBox } from '@shared/components/InputBox';
 import Chats from './data/Chats';
@@ -49,7 +48,6 @@ export const Chat: React.FC = () => {
   return (
     <SafeView>
       <Header>
-        <StatusBar backgroundColor="#0288D1" />
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon
             name="arrow-left"

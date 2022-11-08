@@ -4,14 +4,14 @@ export const Header = styled.View`
     background-color: #FFF;
     flex-direction: row;
     width: 100%;
-    height: 100px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     z-index: 1;
-    padding: 0 10% 0 6%;
+    padding: 12% 10% 4% 6%;
     justify-content: space-between;
     align-items: center;
     background-color: #0288D1;
+    margin-top: -${({ theme }) => theme.STATUS_BAR.HEIGHT};
 `;
 
 export const Content = styled.View`

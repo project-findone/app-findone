@@ -23,14 +23,14 @@ export type TabTwoParamList = {
 export type User = {
   id: String;
   name: String;
-  imageUri: String;
-  status: String;
+  imageUri?: String;
+  status?: String;
 };
 
 export type Message = {
-  id: String;
+  id: string;
   content: string;
-  createdAt: string;
+  createdAt: string | Date;
   user: User;
 };
 
