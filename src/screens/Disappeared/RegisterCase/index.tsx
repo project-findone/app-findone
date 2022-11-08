@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-console */
 import React, { useCallback, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet, Modal } from 'react-native';
 import { FormHandles } from '@unform/core';
 import { DropDown } from '@shared/components/DropDown';
 import { Form } from '@unform/mobile';
@@ -14,32 +16,34 @@ import { Input } from '@shared/components/Input';
 import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
-import UnknownImage from '@shared/assets/unknown.png';
-import { useUser } from '@shared/hooks/contexts/UserContext';
+import { useUser, TregisterCredentials } from '@shared/hooks/contexts/CaseContext';
 import { showToast } from '@shared/components/Toast';
-import { FieldsValidate } from './utils/SignInValidation';
+import SelectDropdown from 'react-native-select-dropdown';
+import { Entypo } from '@expo/vector-icons';
+import { ViaCepService } from '@shared/services/viacep';
+import { DisappearedValidate } from './utils/RegisterValidation';
 import {
-  Title, Title2, ImagePerfil, ScrollView, Header,
-  IconView, ImageArea, ImageButton, IconBack, Align,
+  Title, Title2, ScrollView, Header, IconBack, Align,
+  ButtonModel, CenteredViewModel, ModelTransparent, TextButtonModel,
+  TextCaso, ViewModel,
 } from './styles';
-import { ModalParent } from './Modal';
 
-type RegisterFormData = {
-  name: string;
-  lastname: string;
-  age: string;
-  gender: string;
-  cpf: string;
-  cep: string;
-  state: string;
-  city: string;
-  others: string;
-  street: string;
-  description: string;
-  characteristics: number[]
+type ICEPData = {
+  city: string
+  district: string
+  street: string
+  state: string
 };
 
 export const RegisterCase: React.FC = () => {
+  const [modalVisible, setModalVisible] = useState(true);
+  const [parentesco, setParentesco] = useState('');
+  const [caseCEP, setCaseCEP] = useState('');
+  const [caseCEPData, setCaseCEPData] = useState<ICEPData>({} as ICEPData);
+  const navigation = useNavigation();
+
+  const [parentItems] = useState(['Parente', 'Amigo']);
+
   const [genderItems] = useState([
     { label: 'Masculino', value: 'male' },
     { label: 'Feminino', value: 'female' },
@@ -47,48 +51,82 @@ export const RegisterCase: React.FC = () => {
   ]);
 
   const [skinItems] = useState([
-    { label: 'Branca', value: 'branco' },
-    { label: 'Morena', value: 'moreno' },
-    { label: 'Negra', value: 'negro' },
+    { label: 'Branca', value: 1 },
+    { label: 'Morena', value: 2 },
+    { label: 'Negra', value: 3 },
   ]);
 
   const [haircolorItems] = useState([
-    { label: 'Loiro', value: 'Loiro' },
-    { label: 'Preto', value: 'Preto' },
-    { label: 'Castanho', value: 'Castanho' },
-    { label: 'Ruivo', value: 'Ruivo' },
+    { label: 'Loiro', value: 1 },
+    { label: 'Preto', value: 2 },
+    { label: 'Castanho', value: 3 },
+    { label: 'Ruivo', value: 4 },
   ]);
 
   const [eyeItems] = useState([
-    { label: 'Verde', value: 'Verde' },
-    { label: 'Azul', value: 'Azul' },
-    { label: 'Castanho', value: 'Castanho' },
-    { label: 'Castanho Escuro', value: 'CastanhoEscuro' },
+    { label: 'Verde', value: 1 },
+    { label: 'Azul', value: 2 },
+    { label: 'Castanho', value: 3 },
+    { label: 'Castanho Escuro', value: 4 },
   ]);
 
   const [hairItems] = useState([
-    { label: 'Liso', value: 'Liso' },
-    { label: 'Ondulado', value: 'Ondulado' },
-    { label: 'Cacheado', value: 'Cacheado' },
-    { label: 'Crespo', value: 'Crespo' },
+    { label: 'Liso', value: 1 },
+    { label: 'Ondulado', value: 2 },
+    { label: 'Cacheado', value: 3 },
+    { label: 'Crespo', value: 4 },
   ]);
 
   const [isSending, setIsSending] = useState(false);
-  const navigation = useNavigation();
   const { services: { register } } = useUser();
 
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (values: RegisterFormData) => {
+  const handleCEP = useCallback(async () => {
+    if (caseCEP.length === 8) {
+      const viaCepInstance = new ViaCepService();
+      const result = await viaCepInstance.searchByCEP(caseCEP);
+      console.log(result);
+      if (result) {
+        const {
+          bairro, localidade, logradouro, uf,
+        } = result;
+        setCaseCEPData(() => ({
+          city: localidade, state: uf, district: bairro, street: logradouro,
+        }));
+      }
+    }
+  }, []);
+
+  const handleSubmit = useCallback(async (values: TregisterCredentials) => {
     setIsSending(true);
     try {
-      console.log(values);
-
       formRef.current?.setErrors({});
 
-      await FieldsValidate(values);
+      await DisappearedValidate(values, parentesco);
 
-      values.characteristics = [0, 0, 0];
+      values.disappeared.personKinship = parentesco;
+      values.disappeared.age = +values.disappeared.age;
+      values.case.latitude = 'x';
+      values.case.longitude = 'y';
+      values.passCheck = true;
+
+      values.characteristics = [
+        Number(values.eye), Number(values.hair), Number(values.haircolor), Number(values.skin),
+      ];
+      delete values.eye;
+      delete values.hair;
+      delete values.haircolor;
+      delete values.skin;
+
+      if (values.disappeared.description === undefined) {
+        values.disappeared.description = ' ';
+      }
+      if (values.case.description === undefined) {
+        values.case.description = ' ';
+      }
+
+      console.log(values);
 
       await register(values);
     } catch (err: any) {
@@ -96,11 +134,12 @@ export const RegisterCase: React.FC = () => {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
       } else {
+        console.log(err);
         showToast({ message: 'Houve um erro', type: 'alert' });
       }
     }
     setIsSending(false);
-  }, [register]);
+  }, [parentesco]);
 
   const styles = StyleSheet.create({
     scrollContainer: {
@@ -113,8 +152,62 @@ export const RegisterCase: React.FC = () => {
 
   return (
     <SafeAreaView>
+      <CenteredViewModel>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => {
+            navigation.goBack();
+          }}
+        >
 
-      <ModalParent />
+          <ModelTransparent>
+            <ViewModel>
+              <TextCaso>Qual seu grau de parentesco com o desaparecido?</TextCaso>
+
+              <SelectDropdown
+                buttonStyle={{
+                  width: '100%',
+                  height: 65,
+                  backgroundColor: '#fff',
+                  borderColor: '#A7A7A7',
+                  borderWidth: 3,
+                  borderRadius: 10,
+                  marginVertical: 30,
+                }}
+                buttonTextStyle={{
+                  textAlign: 'left',
+                }}
+                dropdownStyle={{
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+                rowTextStyle={{ textAlign: 'justify', marginLeft: 20 }}
+                data={parentItems}
+                onSelect={(selectedItem) => { setParentesco(selectedItem); }}
+                defaultButtonText="Parente"
+                defaultValue="Parente"
+                buttonTextAfterSelection={(item) => item}
+                rowTextForSelection={(item) => item}
+                renderDropdownIcon={() => (
+                  <Entypo
+                    name="chevron-thin-down"
+                    size={28}
+                    color="#A7A7A7"
+                  />
+                )}
+              />
+              <ButtonModel
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <TextButtonModel>Confirmar</TextButtonModel>
+              </ButtonModel>
+            </ViewModel>
+
+          </ModelTransparent>
+        </Modal>
+      </CenteredViewModel>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -138,52 +231,34 @@ export const RegisterCase: React.FC = () => {
 
         </Header>
 
-        <ImageArea>
-
-          <ImageButton>
-
-            <ImagePerfil source={UnknownImage} />
-
-            <IconView>
-              <Icon
-                name="add"
-                color="#fff"
-                type="MaterialIcon"
-                size={32}
-                tvParallaxProperties={undefined}
-              />
-            </IconView>
-
-          </ImageButton>
-
-        </ImageArea>
-
         <Form ref={formRef} onSubmit={handleSubmit}>
 
-          <Input name="name" marginTop={20} labelText="Nome" />
+          <Input name="disappeared.name" marginTop={20} labelText="Nome" />
 
-          <Input name="lastname" marginTop={20} labelText="Sobrenome" />
+          <Input name="disappeared.lastname" marginTop={20} labelText="Sobrenome" />
 
           <Align>
-            <Input name="age" width={30} marginTop={15} labelText="Idade" keyboardType="numeric" maxLength={2} />
+            <Input name="disappeared.age" width={30} marginTop={15} labelText="Idade" keyboardType="numeric" maxLength={2} />
 
             <DropDown
               labelText="Gênero"
-              name="gender"
+              name="disappeared.gender"
               data={genderItems}
               placeholder="Gênero"
               width={65}
             />
           </Align>
 
-          <Input name="cpf" marginTop={20} labelText="CPF" />
+          <Input name="disappeared.birthDate" marginTop={20} labelText="Data de Nascimento" />
 
-          <Input name="cep" marginTop={26} labelText="CEP" />
+          <Input name="disappeared.personCPF" marginTop={20} labelText="CPF" />
+
+          <Input name="disappeared.personCEP" marginTop={26} labelText="CEP" />
 
           <Align>
-            <Input name="state" marginTop={15} width={33} labelText="Estado" />
+            <Input name="disappeared.state" marginTop={15} width={33} labelText="Estado" />
 
-            <Input name="city" marginTop={15} width={62} labelText="Cidade" />
+            <Input name="disappeared.city" marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
           <Align>
@@ -191,6 +266,8 @@ export const RegisterCase: React.FC = () => {
               labelText="Cor pele"
               name="skin"
               data={skinItems}
+              defaultValue={0}
+              placeholder="Selecione"
               width={48}
             />
 
@@ -198,6 +275,8 @@ export const RegisterCase: React.FC = () => {
               labelText="Cor cabelo"
               name="haircolor"
               data={haircolorItems}
+              defaultValue={0}
+              placeholder="Selecione"
               width={48}
             />
           </Align>
@@ -207,6 +286,8 @@ export const RegisterCase: React.FC = () => {
               labelText="Cor olho"
               name="eye"
               data={eyeItems}
+              defaultValue={0}
+              placeholder="Selecione"
               width={48}
             />
 
@@ -214,25 +295,37 @@ export const RegisterCase: React.FC = () => {
               labelText="Tipo cabelo"
               name="hair"
               data={hairItems}
+              defaultValue={0}
+              placeholder="Selecione"
               width={48}
             />
           </Align>
 
-          <Input name="others" marginTop={26} labelText="Outros" />
+          <Input name="disappeared.description" marginTop={26} labelText="Outras Características" />
 
           <Title2>Ultimo local visto</Title2>
 
-          <Input name="cep" marginTop={5} labelText="CEP" />
+          <Input
+            marginTop={26}
+            onChangeText={(text) => {
+              setCaseCEP(text);
+              if (text.length === 8) handleCEP();
+            }}
+            onBlur={handleCEP}
+            labelText="CEP"
+          />
 
           <Align>
-            <Input name="state" marginTop={15} width={33} labelText="Estado" />
+            <Input name="case.state" value={caseCEPData.state} marginTop={15} width={33} labelText="Estado" />
 
-            <Input name="city" marginTop={15} width={62} labelText="Cidade" />
+            <Input name="case.city" marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
-          <Input name="street" marginTop={26} labelText="Rua" />
+          <Input name="case.district" marginTop={26} labelText="Bairro" />
 
-          <Input name="description" marginTop={26} labelText="Descrição" />
+          <Input name="case.street" marginTop={26} labelText="Rua" />
+
+          <Input name="case.description" marginTop={26} labelText="Descrição" />
 
           <Button
             insideText="REGISTRAR"

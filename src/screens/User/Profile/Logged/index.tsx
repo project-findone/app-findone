@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import TopIcon from '@shared/assets/userPhoto.jpg';
+import TopIcon from '@shared/assets/unknown_profile.png';
 
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 
@@ -29,7 +29,7 @@ export const Logged: React.FC = () => {
   }, [signOut]);
 
   const {
-    name, lastname, personTypeID, score,
+    name, lastname, score,
   } = data;
 
   return (
@@ -46,7 +46,7 @@ export const Logged: React.FC = () => {
       </Name>
 
       <Title>
-        {personTypeID === 1 ? 'Usuário' : 'Apoiador'}
+        Apoiador
         {` | ${!!score ? score : 0} Pontos`}
       </Title>
 

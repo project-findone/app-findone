@@ -12,12 +12,15 @@ import { Input } from '@shared/components/Input';
 import { InputMin } from '@shared/components/InputMin';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 
+import { ICaseFilter, useUser } from '@shared/hooks/contexts/UserContext';
 import {
   Title, Button, ScrollView, Header, TextButton, TextAge,
   ContainerAge, TextAge2, Align,
 } from './styles';
 
 export const Filter: React.FC = () => {
+  const { services: { listCasesWithFilters } } = useUser();
+
   const [genderItems] = useState([
     { label: 'Masculino', value: 'male' },
     { label: 'Feminino', value: 'female' },
@@ -85,9 +88,16 @@ export const Filter: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback((values: Object) => {
+  const handleSubmit = useCallback(async (values: ICaseFilter) => {
     console.log(values);
-  }, []);
+    try {
+      await listCasesWithFilters(values);
+
+      navigation.goBack();
+    } catch (err) {
+      console.error(err);
+    }
+  }, [listCasesWithFilters]);
 
   return (
     <SafeAreaView>
@@ -109,69 +119,69 @@ export const Filter: React.FC = () => {
 
         <Form ref={formRef} onSubmit={handleSubmit}>
 
-          <Input name="name" marginTop={20} labelText="Nome" />
+          <Input name="disappeared.name" marginTop={20} labelText="Nome" />
 
-          <TextAge>Idade</TextAge>
+          <Input name="disappeared.lastname" marginTop={20} labelText="Sobrenome" />
 
-          <ContainerAge>
-
-            <InputMin name="Mínimo" marginTop={5} placeholder="Mínima" />
-            <TextAge2>-</TextAge2>
-            <InputMin name="Máximo" marginTop={5} placeholder="Máxima" />
-
-          </ContainerAge>
+          <Input name="disappeared.age" marginTop={20} labelText="Idade" />
 
           <DropDown
             labelText="Gênero"
-            name="gender"
+            name="disappeared.gender"
             data={genderItems}
-            placeholder="Gênero"
+            placeholder="Vazio"
             width={100}
           />
 
           <Align>
-            <Input name="city" marginTop={15} width={60} labelText="Cidade" />
+            <Input name="case.city" width={60} labelText="Cidade" />
 
             <DropDown
               labelText="Estado"
-              name="state"
+              name="case.state"
               data={stateItems}
-              placeholder="Estado"
+              placeholder="Vazio"
               width={35}
             />
           </Align>
 
-          <Input name="personCPF" marginTop={20} labelText="CPF" />
+          <Input name="disappeared.personCPF" marginTop={15} labelText="CPF" />
 
-          <DropDown
-            labelText="Cor pele"
-            name="skin"
-            data={skinItems}
-            width={45}
-          />
+          <Align>
+            <DropDown
+              labelText="Cor pele"
+              name="skin"
+              data={skinItems}
+              placeholder="Vazio"
+              width={45}
+            />
 
-          <DropDown
-            labelText="Cor cabelo"
-            name="haircolor"
-            data={haircolorItems}
-            width={45}
-          />
+            <DropDown
+              labelText="Cor cabelo"
+              name="haircolor"
+              data={haircolorItems}
+              placeholder="Vazio"
+              width={45}
+            />
 
-          <DropDown
-            labelText="Cor olho"
-            name="eye"
-            data={eyeItems}
-            width={45}
-          />
+            <DropDown
+              labelText="Cor olho"
+              name="eye"
+              data={eyeItems}
+              placeholder="Vazio"
+              width={45}
+            />
 
-          <DropDown
-            labelText="Tipo cabelo"
-            name="hair"
-            data={hairItems}
-            width={45}
-          />
+            <DropDown
+              labelText="Tipo cabelo"
+              name="hair"
+              data={hairItems}
+              placeholder="Vazio"
+              width={45}
+            />
+          </Align>
 
-          <Input name="others" placeholder="Exemplo: cicatrizes e tatuagens" marginTop={20} labelText="Outros" />
+          <Input name="disappeared.description" placeholder="Exemplo: cicatrizes e tatuagens" marginTop={20} labelText="Outros" />
 
           <Button onPress={() => formRef.current?.submitForm()}>
             <TextButton>BUSCAR</TextButton>

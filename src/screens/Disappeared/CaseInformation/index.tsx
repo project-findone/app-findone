@@ -1,146 +1,156 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import { SafeAreaView } from '@shared/components/SafeView/index';
 
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import userPhoto from '@shared/assets/userPhoto.jpg';
+import userPhoto from '@shared/assets/unknown_profile.png';
 
+import { ICaseData } from '@shared/hooks/contexts/UserContext';
 import {
+  Container,
   BarUp,
   ButtonChat,
   Header,
   ImageHeader,
   ImagePerfil,
   ScrollView,
-  TextDescAzul,
-  TextDescBlack,
   TextImagem,
   TextImagemMenor,
-  TextResponsavelBlack,
   ViewButton,
   ViewDadosImagem,
-  ViewDescBlack,
   ViewDescBlackMaior,
-  ViewDescMaior,
   ViewDescMaior2,
-  ViewDescMenor,
   ViewImage,
   ViewInformações,
-  ViewRow,
-  ViewRow2,
-  ViewRowBlack,
   ViewTextButton,
+  CharacGroup,
+  InfoText,
+  CharacContainer,
 } from './styles';
 
+type IDisappearedData = ICaseData & {
+  disappeared: {
+    gender: string
+    owner: {
+      name: string
+      lastname: string
+    }
+    disCharacteristic: {
+      characteristicID: number
+      characteristic: {
+        characteristicName: string
+        characteristicTypeName: string
+      }
+    }[]
+  }
+  case: {
+    street: string
+    state: string
+    description: string
+  }
+};
+
 export const CaseInformation: React.FC = () => {
+  const { params } = useRoute();
+  const [disData] = useState<IDisappearedData | null>(params as IDisappearedData);
   const navigation = useNavigation();
+
   return (
     <SafeAreaView>
-      <ScrollView>
-        <BarUp>
-          <ImageHeader source={userPhoto} />
-          <LinearGradient
-            colors={['transparent', '#0288D1']}
-            style={{ width: '100%', height: '100%', position: 'absolute' }}
-            locations={[0.2, 0.7]}
-          />
-          <ViewDadosImagem>
-            <TextImagem>Jhonny Lima Santos</TextImagem>
-            <TextImagemMenor> Desaparecido • 25 Anos • Homem </TextImagemMenor>
-          </ViewDadosImagem>
-          <Header>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Icon
-                name="arrow-left"
-                color="#FFF"
-                type="octicon"
-                size={55}
-                tvParallaxProperties={undefined}
+      {disData ? (
+        <ScrollView>
+          <Container>
+            <BarUp>
+              <ImageHeader source={userPhoto} />
+              <LinearGradient
+                colors={['transparent', '#0288D1']}
+                style={{ width: '100%', height: '100%', position: 'absolute' }}
+                locations={[0.2, 0.7]}
               />
-            </TouchableOpacity>
-          </Header>
-        </BarUp>
+              <ViewDadosImagem>
+                <TextImagem numberOfLines={1}>{`${disData?.disappeared.name} ${disData?.disappeared.lastname}`}</TextImagem>
+                <TextImagemMenor>
+                  {`${disData?.disappeared.personTypeID === 2 ? 'Desaparecido' : 'Perdido'} • ${disData?.disappeared.age} anos • ${disData?.disappeared.gender}`}
+                </TextImagemMenor>
+              </ViewDadosImagem>
+              <Header>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Icon
+                    name="arrow-left"
+                    color="#FFF"
+                    type="octicon"
+                    size={55}
+                    tvParallaxProperties={undefined}
+                  />
+                </TouchableOpacity>
+              </Header>
+            </BarUp>
 
-        <ViewInformações>
-          <ViewRow>
-            <ViewDescMenor>
-              <TextDescAzul>Olho</TextDescAzul>
-            </ViewDescMenor>
+            <ViewInformações>
+              <CharacContainer>
+                {disData?.disappeared.disCharacteristic.forEach(({ characteristic: c }) => (
+                  <CharacGroup initialGroup positionType="left">
+                    <InfoText positionType="top">{c.characteristicTypeName}</InfoText>
+                    <InfoText positionType="bottom">{c.characteristicName}</InfoText>
+                  </CharacGroup>
+                ))}
+              </CharacContainer>
+              <ViewDescMaior2>
+                <InfoText positionType="top">Descrição</InfoText>
+              </ViewDescMaior2>
+              <ViewDescBlackMaior>
+                <InfoText positionType="bottom">{disData?.case.description}</InfoText>
+              </ViewDescBlackMaior>
 
-            <ViewDescMenor>
-              <TextDescAzul>Cor do cabelo</TextDescAzul>
-            </ViewDescMenor>
-          </ViewRow>
+              <ViewDescMaior2>
+                <InfoText positionType="top">Ultimo local visto</InfoText>
+              </ViewDescMaior2>
+              <ViewDescBlackMaior>
+                <InfoText positionType="bottom">{`${disData?.case.street}, 06528-105`}</InfoText>
+                <InfoText positionType="bottom">{`${disData?.case.city}, ${disData?.case.state}`}</InfoText>
+              </ViewDescBlackMaior>
 
-          <ViewRowBlack>
-            <ViewDescBlack>
-              <TextDescBlack>Castanho</TextDescBlack>
-            </ViewDescBlack>
-            <ViewDescBlack>
-              <TextDescBlack>Marrom</TextDescBlack>
-            </ViewDescBlack>
-          </ViewRowBlack>
-
-          <ViewRow2>
-            <ViewDescMenor>
-              <TextDescAzul>Cabelo</TextDescAzul>
-            </ViewDescMenor>
-            <ViewDescMenor>
-              <TextDescAzul>Cor da pele</TextDescAzul>
-            </ViewDescMenor>
-          </ViewRow2>
-
-          <ViewRowBlack>
-            <ViewDescBlack>
-              <TextDescBlack>Ondulado</TextDescBlack>
-            </ViewDescBlack>
-            <ViewDescBlack>
-              <TextDescBlack>Branco</TextDescBlack>
-            </ViewDescBlack>
-          </ViewRowBlack>
-
-          <ViewDescMaior>
-            <TextDescAzul>Descrição</TextDescAzul>
-          </ViewDescMaior>
-          <ViewDescBlackMaior>
-            <TextDescBlack>
-              Tatuagem de patinhas de cachorro na mão direita.
-            </TextDescBlack>
-          </ViewDescBlackMaior>
-
-          <ViewDescMaior2>
-            <TextDescAzul>Ultimo local visto</TextDescAzul>
-          </ViewDescMaior2>
-          <ViewDescBlackMaior>
-            <TextDescBlack>Rua Adamantina, 03209-074</TextDescBlack>
-            <TextDescBlack>Osasco, SP</TextDescBlack>
-          </ViewDescBlackMaior>
-
-          <ViewButton>
-            <ViewImage>
-              <ImagePerfil source={userPhoto} />
-            </ViewImage>
-            <ViewTextButton>
-              <TextDescAzul>Responsável</TextDescAzul>
-              <TextResponsavelBlack>Cláudia Aparecida</TextResponsavelBlack>
-            </ViewTextButton>
-            <ButtonChat>
-              <Icon
-                name="md-chatbox-ellipses-outline"
-                color="#FFF"
-                type="ionicon"
-                size={40}
-                tvParallaxProperties={undefined}
-              />
-            </ButtonChat>
-          </ViewButton>
-        </ViewInformações>
-
-      </ScrollView>
+              <ViewButton>
+                <ViewImage>
+                  <ImagePerfil source={userPhoto} />
+                </ViewImage>
+                <ViewTextButton>
+                  <InfoText positionType="top">Responsável</InfoText>
+                  <InfoText positionType="bottom" numberOfLines={1} owner>{`${disData?.disappeared.owner.name} ${disData?.disappeared.owner.lastname}`}</InfoText>
+                </ViewTextButton>
+                <ButtonChat>
+                  <Icon
+                    name="md-chatbox-ellipses-outline"
+                    color="#FFF"
+                    type="ionicon"
+                    size={40}
+                    tvParallaxProperties={undefined}
+                  />
+                </ButtonChat>
+              </ViewButton>
+            </ViewInformações>
+          </Container>
+        </ScrollView>
+      ) : (
+        <Container error>
+          <InfoText positionType="bottom">Não foi possível consultar o caso.</InfoText>
+          <InfoText positionType="bottom">Por favor, tente novamente mais tarde</InfoText>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon
+              name="arrow-left"
+              color="#000000"
+              type="octicon"
+              size={55}
+              style={{ marginTop: 10 }}
+              tvParallaxProperties={undefined}
+            />
+          </TouchableOpacity>
+        </Container>
+      )}
     </SafeAreaView>
   );
 };

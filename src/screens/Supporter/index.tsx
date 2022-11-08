@@ -54,7 +54,7 @@ export const Supporter: React.FC = () => {
             <TextButtonGreen>Reconhecer rostos</TextButtonGreen>
           </ButtonGreen>
 
-          <ButtonBlue>
+          <ButtonBlue onPress={() => navigation.navigate('Certified')}>
             <Icon
               name="newspaper-variant-multiple-outline"
               color="#08B9C3"
