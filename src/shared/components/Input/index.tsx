@@ -12,7 +12,7 @@ interface InputValueReference {
 }
 
 interface InputProps extends TextInputProps {
-  name: string;
+  name?: string;
   labelText?: string;
   marginTop?: number;
   width?: number;
@@ -20,7 +20,7 @@ interface InputProps extends TextInputProps {
 }
 
 export const Input: React.FC<InputProps> = ({
-  labelText, marginTop, name, width, value, ...TextProps
+  labelText, marginTop, name = 'default', width, value, ...TextProps
 }) => {
   const {
     defaultValue = value, fieldName, registerField, error,
@@ -29,20 +29,22 @@ export const Input: React.FC<InputProps> = ({
   const inputElementRef = useRef<any>(null);
 
   useEffect(() => {
-    registerField<string>({
-      name: fieldName,
-      ref: inputValueRef.current,
-      path: 'value',
-      setValue(ref: any, valueText) {
-        inputValueRef.current.value = valueText;
-        ref.current?.setNativeProps({ text: { valueText } });
-      },
-      clearValue() {
-        inputValueRef.current.value = '';
-        inputElementRef.current?.clear();
-      },
-    });
-  }, [fieldName, registerField, value]);
+    if (name !== 'default') {
+      registerField<string>({
+        name: fieldName,
+        ref: inputValueRef.current,
+        path: 'value',
+        setValue(ref: any, valueText) {
+          inputValueRef.current.value = valueText;
+          ref.current?.setNativeProps({ text: { valueText } });
+        },
+        clearValue() {
+          inputValueRef.current.value = '';
+          inputElementRef.current?.clear();
+        },
+      });
+    }
+  }, [fieldName, registerField, value, name]);
 
   const Label: React.FC = () => {
     const label = labelText

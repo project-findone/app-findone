@@ -31,7 +31,10 @@ export type ICaseData = {
     age: number;
   }
   case: {
+    address: string
     city: string;
+    latitude?: string
+    longitude?: string
   }
 };
 
@@ -74,9 +77,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       if (disappeared.gender?.length === 0) disappeared.gender = undefined;
       if (caseDis.state?.length === 0) caseDis.state = undefined;
       const disappeareds = await requestTimeout(api.post('disappeared/find', { disappeared, caseDis }), 5000);
-      console.log(disappeareds);
       if (disappeareds.data) setCasesFiltred(disappeareds.data);
-      console.log(casesFiltred);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response) {

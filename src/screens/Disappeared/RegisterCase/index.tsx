@@ -20,6 +20,7 @@ import { useUser, TregisterCredentials } from '@shared/hooks/contexts/CaseContex
 import { showToast } from '@shared/components/Toast';
 import SelectDropdown from 'react-native-select-dropdown';
 import { Entypo } from '@expo/vector-icons';
+import { ViaCepService } from '@shared/services/viacep';
 import { DisappearedValidate } from './utils/RegisterValidation';
 import {
   Title, Title2, ScrollView, Header, IconBack, Align,
@@ -27,9 +28,18 @@ import {
   TextCaso, ViewModel,
 } from './styles';
 
+type ICEPData = {
+  city: string
+  district: string
+  street: string
+  state: string
+};
+
 export const RegisterCase: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [parentesco, setParentesco] = useState('');
+  const [caseCEP, setCaseCEP] = useState('');
+  const [caseCEPData, setCaseCEPData] = useState<ICEPData>({} as ICEPData);
   const navigation = useNavigation();
 
   const [parentItems] = useState(['Parente', 'Amigo']);
@@ -71,6 +81,22 @@ export const RegisterCase: React.FC = () => {
   const { services: { register } } = useUser();
 
   const formRef = useRef<FormHandles>(null);
+
+  const handleCEP = useCallback(async () => {
+    if (caseCEP.length === 8) {
+      const viaCepInstance = new ViaCepService();
+      const result = await viaCepInstance.searchByCEP(caseCEP);
+      console.log(result);
+      if (result) {
+        const {
+          bairro, localidade, logradouro, uf,
+        } = result;
+        setCaseCEPData(() => ({
+          city: localidade, state: uf, district: bairro, street: logradouro,
+        }));
+      }
+    }
+  }, []);
 
   const handleSubmit = useCallback(async (values: TregisterCredentials) => {
     setIsSending(true);
@@ -279,15 +305,25 @@ export const RegisterCase: React.FC = () => {
 
           <Title2>Ultimo local visto</Title2>
 
-          <Align>
-            <Input name="case.state" marginTop={15} width={33} labelText="Estado" />
+          <Input
+            marginTop={26}
+            onChangeText={(text) => {
+              setCaseCEP(text);
+              if (text.length === 8) handleCEP();
+            }}
+            onBlur={handleCEP}
+            labelText="CEP"
+          />
 
-            <Input name="case.city" marginTop={15} width={62} labelText="Cidade" />
+          <Align>
+            <Input editable={false} name="case.state" value={caseCEPData.state} marginTop={15} width={33} labelText="Estado" />
+
+            <Input editable={false} name="case.city" marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
-          <Input name="case.district" marginTop={26} labelText="Bairro" />
+          <Input editable={false} name="case.district" marginTop={26} labelText="Bairro" />
 
-          <Input name="case.street" marginTop={26} labelText="Rua" />
+          <Input editable={false} name="case.street" marginTop={26} labelText="Rua" />
 
           <Input name="case.description" marginTop={26} labelText="Descrição" />
 

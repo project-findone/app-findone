@@ -41,7 +41,6 @@ export const Chat: React.FC = () => {
         const newChatRoomData = state.concat(message);
         return newChatRoomData;
       });
-      console.log(chatRoomData);
     }
   }, [messageInput, chatRoomData]);
 

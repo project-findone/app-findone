@@ -12,7 +12,8 @@ type IGeocodingResult = {
   }[]
 };
 
-export const getCoordsByAdress = async (adress: string, city: string) => {
+export const getCoordsByAdress = async (adress: string, city: string): Promise<{ local: string
+  geometry: { coordinates: [] } } | null> => {
   try {
     if (!MAPBOX_KEY) { throw new Error('MapBox acess token is undefined'); }
 
@@ -24,7 +25,7 @@ export const getCoordsByAdress = async (adress: string, city: string) => {
     const regex = new RegExp(pattern, 'is');
     let match = null;
 
-    features.forEach((result) => {
+    features.every((result) => {
       const local = result.place_name;
       console.log(local);
 
@@ -35,9 +36,9 @@ export const getCoordsByAdress = async (adress: string, city: string) => {
           local: result.place_name,
           coords: result.geometry.coordinates,
         };
+        return false;
       }
-
-      console.log(localMatch);
+      return true;
     });
 
     return match;
