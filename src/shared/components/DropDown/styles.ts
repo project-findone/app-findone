@@ -37,7 +37,8 @@ export const ButtonDropdownContainer = styled.View<Props>`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border: 2.3px solid ${({ error, theme }) => (error
+    border: 2.3px solid;
+    border-color: ${({ error, theme }) => (error
     ? theme.COLORS.ALERT
     : theme.COLORS.CAPTION_400)};
     border-radius: 6px;

@@ -12,9 +12,10 @@ import { LocalModal } from 'src/screens/Initials/Local';
 import { Welcome } from 'src/screens/Initials/Welcome';
 import { Terms } from 'src/screens/Initials/Terms';
 import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
-import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 import { ICaseData, UserProvider } from '@shared/hooks/contexts/UserContext';
 import { Chat } from 'src/screens/Supporter/InvolvedCases/Chat';
+import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
+import { SupporterAd } from 'src/screens/Supporter/SupporterAd';
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
@@ -38,7 +39,8 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
       tabBarLabelStyle: TabBarStyles.TabBarLabelStyle,
       tabBarActiveTintColor: '#009AA5',
       tabBarInactiveTintColor: '#7D7D7E',
-
+      tabBarHideOnKeyboard: true,
+      unmountOnBlur: true,
       headerShown: false,
     }}
   >
@@ -123,7 +125,6 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
         ),
       }}
     />
-
   </Tab.Navigator>
 );
 
@@ -148,6 +149,7 @@ export const Router: React.FC = () => (
           <Stack.Screen name="About" component={About} />
           <Stack.Screen name="EditUser" component={EditUser} />
           <Stack.Screen name="InfoCase" component={CaseInformation} />
+          <Stack.Screen name="SupporterAd" component={SupporterAd} />
         </Stack.Group>
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen name="Welcome" component={Welcome} />

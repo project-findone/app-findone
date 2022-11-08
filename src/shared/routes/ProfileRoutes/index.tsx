@@ -22,6 +22,7 @@ export interface ProfileParamsList {
   VerifyUserEmail: undefined
   List: undefined
   CaseInformation: undefined
+  Terms: { initial : string }
 }
 
 const ProfileNav = createNativeStackNavigator();
