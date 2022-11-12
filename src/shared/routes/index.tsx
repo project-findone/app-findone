@@ -16,6 +16,7 @@ import { ICaseData, UserProvider } from '@shared/hooks/contexts/UserContext';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 import { SupporterAd } from 'src/screens/Supporter/SupporterAd';
 import { Cases } from 'src/screens/Supporter/Cases';
+import { Chat } from 'src/screens/Supporter/Chat';
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
@@ -137,6 +138,7 @@ export interface IndexParamsList {
   Welcome: undefined
   Terms: undefined
   Local: undefined
+  Chat: undefined
 }
 
 export const Router: React.FC = () => (
@@ -150,6 +152,7 @@ export const Router: React.FC = () => (
           <Stack.Screen name="EditUser" component={EditUser} />
           <Stack.Screen name="InfoCase" component={CaseInformation} />
           <Stack.Screen name="SupporterAd" component={SupporterAd} />
+          <Stack.Screen name="Chat" component={Chat} />
         </Stack.Group>
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen name="Welcome" component={Welcome} />
