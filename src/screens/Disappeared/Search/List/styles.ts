@@ -19,6 +19,7 @@ export const Title = styled.Text`
     font-size: 33px;
     font-weight: 700;
     margin-top: 5px;
+    color: #fff;
 `;
 
 export const PersonCardContainer = styled.TouchableOpacity<Props>`

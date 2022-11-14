@@ -75,6 +75,7 @@ export const Chat: React.FC = () => {
           <FlatList
             data={chatRoomData}
             renderItem={({ item }) => <ChatMessage message={item} />}
+            inverted
           />
 
           <InputBox

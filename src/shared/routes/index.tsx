@@ -13,10 +13,9 @@ import { Welcome } from 'src/screens/Initials/Welcome';
 import { Terms } from 'src/screens/Initials/Terms';
 import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
 import { ICaseData, UserProvider } from '@shared/hooks/contexts/UserContext';
+import { Chat } from 'src/screens/Supporter/InvolvedCases/Chat';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 import { SupporterAd } from 'src/screens/Supporter/SupporterAd';
-import { Cases } from 'src/screens/Supporter/Cases';
-import { Chat } from 'src/screens/Supporter/Chat';
 import { ButtonRegister } from '../components/ButtonRegister';
 import { TabBarStyles } from './styles';
 
@@ -65,7 +64,7 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
 
     <Tab.Screen
       name="Cases"
-      component={Cases}
+      component={Chat}
       options={{
         title: 'Casos',
         tabBarIcon: (props: { color: string }) => (

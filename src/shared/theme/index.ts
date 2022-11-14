@@ -12,10 +12,9 @@ export const Theme = {
     SUCESS: '#4FBC83',
     ALERT: '#DF7C7C',
 
-    CAPTION_400: '#F1F1F1',
+    CAPTION_400: '#8D8D8D',
     CAPTION_500: '#7D7D7E',
     CAPTION_600: 'rgba(0,0,0,0.5)',
-    CAPTION_650: '#575757',
     CAPTION_700: '#000',
 
     TITLE_800: 'rgba(0,0,0,0.6)',
@@ -61,7 +60,6 @@ export interface ThemeTypes {
     CAPTION_400: string,
     CAPTION_500: string,
     CAPTION_600: string,
-    CAPTION_650: string,
     CAPTION_700: string,
 
     TITLE_800: string,
