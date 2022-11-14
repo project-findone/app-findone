@@ -5,6 +5,7 @@ import { Supporter } from 'src/screens/Supporter';
 import { InvolvedCases } from 'src/screens/Supporter/InvolvedCases';
 import { Ranking } from 'src/screens/Supporter/Ranking';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
+import { RecognizeFaces } from 'src/screens/Supporter/RecognizeFaces';
 import { Certified } from 'src/screens/Supporter/Certified';
 
 export interface SupporterParamsList {
@@ -23,6 +24,7 @@ export const SupporterRouter: React.FC = () => (
       <SupprterNav.Screen name="SupporterIndex" component={Supporter} />
       <SupprterNav.Screen name="InvolvedCases" component={InvolvedCases} />
       <SupprterNav.Screen name="Ranking" component={Ranking} />
+      <SupprterNav.Screen name="RecognizeFaces" component={RecognizeFaces} />
       <SupprterNav.Screen name="Certified" component={Certified} />
     </SupprterNav.Navigator>
   </AuthProvider>

@@ -22,24 +22,43 @@ export const Title = styled.Text`
 `;
 
 export const ViewButton = styled.View`
+    flex-direction: row;
     width: 100%;
+    justify-content: space-between;
 `;
 
-export const Button = styled.TouchableOpacity <{ color: string }>`
-    width: 100%;
-    height: 100px;
+export const ButtonBlue = styled.TouchableOpacity`
+    padding-top: 20px;
+    width: 47%;
     margin-top: 40px;
     border-radius: 20px;
-    border-Color: ${(props) => props.color};
-    border-Width: 7px;
-    flex-direction: row;
-    align-items: center;
-    padding-left: 15px;
+    border-Color: #08B9C3;
+    border-Width: 8px;
 `;
 
-export const TextButton = styled.Text <{ color: string }>`
-    color: ${(props) => props.color};;
+export const TextButtonBlue = styled.Text`
+    color: #08B9C3;
     font-weight: 700;
-    font-size: 28px;
-    margin-left: 15px;
+    font-size: 25px;
+    height: 90px;
+    margin-top: 10px;
+    text-align: center;
+`;
+
+export const ButtonGreen = styled.TouchableOpacity`
+    padding-top: 20px;
+    width: 47%;
+    margin-top: 40px;
+    border-radius: 20px;
+    border-Color: #00CFB3;
+    border-Width: 8px;
+`;
+
+export const TextButtonGreen = styled.Text`
+    color: #00CFB3;
+    font-weight: 700;
+    font-size: 25px;
+    height: 90px;
+    margin-top: 10px;
+    text-align: center;
 `;
