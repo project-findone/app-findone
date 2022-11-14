@@ -1,84 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import {
-  TouchableOpacity, View, FlatList, ListRenderItem,
-} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
-import { Theme } from '@shared/theme';
 
 import SafeView from '@shared/components/SafeView';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import SupportMsg from '@shared/components/SupportMsg';
-import UnknownImage from '@shared/assets/unknown.png';
-import { ICaseData, useUser } from '@shared/hooks/contexts/UserContext';
 import {
-  Header,
-  Content,
-  Title,
-  PersonCardContainer,
-  ImagePerfil,
-  Text,
-  NotFoundContainer,
-  NotFoundText,
-  ButtonInformation,
-  ButtonChat,
-  Buttons,
-  TextInformation,
-  TextChat,
+  Header, Content, Title,
 } from './styles';
 
 export const InvolvedCases: React.FC = () => {
   const [user, setUser] = useState();
   const navigation = useNavigation();
-  const datas = useAuth();
+  const data = useAuth();
 
   useEffect(() => {
-    setUser(datas.user.token);
-  }, []);
-
-  const {
-    casesOfDisappeareds, casesOfDisappearedsF, setCasesOfDisappearedsF, services: { listCases },
-  } = useUser();
-
-  const Item: React.FC<{ data: ICaseData }> = ({ data }) => (
-    <PersonCardContainer onPress={() => navigation.navigate('InfoCase', data)} type={data.disappeared.personTypeID}>
-      <ImagePerfil source={UnknownImage} />
-      <Text>{data.disappeared.name}</Text>
-      <Buttons>
-        <ButtonInformation onPress={() => navigation.navigate('InfoCase', data)} type={data.disappeared.personTypeID}>
-          <Icon
-            name="information"
-            color="#A8A8A8"
-            type="ionicon"
-            size={35}
-            tvParallaxProperties={undefined}
-          />
-          <TextInformation>Info</TextInformation>
-        </ButtonInformation>
-
-        <ButtonChat onPress={() => navigation.navigate('Chat', data)} type={data.disappeared.personTypeID}>
-          <Icon
-            name="md-chatbox-ellipses-outline"
-            color={data.disappeared.personTypeID === 2
-              ? Theme.COLORS.SECONDARY : Theme.COLORS.TERCIARY}
-            type="ionicon"
-            size={35}
-            tvParallaxProperties={undefined}
-          />
-          <TextChat type={data.disappeared.personTypeID}>Chat</TextChat>
-
-        </ButtonChat>
-      </Buttons>
-    </PersonCardContainer>
-
-  );
-
-  const renderItem: ListRenderItem<ICaseData> = ({ item }) => <Item data={item} />;
-
-  useEffect(() => {
-    (async () => {
-      await listCases();
-    })();
+    setUser(data.user.token);
   }, []);
 
   return (
@@ -98,26 +36,7 @@ export const InvolvedCases: React.FC = () => {
 
           <Title>Casos Envolvidos</Title>
         </Header>
-
-        <Content>
-          <View style={{ flex: 1 }}>
-            {casesOfDisappeareds || casesOfDisappearedsF
-              ? (
-                <FlatList
-                  data={casesOfDisappearedsF || casesOfDisappeareds}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => String(item.disappeared.personID)}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ paddingHorizontal: 30, paddingBottom: 30 }}
-                />
-              )
-              : (
-                <NotFoundContainer>
-                  <NotFoundText>Nenhum caso foi encontrado.</NotFoundText>
-                </NotFoundContainer>
-              )}
-          </View>
-        </Content>
+        <Content />
 
       </>
     </SafeView>

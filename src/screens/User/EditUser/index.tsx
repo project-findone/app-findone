@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
@@ -11,18 +9,15 @@ import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import UnknownImage from '@shared/assets/unknown.png';
 
-import { TouchableOpacity, Modal } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  ImageGroup, ImagePerfil, IconView, Button1, Text1, Button2,
-  Text2, ScrollView, TopGroup, CenteredViewModel, ModelTransparent,
-  TextCaso, ViewModel, TextButtonModel, ViewRow, ButtonModelYes, ButtonModelNo,
+  ImageGroup, ImagePerfil, IconView, Button1, Text1, Button2, Text2, ScrollView, TopGroup,
 } from './styles';
 
 export const EditUser: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
 
   const { services: { deleteUser } } = useAuth();
@@ -59,37 +54,6 @@ export const EditUser: React.FC = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <CenteredViewModel>
-          <Modal
-            animationType="slide"
-            transparent
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <ModelTransparent>
-              <ViewModel>
-                <TextCaso>Qual seu grau de parentesco com o desaparecido?</TextCaso>
-
-                <ViewRow>
-                  <ButtonModelYes
-                    onPress={handleDisable}
-                  >
-                    <TextButtonModel>Confirmar</TextButtonModel>
-                  </ButtonModelYes>
-
-                  <ButtonModelNo
-                    onPress={() => setModalVisible(!modalVisible)}
-                  >
-                    <TextButtonModel>Fechar</TextButtonModel>
-                  </ButtonModelNo>
-                </ViewRow>
-              </ViewModel>
-
-            </ModelTransparent>
-          </Modal>
-        </CenteredViewModel>
 
         <TopGroup>
 
@@ -135,7 +99,7 @@ export const EditUser: React.FC = () => {
 
         </Form>
 
-        <Button2 onPress={() => setModalVisible(true)}>
+        <Button2 onPress={handleDisable}>
           <Text2>Excluir Conta</Text2>
         </Button2>
 

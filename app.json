@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app-findone-typescript",
-    "slug": "app-findone-typescript",
+    "name": "Findone",
+    "slug": "Findone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": ".src/shared/assets/icon-findone.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },

@@ -3,7 +3,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 
 import { SafeAreaView } from '@shared/components/SafeView/index';
 
-import { Modal, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -30,16 +30,6 @@ import {
   CharacGroup,
   InfoText,
   CharacContainer,
-  ButtonIngressarCaso,
-  TextIngressarCaso,
-  CenteredViewModel,
-  ModelTransparent,
-  ViewModel,
-  TextCaso,
-  ViewRow,
-  ButtonModelYes,
-  TextButtonModel,
-  ButtonModelNo,
 } from './styles';
 
 type IDisappearedData = ICaseData & {
@@ -65,41 +55,12 @@ type IDisappearedData = ICaseData & {
 };
 
 export const CaseInformation: React.FC = () => {
-  const [modalVisible, setModalVisible] = useState(true);
   const { params } = useRoute();
   const [disData] = useState<IDisappearedData | null>(params as IDisappearedData);
   const navigation = useNavigation();
 
   return (
     <SafeAreaView>
-      <CenteredViewModel>
-        <Modal
-          animationType="slide"
-          transparent
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-
-          <ModelTransparent>
-            <ViewModel>
-              <TextCaso>Qual seu grau de parentesco com o desaparecido?</TextCaso>
-
-              <ButtonModelYes>
-                <TextButtonModel>Confirmar</TextButtonModel>
-              </ButtonModelYes>
-
-              <ButtonModelNo
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <TextButtonModel>Fechar</TextButtonModel>
-              </ButtonModelNo>
-            </ViewModel>
-
-          </ModelTransparent>
-        </Modal>
-      </CenteredViewModel>
       {disData ? (
         <ScrollView>
           <Container>
@@ -171,9 +132,6 @@ export const CaseInformation: React.FC = () => {
                   />
                 </ButtonChat>
               </ViewButton>
-              <ButtonIngressarCaso>
-                <TextIngressarCaso>Ingressar no Caso</TextIngressarCaso>
-              </ButtonIngressarCaso>
             </ViewInformações>
           </Container>
         </ScrollView>

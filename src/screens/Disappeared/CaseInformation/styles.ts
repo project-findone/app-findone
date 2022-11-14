@@ -141,25 +141,3 @@ export const InfoText = styled.Text<{ positionType: 'top' | 'bottom'; owner?: bo
     color: ${({ positionType, theme: { COLORS } }) => (positionType === 'top' ? COLORS.SECONDARY : COLORS.TITLE_900)};
     margin-top: ${({ positionType, owner }) => (owner ? 0 : positionType === 'bottom' ? 4 : 0)}px;
 `;
-
-export const ButtonIngressarCaso = styled.TouchableOpacity`
-    width: 85%;
-    align-self: center;
-    justify-self: flex-end;
-    padding: 20px;
-    border-Radius: 100px;
-    margin-top: 8%;
-    margin-bottom: 2%;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 3px solid #0288D1;
-    align-items: center;
-`;
-
-export const TextIngressarCaso = styled.Text`
-    text-align: center;
-    font-size: 20px;
-    color: #0288D1;
-    margin-left: 12%;
-
-`;
