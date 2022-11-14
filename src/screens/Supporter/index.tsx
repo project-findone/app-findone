@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
 import {
-  Title, ButtonBlue, Container, Header,
-  TextButtonBlue, ButtonGreen, TextButtonGreen, ViewButton,
+  Title, Button, Container, Header,
+  TextButton, ViewButton,
 } from './styles';
 
 export const Supporter: React.FC = () => {
@@ -19,51 +19,38 @@ export const Supporter: React.FC = () => {
         </Header>
 
         <ViewButton>
-          <ButtonBlue onPress={() => navigation.navigate('InvolvedCases')}>
+          <Button onPress={() => navigation.navigate('InvolvedCases')} color="#08B9C3">
             <Icon
               name="ios-search"
               color="#08B9C3"
               type="ionicon"
-              size={70}
+              size={50}
               tvParallaxProperties={undefined}
             />
-            <TextButtonBlue>Casos Envolvidos</TextButtonBlue>
-          </ButtonBlue>
+            <TextButton color="#08B9C3">Casos Envolvidos</TextButton>
+          </Button>
 
-          <ButtonGreen onPress={() => navigation.navigate('Ranking')}>
+          <Button onPress={() => navigation.navigate('Ranking')} color="#00CFB3">
             <Icon
               name="trophy-outline"
               color="#00CFB3"
               type="ionicon"
-              size={70}
+              size={50}
               tvParallaxProperties={undefined}
             />
-            <TextButtonGreen>Ranking</TextButtonGreen>
-          </ButtonGreen>
-        </ViewButton>
+            <TextButton color="#00CFB3">Ranking</TextButton>
+          </Button>
 
-        <ViewButton>
-          <ButtonGreen onPress={() => navigation.navigate('RecognizeFaces')}>
-            <Icon
-              name="people"
-              color="#00CFB3"
-              type="octicon"
-              size={70}
-              tvParallaxProperties={undefined}
-            />
-            <TextButtonGreen>Reconhecer rostos</TextButtonGreen>
-          </ButtonGreen>
-
-          <ButtonBlue onPress={() => navigation.navigate('Certified')}>
+          <Button onPress={() => navigation.navigate('Certified')} color="#08B9C3">
             <Icon
               name="newspaper-variant-multiple-outline"
               color="#08B9C3"
               type="material-community"
-              size={70}
+              size={50}
               tvParallaxProperties={undefined}
             />
-            <TextButtonBlue>Certificado</TextButtonBlue>
-          </ButtonBlue>
+            <TextButton color="#08B9C3">Certificado</TextButton>
+          </Button>
         </ViewButton>
 
       </Container>
