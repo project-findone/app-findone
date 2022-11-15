@@ -141,3 +141,73 @@ export const InfoText = styled.Text<{ positionType: 'top' | 'bottom'; owner?: bo
     color: ${({ positionType, theme: { COLORS } }) => (positionType === 'top' ? COLORS.SECONDARY : COLORS.TITLE_900)};
     margin-top: ${({ positionType, owner }) => (owner ? 0 : positionType === 'bottom' ? 4 : 0)}px;
 `;
+
+// estilo modal
+
+export const CenteredViewModel = styled.View`
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ModelTransparent = styled.View`
+    flex: 1;
+    justify-content: center;
+    background: rgba(0,0,0,0.7);
+`;
+
+export const ViewModel = styled.View`
+    margin: 8%;
+    background-color: #FFF;
+    border-radius: 20px;
+    padding: 30px;
+    align-items: center;
+`;
+
+export const TextCaso = styled.Text`
+    color: #000;
+    font-size: 28px;
+    font-weight: bold;
+    width: 100%;
+    text-align: justify;
+`;
+
+export const ButtonModelYes = styled.TouchableOpacity`
+    align-items: center;
+    border: #00C673 3px solid;
+    padding: 10px;
+    width: 55%;
+    margin-top: 8%;
+    border-radius: 7px;
+    background-color: #fff;
+    margin-right: 5px;
+`;
+
+export const ButtonModelNo = styled.TouchableOpacity`
+    align-items: center;
+    border: #DF7C7C 3px solid;
+    padding: 10px;
+    width: 55%;
+    margin-top: 8%;
+    border-radius: 7px;
+    background-color: #fff;
+`;
+
+export const ViewRow = styled.View`
+    flex-direction: row;
+`;
+
+export const TextButtonModelYes = styled.Text`
+    color: #00C673;
+    font-weight: 600;
+    margin: 3px;
+    font-size: 22px;
+    font-stretch: expanded;
+`;
+
+export const TextButtonModelNo = styled.Text`
+    color: #DF7C7C;
+    font-weight: 600;
+    margin: 3px;
+    font-size: 22px;
+    font-stretch: expanded;
+`;

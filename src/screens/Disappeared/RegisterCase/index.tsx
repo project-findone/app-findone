@@ -16,7 +16,7 @@ import { Input } from '@shared/components/Input';
 import { Button } from '@shared/components/Button';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import { Icon } from 'react-native-elements';
-import { useUser, TregisterCredentials } from '@shared/hooks/contexts/CaseContext';
+import { useUser, TregisterCredentials } from '@shared/hooks/contexts/UserContext';
 import { showToast } from '@shared/components/Toast';
 import SelectDropdown from 'react-native-select-dropdown';
 import { Entypo } from '@expo/vector-icons';

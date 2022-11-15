@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,14 +11,18 @@ import { Input } from '@shared/components/Input';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 import UnknownImage from '@shared/assets/unknown.png';
 
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Modal } from 'react-native';
 import { useAuth } from '@shared/hooks/contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  ImageGroup, ImagePerfil, IconView, Button1, Text1, Button2, Text2, ScrollView, TopGroup,
+  ImageGroup, ImagePerfil, IconView, Button1, Text1, Button2,
+  Text2, ScrollView, TopGroup, ModelTransparent, ViewModel,
+  TextCaso, CenteredViewModel, ButtonModelYes,
+  ButtonModelNo, ViewRow, TextButtonModelYes, TextButtonModelNo,
 } from './styles';
 
 export const EditUser: React.FC = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
@@ -54,6 +60,38 @@ export const EditUser: React.FC = () => {
   return (
     <SafeAreaView>
       <ScrollView>
+
+        <CenteredViewModel>
+          <Modal
+            animationType="fade"
+            transparent
+            visible={modalVisible}
+            onRequestClose={() => {
+              navigation.goBack();
+            }}
+          >
+
+            <ModelTransparent>
+              <ViewModel>
+                <TextCaso>Certeza que deseja excluir sua conta?</TextCaso>
+                <ViewRow>
+                  <ButtonModelYes
+                    onPress={handleDisable}
+                  >
+                    <TextButtonModelYes>Sim</TextButtonModelYes>
+                  </ButtonModelYes>
+
+                  <ButtonModelNo
+                    onPress={() => setModalVisible(!modalVisible)}
+                  >
+                    <TextButtonModelNo>Não</TextButtonModelNo>
+                  </ButtonModelNo>
+                </ViewRow>
+              </ViewModel>
+
+            </ModelTransparent>
+          </Modal>
+        </CenteredViewModel>
 
         <TopGroup>
 
@@ -99,7 +137,7 @@ export const EditUser: React.FC = () => {
 
         </Form>
 
-        <Button2 onPress={handleDisable}>
+        <Button2 onPress={() => setModalVisible(true)}>
           <Text2>Excluir Conta</Text2>
         </Button2>
 

@@ -7,19 +7,40 @@ import { AxiosError } from 'axios';
 import { api, ResponseError } from '@shared/services/api';
 import { showToast } from '@shared/components/Toast';
 import { requestTimeout } from '@shared/utils/requestTimeout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type TregisterCredentials = {
-  name: string;
-  lastname: string;
-  age: string;
-  gender: string;
-  cpf: string;
-  cep: string;
-  state: string;
-  city: string;
-  others: string;
-  street: string;
-  description: string;
+export type TregisterCredentials = {
+
+  disappeared: {
+    name: string;
+    lastname: string;
+    age: number;
+    birthDate: Date;
+    personCPF: string;
+    gender: string;
+    personCEP: string;
+    state: string;
+    city: string;
+    personKinship: string;
+    description: string;
+  },
+
+  case: {
+    state: string;
+    city: string,
+    district: string,
+    street: string,
+    description: string,
+    latitude: string,
+    longitude: string;
+  },
+
+  characteristics: number[],
+  passCheck: boolean,
+  skin?: string,
+  haircolor?: string,
+  eye?: string,
+  hair?: string,
 };
 
 export type ICaseData = {
@@ -35,6 +56,19 @@ export type ICaseData = {
     city: string;
     latitude?: string
     longitude?: string
+  }
+};
+
+export type ICaseInvolvedData = {
+  session: {
+    sessionChatID: string;
+  },
+  disappeared: {
+    personTypeID: number;
+    name: string;
+    lastname: string;
+    personID: string;
+    personImage: string;
   }
 };
 
@@ -59,10 +93,13 @@ type IUserContextData = {
     register: (credentials: TregisterCredentials) => Promise<void>;
     listCases: () => Promise<void>
     listCasesWithFilters: (credentials: ICaseFilter) => Promise<void>
+    listInvolvedCases: () => Promise<void>
+    joinCase: (caseID: string) => Promise<object>
   };
   casesOfDisappeareds: ICaseData[] | null
   casesOfDisappearedsF: ICaseData[] | null
   setCasesOfDisappearedsF: any
+  casesInvolved: ICaseInvolvedData[] | null
 };
 
 const UserContext = createContext<IUserContextData>({} as IUserContextData);
@@ -70,6 +107,57 @@ const UserContext = createContext<IUserContextData>({} as IUserContextData);
 export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [cases, setCases] = useState<ICaseData[] | null>(null);
   const [casesFiltred, setCasesFiltred] = useState<ICaseData[] | null>(null);
+  const [casesInvolved, setCasesInvolved] = useState<ICaseInvolvedData[] | null>(null);
+
+  const listInvolvedCases = useCallback(async () => {
+    try {
+      const disappeareds = await requestTimeout(api.post('cases/supporter'), 5000);
+      if (disappeareds.data) setCasesInvolved(disappeareds.data);
+      console.log(disappeareds.data);
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          const { status } = error.response;
+          const { message } = error.response.data as ResponseError;
+          if (status !== 404) showToast({ message, type: 'alert' });
+        }
+      }
+    }
+  }, []);
+
+  const joinCase = useCallback(async (caseID: string) => {
+    try {
+      const message = await requestTimeout(api.post(`users/join/${caseID}`), 5000);
+      return message.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          const { status } = error.response;
+          const { message } = error.response.data as ResponseError;
+          if (status !== 404) showToast({ message, type: 'alert' });
+        }
+      }
+    }
+    return null;
+  }, []);
+
+  const register = useCallback(async (credentials: TregisterCredentials) => {
+    try {
+      const token = await AsyncStorage.getItem('Person:token');
+
+      const response = await api.post('disappeared', credentials, { headers: { authorization: `Bearer ${token}` } });
+
+      if (response) showToast({ message: 'Cadastro realizado com sucesso!', type: 'sucess' });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          const { message } = error.response.data as ResponseError;
+          showToast({ message, type: 'alert' });
+        }
+      }
+    }
+  }, []);
 
   const listCasesWithFilters = useCallback(async (credentials: ICaseFilter) => {
     try {
@@ -103,27 +191,15 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, []);
 
-  const register = useCallback(async (credentials: TregisterCredentials) => {
-    try {
-      const response = await api.post('disappeared', credentials);
-
-      if (response) showToast({ message: 'Cadastro realizado com sucesso!', type: 'sucess' });
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        if (error.response) {
-          const { message } = error.response.data as ResponseError;
-          showToast({ message, type: 'alert' });
-        }
-      }
-    }
-  }, []);
-
   return (
     <UserContext.Provider value={{
-      services: { register, listCases, listCasesWithFilters },
+      services: {
+        register, listCases, listCasesWithFilters, listInvolvedCases, joinCase,
+      },
       casesOfDisappeareds: cases,
       casesOfDisappearedsF: casesFiltred,
       setCasesOfDisappearedsF: setCasesFiltred,
+      casesInvolved,
     }}
     >
       {children}

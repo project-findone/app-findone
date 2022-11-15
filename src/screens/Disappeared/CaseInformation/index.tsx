@@ -3,7 +3,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 
 import { SafeAreaView } from '@shared/components/SafeView/index';
 
-import { TouchableOpacity } from 'react-native';
+import { Modal, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -30,6 +30,15 @@ import {
   CharacGroup,
   InfoText,
   CharacContainer,
+  CenteredViewModel,
+  ModelTransparent,
+  ViewModel,
+  TextCaso,
+  ViewRow,
+  ButtonModelYes,
+  TextButtonModelYes,
+  ButtonModelNo,
+  TextButtonModelNo,
 } from './styles';
 
 type IDisappearedData = ICaseData & {
@@ -55,6 +64,7 @@ type IDisappearedData = ICaseData & {
 };
 
 export const CaseInformation: React.FC = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const { params } = useRoute();
   const [disData] = useState<IDisappearedData | null>(params as IDisappearedData);
   const navigation = useNavigation();
@@ -63,6 +73,36 @@ export const CaseInformation: React.FC = () => {
     <SafeAreaView>
       {disData ? (
         <ScrollView>
+
+          <CenteredViewModel>
+            <Modal
+              animationType="fade"
+              transparent
+              visible={modalVisible}
+              onRequestClose={() => {
+                navigation.goBack();
+              }}
+            >
+
+              <ModelTransparent>
+                <ViewModel>
+                  <TextCaso>Deseja ingressar nesse caso e ajudar em sua solução?</TextCaso>
+                  <ViewRow>
+                    <ButtonModelYes>
+                      <TextButtonModelYes>Sim</TextButtonModelYes>
+                    </ButtonModelYes>
+
+                    <ButtonModelNo
+                      onPress={() => setModalVisible(!modalVisible)}
+                    >
+                      <TextButtonModelNo>Não</TextButtonModelNo>
+                    </ButtonModelNo>
+                  </ViewRow>
+                </ViewModel>
+
+              </ModelTransparent>
+            </Modal>
+          </CenteredViewModel>
           <Container>
             <BarUp>
               <ImageHeader source={userPhoto} />
@@ -122,7 +162,7 @@ export const CaseInformation: React.FC = () => {
                   <InfoText positionType="top">Responsável</InfoText>
                   <InfoText positionType="bottom" numberOfLines={1} owner>{`${disData?.disappeared.owner.name} ${disData?.disappeared.owner.lastname}`}</InfoText>
                 </ViewTextButton>
-                <ButtonChat>
+                <ButtonChat onPress={() => setModalVisible(true)}>
                   <Icon
                     name="md-chatbox-ellipses-outline"
                     color="#FFF"
@@ -132,6 +172,7 @@ export const CaseInformation: React.FC = () => {
                   />
                 </ButtonChat>
               </ViewButton>
+
             </ViewInformações>
           </Container>
         </ScrollView>
