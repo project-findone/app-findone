@@ -47,25 +47,10 @@ export const Terms: React.FC<Props> = ({ route }) => {
 
         <ScrollView>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu varius purus.
-            Aliquam nec bibendum leo. Aenean sollicitudin est eu libero pellentesque, vel
-            commodo felis ullamcorper. Pellentesque auctor, augue molestie vulputate aliquam,
-            sapien turpis malesuada quam, quis eleifend libero nunc semper enim. Nullam commodo
-            pharetra arcu ut suscipit. Sed pretium ut massa sit amet malesuada. Aenean euismod
-            tristique felis, nec gravida mauris ullamcorper a. Aliquam erat volutpat. Praesent
-            eget sem elementum, mollis sapien ut, tincidunt est. Pellentesque habitant morbi
-            tristique senectus et netus et malesuada fames ac turpis egestas. Orci varius natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque
-            habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-            Nullam fringilla sollicitudin turpis eget rhoncus.
+            Seja bem vindo ao nosso aplicativo. Leia com atenção os termos abaixo.
             {'\n'}
             {'\n'}
-            Aliquam consequat risus a commodo euismod. Nunc commodo nibh nisl, a feugiat ante
-            scelerisque sit amet. Nullam faucibus ut dui et faucibus. Ut malesuada risus risus,
-            vel euismod velit suscipit id. In vulputate sodales nisl, eu iaculis turpis luctus
-            sed. Ut vulputate mauris non lectus vestibulum scelerisque. Suspendisse ac nulla id
-            sapien efficitur volutpat interdum sit amet augue. Cras vehicula odio non sem
-            tincidunt condimentum.
+
             {'\n'}
             {'\n'}
             Morbi in bibendum magna, a tristique massa. Proin at luctus augue. Phasellus suscipit
