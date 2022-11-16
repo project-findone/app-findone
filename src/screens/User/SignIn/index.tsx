@@ -36,7 +36,7 @@ export const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
-  const { services: { signIn } } = useAuth();
+  const { user, services: { signIn } } = useAuth();
 
   const handleSubmit = useCallback(async (values: SignInFormData) => {
     setIsSending(true);
@@ -49,8 +49,6 @@ export const SignIn: React.FC = () => {
         email: values.email,
         password: values.password,
       });
-
-      navigation.navigate('ProfileIndex');
     } catch (err: any) {
       if (err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -58,6 +56,8 @@ export const SignIn: React.FC = () => {
       } else {
         showToast({ message: 'Erro desconhecido', type: 'alert' });
       }
+    } finally {
+      navigation.goBack();
     }
     setIsSending(false);
   }, [signIn, navigation]);

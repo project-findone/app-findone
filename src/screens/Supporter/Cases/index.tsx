@@ -18,6 +18,7 @@ export const Cases: React.FC = () => (
     <FlatList
       style={{ flex: 1, marginTop: 40 }}
       data={data}
+      showsVerticalScrollIndicator={false}
       renderItem={(item) => <CaseItem data={item.item} />}
     />
 

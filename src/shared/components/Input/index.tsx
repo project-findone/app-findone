@@ -66,10 +66,6 @@ export const Input: React.FC<InputProps> = ({
         ref={inputElementRef}
         {...TextProps}
         value={value}
-        onChange={({ nativeEvent }: any) => {
-          // console.log(nativeEvent.text);
-          inputValueRef.current.value = nativeEvent.text;
-        }}
         onChangeText={(valueText: string) => {
           inputValueRef.current.value = valueText;
         }}

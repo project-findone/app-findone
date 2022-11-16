@@ -50,6 +50,7 @@ type IDisappearedData = ICaseData & {
     }
     disCharacteristic: {
       characteristicID: number
+      disCharacteristicID: string
       characteristic: {
         characteristicName: string
         characteristicTypeName: string
@@ -66,8 +67,10 @@ type IDisappearedData = ICaseData & {
 export const CaseInformation: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { params } = useRoute();
-  const [disData] = useState<IDisappearedData | null>(params as IDisappearedData);
+  const [disData] = useState<IDisappearedData | undefined>(params as IDisappearedData);
   const navigation = useNavigation();
+
+  console.log(disData?.disappeared.disCharacteristic);
 
   return (
     <SafeAreaView>
@@ -132,10 +135,10 @@ export const CaseInformation: React.FC = () => {
 
             <ViewInformações>
               <CharacContainer>
-                {disData?.disappeared.disCharacteristic.forEach(({ characteristic: c }) => (
-                  <CharacGroup initialGroup positionType="left">
-                    <InfoText positionType="top">{c.characteristicTypeName}</InfoText>
-                    <InfoText positionType="bottom">{c.characteristicName}</InfoText>
+                {disData?.disappeared.disCharacteristic.map((c, index) => (
+                  <CharacGroup key={c.disCharacteristicID} initialGroup={index === 0 || index === 1} positionType={(index + 1) % 2 === 0 ? 'right' : 'left'}>
+                    <InfoText positionType="top">{c.characteristic.characteristicTypeName}</InfoText>
+                    <InfoText positionType="bottom">{c.characteristic.characteristicName}</InfoText>
                   </CharacGroup>
                 ))}
               </CharacContainer>

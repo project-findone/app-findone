@@ -32,14 +32,14 @@ type Props = {
 };
 
 export const DisappearedValidate = async (data: Props, parent: string) => {
-  console.log(parent);
+  console.log('Parente');
   let schema;
   if (parent === 'Parente') {
     schema = Yup.object().shape({
       disappeared: Yup.object().shape({
         name: Yup.string().required('Este campo é obrigatório'),
         lastname: Yup.string().required('Este campo é obrigatório'),
-        age: Yup.number().required('Obrigatório'),
+        age: Yup.string().required('Obrigatório'),
         gender: Yup.string().required('Este campo é obrigatório'),
         birthDate: Yup.string().required('Este campo é obrigatório'),
         personCPF: Yup.number().required('Este campo é obrigatório'),
@@ -48,6 +48,7 @@ export const DisappearedValidate = async (data: Props, parent: string) => {
         city: Yup.string().required('Este campo é obrigatório'),
       }),
       case: Yup.object().shape({
+        cep: Yup.string().required('Campo obrigatório'),
         state: Yup.string().required('Campo obrigatório'),
         city: Yup.string().required('Este campo é obrigatório'),
         district: Yup.string().required('Este campo é obrigatório'),
@@ -66,6 +67,7 @@ export const DisappearedValidate = async (data: Props, parent: string) => {
         city: Yup.string().required('Este campo é obrigatório'),
       }),
       case: Yup.object().shape({
+        cep: Yup.string().required('Campo obrigatório'),
         state: Yup.string().required('Campo obrigatório'),
         city: Yup.string().required('Este campo é obrigatório'),
         district: Yup.string().required('Este campo é obrigatório'),

@@ -12,7 +12,7 @@ import { LocalModal } from 'src/screens/Initials/Local';
 import { Welcome } from 'src/screens/Initials/Welcome';
 import { Terms } from 'src/screens/Initials/Terms';
 import { CaseInformation } from 'src/screens/Disappeared/CaseInformation';
-import { ICaseData, UserProvider } from '@shared/hooks/contexts/UserContext';
+import { ICaseData, IUserContextData, UserProvider } from '@shared/hooks/contexts/UserContext';
 import { AuthProvider } from '@shared/hooks/contexts/AuthContext';
 import { SupporterAd } from 'src/screens/Supporter/SupporterAd';
 import { Cases } from 'src/screens/Supporter/Cases';
@@ -131,7 +131,7 @@ const HomeTabs: React.FC<Props> = ({ route: { params } }) => (
 
 export interface IndexParamsList {
   Home: undefined
-  Filter: undefined
+  Filter: IUserContextData | undefined
   About: undefined
   EditUser: undefined
   InfoCase: ICaseData | undefined

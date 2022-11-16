@@ -15,7 +15,7 @@ export type TregisterCredentials = {
     name: string;
     lastname: string;
     age: number;
-    birthDate: Date;
+    birthDate: Date | string;
     personCPF: string;
     gender: string;
     personCEP: string;
@@ -52,7 +52,7 @@ export type ICaseData = {
     age: number;
   }
   case: {
-    address: string
+    street: string
     city: string;
     latitude?: string
     longitude?: string
@@ -88,7 +88,7 @@ export type ICaseFilter = {
   characteristics?: number[]
 };
 
-type IUserContextData = {
+export type IUserContextData = {
   services: {
     register: (credentials: TregisterCredentials) => Promise<void>;
     listCases: () => Promise<void>

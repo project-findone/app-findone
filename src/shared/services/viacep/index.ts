@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { showToast } from '@shared/components/Toast';
 import axios from 'axios';
 
 export const viacepAPI = axios.create({ baseURL: 'https://viacep.com.br/ws/' });
@@ -14,15 +15,17 @@ type IAdressByCEPR = {
   gia: string,
   ddd: string,
   siafi: string
+  erro?: boolean
 };
 
 export class ViaCepService {
-  async searchByCEP(cep: string): Promise<IAdressByCEPR> {
-    if (cep.length !== 8) console.log('The cep must be at least 8 digits');
-    console.log(cep);
-    console.log(viacepAPI);
-    const response = await fetch(`https://viacep.com.br/ws/${cep}/json`);
-    console.log(response);
-    return response as IAdressByCEPR;
+  async searchByCEP(cep: string): Promise<IAdressByCEPR | null> {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json`);
+      return response.data as IAdressByCEPR;
+    } catch (err) {
+      showToast({ message: 'Houve um erro ao consultar o CEP', type: 'alert' });
+    }
+    return null;
   }
 }

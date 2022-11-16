@@ -3,17 +3,17 @@ import React, { useEffect } from 'react';
 import { View, FlatList, ListRenderItem } from 'react-native';
 
 import UnknownImage from '@shared/assets/unknown.png';
-import { ICaseData, useUser } from '@shared/hooks/contexts/UserContext';
+import { ICaseData, IUserContextData } from '@shared/hooks/contexts/UserContext';
 import { useNavigation } from '@react-navigation/native';
 import {
   Title, PersonCardContainer, Header,
   Text, TextMenor, ViewText, ViewImage, ImagePerfil, NotFoundContainer, NotFoundText,
 } from './styles';
 
-export const List: React.FC = () => {
+export const List: React.FC<{ useSharedHook: IUserContextData }> = ({ useSharedHook: useUser }) => {
   const {
-    casesOfDisappeareds, casesOfDisappearedsF, setCasesOfDisappearedsF, services: { listCases },
-  } = useUser();
+    casesOfDisappeareds, casesOfDisappearedsF, services: { listCases },
+  } = useUser;
   const navigation = useNavigation();
 
   const Item: React.FC<{ data: ICaseData }> = ({ data }) => (
@@ -42,8 +42,10 @@ export const List: React.FC = () => {
   useEffect(() => {
     (async () => {
       await listCases();
+
+      console.log(`Filtro 2: ${casesOfDisappearedsF}`);
     })();
-  }, []);
+  }, [casesOfDisappearedsF, listCases]);
 
   return (
     <View style={{ flex: 1 }}>

@@ -6,20 +6,19 @@ import { Icon } from 'react-native-elements';
 import { FormHandles } from '@unform/core';
 import { DropDown } from '@shared/components/DropDown';
 import { Form } from '@unform/mobile';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Input } from '@shared/components/Input';
-import { InputMin } from '@shared/components/InputMin';
 import { SafeAreaView } from '@shared/components/SafeView/index';
 
-import { ICaseFilter, useUser } from '@shared/hooks/contexts/UserContext';
+import { ICaseFilter, IUserContextData } from '@shared/hooks/contexts/UserContext';
 import {
-  Title, Button, ScrollView, Header, TextButton, TextAge,
-  ContainerAge, TextAge2, Align,
+  Title, Button, ScrollView, Header, TextButton, Align,
 } from './styles';
 
 export const Filter: React.FC = () => {
-  const { services: { listCasesWithFilters } } = useUser();
+  const { params } = useRoute();
+  const { services: { listCasesWithFilters } } = params as IUserContextData;
 
   const [genderItems] = useState([
     { label: 'Masculino', value: 'male' },
@@ -91,13 +90,13 @@ export const Filter: React.FC = () => {
   const handleSubmit = useCallback(async (values: ICaseFilter) => {
     console.log(values);
     try {
+      values.disappeared.age = Number(values.disappeared.age);
       await listCasesWithFilters(values);
-
       navigation.goBack();
     } catch (err) {
       console.error(err);
     }
-  }, [listCasesWithFilters]);
+  }, [listCasesWithFilters, navigation]);
 
   return (
     <SafeAreaView>

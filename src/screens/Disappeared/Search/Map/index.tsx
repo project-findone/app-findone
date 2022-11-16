@@ -28,7 +28,8 @@ import { ModalInit } from '../Modal';
 type Props = { route: any };
 
 export const SearchIndex: React.FC<Props> = () => {
-  const { casesOfDisappeareds, services: { listCases } } = useUser();
+  const useSharedUser = useUser();
+  const { casesOfDisappeareds, services: { listCases } } = useSharedUser;
   const [optionSelected, setOptionSelected] = useState(1);
   const [firstTime, setFirstTime] = useState(false);
   const [origin, setOrigin] = useState({
@@ -56,14 +57,17 @@ export const SearchIndex: React.FC<Props> = () => {
     const { status } = await Location.getForegroundPermissionsAsync();
     if (status === 'granted') {
       const coordsPosition = await Location.getCurrentPositionAsync();
-      console.log(coordsPosition.coords);
       const geocodePosition = await Location.reverseGeocodeAsync({
         latitude: coordsPosition.coords.latitude,
         longitude: coordsPosition.coords.longitude,
       });
       return { coordsPosition, geocodePosition };
     }
-    await Location.requestForegroundPermissionsAsync();
+    const { granted } = await Location.requestForegroundPermissionsAsync();
+    if (granted) {
+      const coordsPosition = await Location.getCurrentPositionAsync();
+      return { coordsPosition };
+    }
 
     return { coordsPosition: null, geocodePosition: null };
   };
@@ -84,10 +88,8 @@ export const SearchIndex: React.FC<Props> = () => {
         }));
       }
       await readData();
-      await listCases();
-      console.log(casesOfDisappeareds);
     })();
-  }, [listCases]);
+  }, [navigation]);
 
   return (
     <SafeAreaView>
@@ -100,7 +102,7 @@ export const SearchIndex: React.FC<Props> = () => {
             onSelectSwitch={onSelectSwitch}
           />
 
-          <Button1 onPress={() => navigation.navigate('Filter')}>
+          <Button1 onPress={() => navigation.navigate('Filter', useSharedUser)}>
             <Icon
               style={{ marginRight: 10 }}
               name="search"
@@ -126,14 +128,7 @@ export const SearchIndex: React.FC<Props> = () => {
             showsUserLocation
             loadingEnabled
             showsMyLocationButton={false}
-          >
-            {casesOfDisappeareds?.map(({ case: caseD }) => {
-              getCoordsByAdress(caseD.address, caseD.city).then((result) => (
-                <Marker coordinate={result?.geometry.coordinates} onPress={() => navigation.navigate('CaseInformation')} />
-              ));
-              return null;
-            })}
-          </MapView>
+          />
           <TouchableOpacity
             style={ButtonLocationContainer}
             onPress={async () => { mapRef.current?.animateToRegion(origin); }}
@@ -142,7 +137,7 @@ export const SearchIndex: React.FC<Props> = () => {
           </TouchableOpacity>
         </ViewMapa>
       ) : (
-        <List />
+        <List useSharedHook={useSharedUser} />
       )}
 
     </SafeAreaView>

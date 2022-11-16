@@ -37,44 +37,46 @@ type ICEPData = {
 
 export const RegisterCase: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(true);
-  const [parentesco, setParentesco] = useState('');
+  const [parentesco, setParentesco] = useState('Parente');
   const [caseCEP, setCaseCEP] = useState('');
   const [caseCEPData, setCaseCEPData] = useState<ICEPData>({} as ICEPData);
+  const [disCEP, setDisCEP] = useState('');
+  const [disCEPData, setDisCEPData] = useState <ICEPData>({} as ICEPData);
   const navigation = useNavigation();
 
   const [parentItems] = useState(['Parente', 'Amigo']);
 
   const [genderItems] = useState([
-    { label: 'Masculino', value: 'male' },
-    { label: 'Feminino', value: 'female' },
-    { label: 'Prefiro não Informar', value: 'undefined' },
+    { label: 'Masculino', value: 'Homem' },
+    { label: 'Feminino', value: 'Mulher' },
+    { label: 'Prefiro não Informar', value: 'Indefinido' },
   ]);
 
   const [skinItems] = useState([
-    { label: 'Branca', value: 1 },
-    { label: 'Morena', value: 2 },
-    { label: 'Negra', value: 3 },
+    { label: 'Branca', value: 5 },
+    { label: 'Morena', value: 6 },
+    { label: 'Negra', value: 7 },
   ]);
 
   const [haircolorItems] = useState([
-    { label: 'Loiro', value: 1 },
-    { label: 'Preto', value: 2 },
-    { label: 'Castanho', value: 3 },
-    { label: 'Ruivo', value: 4 },
+    { label: 'Loiro', value: 8 },
+    { label: 'Preto', value: 9 },
+    { label: 'Castanho', value: 10 },
+    { label: 'Ruivo', value: 11 },
   ]);
 
   const [eyeItems] = useState([
-    { label: 'Verde', value: 1 },
-    { label: 'Azul', value: 2 },
+    { label: 'Verde', value: 2 },
+    { label: 'Azul', value: 1 },
     { label: 'Castanho', value: 3 },
     { label: 'Castanho Escuro', value: 4 },
   ]);
 
   const [hairItems] = useState([
-    { label: 'Liso', value: 1 },
-    { label: 'Ondulado', value: 2 },
-    { label: 'Cacheado', value: 3 },
-    { label: 'Crespo', value: 4 },
+    { label: 'Liso', value: 12 },
+    { label: 'Ondulado', value: 15 },
+    { label: 'Cacheado', value: 13 },
+    { label: 'Crespo', value: 14 },
   ]);
 
   const [isSending, setIsSending] = useState(false);
@@ -82,42 +84,55 @@ export const RegisterCase: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
-  const handleCEP = useCallback(async () => {
-    if (caseCEP.length === 8) {
+  const handleCEP = useCallback(async (state: string, typeState: 'case' | 'disappeared') => {
+    if (state.length === 8) {
       const viaCepInstance = new ViaCepService();
-      const result = await viaCepInstance.searchByCEP(caseCEP);
+      const result = await viaCepInstance.searchByCEP(state);
       console.log(result);
-      if (result) {
+      if (result && !result.erro) {
         const {
           bairro, localidade, logradouro, uf,
         } = result;
-        setCaseCEPData(() => ({
-          city: localidade, state: uf, district: bairro, street: logradouro,
-        }));
+        if (typeState === 'case') {
+          setCaseCEPData(() => ({
+            city: localidade, state: uf, district: bairro, street: logradouro,
+          }));
+        } else {
+          setDisCEPData(() => ({
+            city: localidade, state: uf, district: bairro, street: logradouro,
+          }));
+        }
+      } else if (typeState === 'case') {
+        formRef.current?.setFieldError('case.cep', 'O CEP informado é inválido.');
+      } else {
+        formRef.current?.setFieldError('disappeared.personCEP', 'O CEP informado é inválido.');
       }
     }
-  }, []);
+  }, [caseCEP]);
 
   const handleSubmit = useCallback(async (values: TregisterCredentials) => {
     setIsSending(true);
     try {
       formRef.current?.setErrors({});
 
-      await DisappearedValidate(values, parentesco);
+      values.characteristics = [
+        Number(values.eye), Number(values.hair), Number(values.haircolor), Number(values.skin),
+      ];
 
       values.disappeared.personKinship = parentesco;
-      values.disappeared.age = +values.disappeared.age;
       values.case.latitude = 'x';
       values.case.longitude = 'y';
       values.passCheck = true;
 
-      values.characteristics = [
-        Number(values.eye), Number(values.hair), Number(values.haircolor), Number(values.skin),
-      ];
-      delete values.eye;
-      delete values.hair;
-      delete values.haircolor;
-      delete values.skin;
+      values.case.city = caseCEPData.city;
+      values.case.state = caseCEPData.state;
+      values.case.district = caseCEPData.district;
+      values.case.street = caseCEPData.street;
+
+      values.disappeared.city = disCEPData.city;
+      values.disappeared.state = disCEPData.state;
+
+      console.log(caseCEPData.district);
 
       if (values.disappeared.description === undefined) {
         values.disappeared.description = ' ';
@@ -125,6 +140,20 @@ export const RegisterCase: React.FC = () => {
       if (values.case.description === undefined) {
         values.case.description = ' ';
       }
+
+      if (values.disappeared.birthDate === '') {
+        values.disappeared.birthDate = undefined;
+      }
+
+      await DisappearedValidate(values, parentesco);
+
+      delete values.case.cep;
+      delete values.eye;
+      delete values.hair;
+      delete values.haircolor;
+      delete values.skin;
+
+      values.disappeared.age = Number(values.disappeared.age);
 
       console.log(values);
 
@@ -139,7 +168,7 @@ export const RegisterCase: React.FC = () => {
       }
     }
     setIsSending(false);
-  }, [parentesco]);
+  }, [parentesco, caseCEPData, disCEPData]);
 
   const styles = StyleSheet.create({
     scrollContainer: {
@@ -238,7 +267,7 @@ export const RegisterCase: React.FC = () => {
           <Input name="disappeared.lastname" marginTop={20} labelText="Sobrenome" />
 
           <Align>
-            <Input name="disappeared.age" width={30} marginTop={15} labelText="Idade" keyboardType="numeric" maxLength={2} />
+            <Input name="disappeared.age" width={30} marginTop={15} labelText="Idade" keyboardType="numeric" maxLength={3} />
 
             <DropDown
               labelText="Gênero"
@@ -253,12 +282,27 @@ export const RegisterCase: React.FC = () => {
 
           <Input name="disappeared.personCPF" marginTop={20} labelText="CPF" />
 
-          <Input name="disappeared.personCEP" marginTop={26} labelText="CEP" />
+          <Input
+            name="disappeared.personCEP"
+            marginTop={26}
+            value={disCEP}
+            onChange={({ nativeEvent }) => {
+              if (nativeEvent.text.match(/^\d+$/)) {
+                setDisCEP(nativeEvent.text);
+              } else if (nativeEvent.text.length === 0) {
+                setDisCEP('');
+              }
+            }}
+            onBlur={() => {
+              if (disCEP.length === 8) handleCEP(disCEP, 'disappeared');
+            }}
+            labelText="CEP"
+          />
 
           <Align>
-            <Input name="disappeared.state" marginTop={15} width={33} labelText="Estado" />
+            <Input name="disappeared.state" value={disCEPData.state} marginTop={15} width={33} labelText="Estado" />
 
-            <Input name="disappeared.city" marginTop={15} width={62} labelText="Cidade" />
+            <Input name="disappeared.city" value={disCEPData.city} marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
           <Align>
@@ -306,24 +350,33 @@ export const RegisterCase: React.FC = () => {
           <Title2>Ultimo local visto</Title2>
 
           <Input
+            name="case.cep"
+            keyboardType="numeric"
+            maxLength={8}
             marginTop={26}
-            onChangeText={(text) => {
-              setCaseCEP(text);
-              if (text.length === 8) handleCEP();
+            value={caseCEP}
+            onChange={({ nativeEvent }) => {
+              if (nativeEvent.text.match(/^\d+$/)) {
+                setCaseCEP(nativeEvent.text);
+              } else if (nativeEvent.text.length === 0) {
+                setCaseCEP('');
+              }
             }}
-            onBlur={handleCEP}
+            onBlur={() => {
+              if (caseCEP.length === 8) handleCEP(caseCEP, 'case');
+            }}
             labelText="CEP"
           />
 
           <Align>
             <Input name="case.state" value={caseCEPData.state} marginTop={15} width={33} labelText="Estado" />
 
-            <Input name="case.city" marginTop={15} width={62} labelText="Cidade" />
+            <Input name="case.city" value={caseCEPData.city} marginTop={15} width={62} labelText="Cidade" />
           </Align>
 
-          <Input name="case.district" marginTop={26} labelText="Bairro" />
+          <Input name="case.district" value={caseCEPData.district} marginTop={26} labelText="Bairro" />
 
-          <Input name="case.street" marginTop={26} labelText="Rua" />
+          <Input name="case.street" value={caseCEPData.street} marginTop={26} labelText="Rua" />
 
           <Input name="case.description" marginTop={26} labelText="Descrição" />
 

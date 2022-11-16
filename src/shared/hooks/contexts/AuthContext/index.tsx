@@ -35,7 +35,7 @@ type IPersonState = {
 };
 
 type IAuthContextData = {
-  user: Object | any;
+  user: { token: string | null, data: object | null };
   services: {
     signIn: (credentials: TSignInCredentials) => Promise<void>;
     signUp: (credentials: TSignUpCredentials) => Promise<void>;
@@ -91,7 +91,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const signIn = useCallback(async (credentials: TSignInCredentials): Promise<void> => {
     try {
-      const response = await requestTimeout(api.post('sessions', credentials), 10000);
+      const response = await requestTimeout(api.post('sessions', credentials), 5000);
 
       const { token, userResponse } = response.data;
 
@@ -105,29 +105,29 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         if (error.response) {
           const { message } = error.response.data as ResponseError;
           showToast({ message, type: 'alert' });
-        } else if (error.message === 'Request timed out') {
-          showToast({ message: 'Não foi possível se comunicar com o servidor', type: 'alert' });
         } else {
           showToast({ message: 'Houve um erro ao realizar o login', type: 'alert' });
         }
+      } else if (error.message === 'Request timed out') {
+        showToast({ message: 'Sem conexão, tente novamente mais tarde.', type: 'alert' });
       }
     }
   }, []);
 
   const signUp = useCallback(async (credentials: TSignUpCredentials) => {
     try {
-      const response = await api.post('users', credentials);
+      const response = await requestTimeout(api.post('users', credentials), 10000);
 
       if (response) showToast({ message: 'Cadastro realizado com sucesso!', type: 'sucess' });
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.error(error);
         if (error.response) {
           const { message } = error.response.data as ResponseError;
           showToast({ message, type: 'alert' });
         }
+      } else {
+        showToast({ message: 'Erro desconhecido', type: 'alert' });
       }
-      // showToast({ message: 'Erro desconhecido', type: 'alert' });
     }
   }, []);
 
