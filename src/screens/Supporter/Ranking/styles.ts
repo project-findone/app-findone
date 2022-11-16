@@ -25,31 +25,43 @@ export const ViewPodium = styled.View`
 
 export const First = styled.View`
     flex: 1;
-    height: 88%;
+    height: 80%;
     justify-content: space-between;
     align-items: center;
 `;
 
 export const Second = styled.View`
     flex: 1;
-    height: 70%;
+    height: 78%;
     justify-content: space-between;
     align-items: center;
 `;
 
 export const Third = styled.View`
     flex: 1;
-    height: 60%;
+    height: 78%;
     justify-content: space-between;
     align-items: center;
 `;
 
 export const ImageName = styled.View`
     width: 100%;
+    align-items: center;
+`;
+
+export const ImagePerson = styled.Image`
     height: 60px;
-    flex-direction: row;
-    align-items: flex-end;
-    background-color: #b1dbe9;
+    aspect-ratio: 1;
+    border-radius: 100px;
+    border: 3px #E2C425 solid;
+`;
+
+export const TitleWhite = styled.Text`
+    text-align: center;
+    font-size: 13px;
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 9px;
 `;
 
 export const Position = styled.View`
@@ -59,13 +71,17 @@ export const Position = styled.View`
     border-top-right-radius: 10px;
     flex-direction: row;
     align-items: flex-end;
-    background-color: #EEEEEE;
+    background-color: #f4f4f4;
+    align-items: center;
+    justify-items: center;
 `;
 
 export const ViewList = styled.View`
-    flex: 1;
+    width: 100%;
+    height: 39%;
     background-color: white;
-    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 `;
 
 export const Filters = styled.View`
@@ -108,4 +124,49 @@ export const Label = styled.Text`
     font-size: 15px;
     font-weight: 700;
     color: rgba(0,0,0,0.5);
+`;
+
+export const Item = styled.View`
+    width: 100%;
+    height: 100px;
+    flex-direction: row;
+    align-items: center;
+`;
+
+export const NumberItem = styled.Text`
+    font-size: 27px;
+    font-weight: 900;
+    color: #6E6E6E;
+    margin: 0 10px 0 25px;
+`;
+
+export const DivTitles = styled.View`
+margin-left: 15px;
+    width: 54%;
+    height: 80%;
+    justify-content: center;
+`;
+
+export const Name = styled.Text`
+    font-size: 17px;
+    font-weight: 900;
+`;
+
+export const Local = styled.Text`
+    font-size: 14px;
+    font-weight: 500;
+`;
+
+export const Points = styled.Text`
+    font-size: 15px;
+    font-weight: 900;
+    color: #7E7E7E;
+`;
+
+export const NumberPosition = styled.Text <{ color: string }>`
+    font-size: 68px;
+    font-weight: 900;
+    color: ${(props) => props.color};
+    width: 100%;
+    text-align: center;
 `;
