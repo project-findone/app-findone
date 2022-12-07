@@ -11,7 +11,7 @@ export default {
   }],
   messages: [{
     id: 'm1',
-    content: 'How are you, Lukas!',
+    content: 'Olá, boa tarde!',
     createdAt: '2022-11-06T12:48:00.000Z',
     user: {
       id: 'u1',
@@ -19,7 +19,7 @@ export default {
     },
   }, {
     id: 'm2',
-    content: 'I am good, good',
+    content: 'Oi, boa tarde!',
     createdAt: '2022-11-06T14:49:00.000Z',
     user: {
       id: 'u2',
@@ -27,7 +27,7 @@ export default {
     },
   }, {
     id: 'm3',
-    content: 'What about you?',
+    content: 'O que acontece?',
     createdAt: '2020-10-03T14:49:40.000Z',
     user: {
       id: 'u2',
@@ -35,7 +35,7 @@ export default {
     },
   }, {
     id: 'm4',
-    content: 'Good as well, preparing for the stream now.',
+    content: 'Eu vi um menino muito parecido com a Maria ontem de tarde',
     createdAt: '2020-10-03T14:50:00.000Z',
     user: {
       id: 'u1',
@@ -43,7 +43,7 @@ export default {
     },
   }, {
     id: 'm5',
-    content: 'How is your uni going?',
+    content: 'Estava na Rua Quirua 35',
     createdAt: '2020-10-03T14:51:00.000Z',
     user: {
       id: 'u1',
@@ -51,7 +51,7 @@ export default {
     },
   }, {
     id: 'm6',
-    content: 'It is a bit tough, as I have 2 specializations. How about yours? Do you enjoy it?',
+    content: 'Muito obrigada!! Vou verificar',
     createdAt: '2020-10-03T14:49:00.000Z',
     user: {
       id: 'u2',
@@ -59,7 +59,7 @@ export default {
     },
   }, {
     id: 'm7',
-    content: 'Big Data is really interesting. Cannot wait to go through all the material.',
+    content: 'Não há de quê ',
     createdAt: '2020-10-03T14:53:00.000Z',
     user: {
       id: 'u1',

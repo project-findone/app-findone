@@ -7,7 +7,7 @@ interface Props {
 export const Header = styled.View`
     flex-direction: row;
     width: 100%;
-    margin-top: 60px;
+    margin-top: 20%;
 `;
 
 export const Container = styled.View`

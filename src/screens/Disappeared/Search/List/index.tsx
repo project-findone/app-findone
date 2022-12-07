@@ -53,9 +53,7 @@ export const List: React.FC<{ useSharedHook: IUserContextData }> = ({ useSharedH
         ? (
           <FlatList
             ListHeaderComponent={(
-              <Header>
-                <Title>Meus casos</Title>
-              </Header>
+              <Header />
 )}
             data={casesOfDisappearedsF || casesOfDisappeareds}
             renderItem={renderItem}

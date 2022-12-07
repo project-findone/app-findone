@@ -96,7 +96,6 @@ export const ViewButton = styled.View`
 `;
 
 export const ViewImage = styled.View`
-
 `;
 
 export const ImagePerfil = styled.Image`

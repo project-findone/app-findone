@@ -24,7 +24,7 @@ export const Title = styled.Text`
 
 export const Text = styled.Text`
     margin: 5px 0 45px 0;
-    font-size: 20px;
+    font-size: 25px;
     align-self: center;
     text-align: justify;
 `;

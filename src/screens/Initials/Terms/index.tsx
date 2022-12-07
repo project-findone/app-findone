@@ -47,19 +47,22 @@ export const Terms: React.FC<Props> = ({ route }) => {
 
         <ScrollView>
           <Text>
-            Seja bem vindo ao nosso aplicativo. Leia com atenção os termos abaixo.
+            Ao acessar essa plataforma, o indivíduo passa a ser completamente responsável
+            por suas ações. Por isso certifique - se
+            de que a sua idade é maior ou igual a 18 anos.
             {'\n'}
             {'\n'}
-
+            Ao registrar algum caso
+            de desaparecimento no sistema atente-se para a
+            veracidade das informações, pois a declaração de falsos dados é crime
+            segundo o Artigo 313 da Constituição.
             {'\n'}
             {'\n'}
-            Morbi in bibendum magna, a tristique massa. Proin at luctus augue. Phasellus suscipit
-            nisl sit amet sapien consectetur, eu varius arcu gravida. Sed vehicula viverra leo at
-            pellentesque. Donec egestas nunc at molestie scelerisque. Suspendisse viverra erat in
-            eros commodo, vel porttitor nibh iaculis. Quisque volutpat urna non purus scelerisque
-            ullamcorper. Sed dignissim a tellus sed tincidunt. Class aptent taciti sociosqu ad
-            litora torquent per conubia nostra, per inceptos himenaeos. Cras tincidunt aliquet sem,
-            vitae varius dolor luctus ac. Morbi euismod aliquam sapien et posuere.
+            Ao cadastrar
+            dados no sistema, saiba que serão compartilhados para executar
+            possíveis ações do sistema.
+            Além disso, esteja ciente que as imagens inseridas irão circular por todo o sistema.
+            {'\n'}
           </Text>
           {typePage === 'true'
             ? (

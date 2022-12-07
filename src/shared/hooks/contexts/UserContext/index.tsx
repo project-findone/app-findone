@@ -146,7 +146,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     try {
       const token = await AsyncStorage.getItem('Person:token');
 
-      const response = await api.post('disappeared', credentials, { headers: { authorization: `Bearer ${token}` } });
+      console.log(token);
+
+      const response = await api.post('disappeared', credentials);
 
       if (response) showToast({ message: 'Cadastro realizado com sucesso!', type: 'sucess' });
     } catch (error) {

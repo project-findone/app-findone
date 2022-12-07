@@ -97,6 +97,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
+      console.log(api.defaults.headers.common.authorization);
+
       await AsyncStorage.multiSet([['Person:token', token], ['Person:self', JSON.stringify(userResponse)]]);
 
       setData({ token, userResponse });
